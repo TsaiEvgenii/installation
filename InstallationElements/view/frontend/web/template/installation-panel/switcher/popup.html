@@ -1,0 +1,211 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<div class="belvg-installation-block"
+     data-bind="afterRender: setModalElement"
+     style="display: none">
+
+    <p class="modal-description">
+        <!-- ko i18n: 'Shall we help you install? Then you can calculate a total price below.'--><!-- /ko -->
+        <a href="https://vinduesgrossisten.dk/media/PDF_web/DK/Montering/Prisliste-montage.pdf" target="_blank">
+            <!-- ko i18n: 'See the price list here.' --><!-- /ko -->
+        </a>
+    </p>
+
+    <form class="form"
+          method="post">
+
+        <div class="floors-wrapper">
+            <span class="wrapper-title"
+                  data-bind="html: $t('Where should we install your %1 windows?').replace('%1', quoteItemQty()) ">
+            </span>
+
+            <div class="fieldset living-room">
+                <div class="field floor-box">
+                    <span data-bind="i18n: 'Living room'"></span>
+                </div>
+                <div class="qty-field">
+                    <button class="update-cart-item decr" disabled data-bind="click: decreaseQty.bind($data,'livingRoom')"></button>
+                    <div class="item-qty cart-item-qty" data-bind="text:livingRoomQty"></div>
+                    <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
+                    <button class="update-cart-item incr" data-bind="click: increaseQty.bind($data,'livingRoom')"></button>
+                </div>
+            </div>
+
+            <div class="fieldset high-ground-floor">
+                <div class="field floor-box">
+                    <span data-bind="i18n: 'High ground floor'"></span>
+                </div>
+                <div class="qty-field">
+                    <button class="update-cart-item decr" data-bind="click: decreaseQty.bind($data,'highGroundFloor')"></button>
+                    <div class="item-qty cart-item-qty" data-bind="text:highGroundFloorQty"></div>
+                    <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
+                    <button class="update-cart-item incr" data-bind="click: increaseQty.bind($data,'highGroundFloor')"></button>
+                </div>
+            </div>
+
+            <div class="fieldset first-floor">
+                <div class="field floor-box">
+                    <span data-bind="i18n: 'First floor'"></span>
+                </div>
+                <div class="qty-field">
+                    <button class="update-cart-item decr" data-bind="click: decreaseQty.bind($data,'firstFloor')"></button>
+                    <div class="item-qty cart-item-qty" data-bind="text:firstFloorQty"></div>
+                    <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
+                    <button class="update-cart-item incr" data-bind="click: increaseQty.bind($data,'firstFloor')"></button>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div class="fieldset above">
+            <div class="field">
+                <div class="input-box">
+                    <label class="label" for="above">
+                        <span data-bind="i18n: 'Above'"></span>
+                    </label>
+                    <input name="above"
+                           type="checkbox"
+                           class="actions-switch-checkbox"
+                           data-bind="checked: aboveChecked"/>
+                </div>
+            </div>
+            <div class="qty-field" data-bind="if: aboveChecked">
+                <button class="update-cart-item decr" data-bind="click: decreaseQty.bind($data,'aboveQty')"></button>
+                <div class="item-qty cart-item-qty" data-bind="text:aboveQty"></div>
+                <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
+                <button class="update-cart-item incr" data-bind="click: increaseQty.bind($data,'aboveQty')"></button>
+            </div>
+        </div>
+        -->
+
+        <div class="service-wrapper">
+            <p class="wrapper-title no-bold">
+                <span data-bind="html: $t('<b>Disposal of construction waste</b> (Old windows/doors)')"></span>
+                <span class="info-box" data-info=""></span>
+            </p>
+            <div class="field switch">
+                <input name="costruction_waste"
+                       id="costruction_waste"
+                       type="checkbox"
+                       class="actions-switch-checkbox"
+                       data-bind="checked: disposalOfConstructionWaste"/>
+                <label class="label" for="costruction_waste">
+                    <span class="on label-text" data-bind="i18n: 'Yes'"></span>
+                    <span class="off label-text" data-bind="i18n: 'No'"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="internal-finish-wrapper">
+            <p class="wrapper-title no-bold">
+                <span data-bind="html: $t('<b>Internal finish</b> (white flat strip or acrylic joint)')"></span>
+                <span class="info-box" data-info=""></span>
+            </p>
+            <div class="field switch">
+                <span class="field-label" data-bind="i18n: 'Strip'"></span>
+                <input name="internal_finish_strip"
+                       id="internal_finish_strip"
+                       type="checkbox"
+                       class="actions-switch-checkbox"
+                       data-bind="checked: internalFinishStrip"/>
+                <label class="label" for="internal_finish_strip">
+                    <span class="on label-text" data-bind="i18n: 'Yes'"></span>
+                    <span class="off label-text" data-bind="i18n: 'No'"></span>
+                </label>
+            </div>
+
+            <div class="field switch">
+                <span class="field-label" data-bind="i18n: 'Acrylic'"></span>
+                <input name="internal_finish_acrylic"
+                       id="internal_finish_acrylic"
+                       type="checkbox"
+                       class="actions-switch-checkbox"
+                       data-bind="checked: internalFinishAcrylic"/>
+                <label class="label" for="internal_finish_acrylic">
+                    <span class="on label-text" data-bind="i18n: 'Yes'"></span>
+                    <span class="off label-text" data-bind="i18n: 'No'"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ko if: getRegion('messages') -->
+        <!-- ko foreach: getRegion('messages') -->
+        <div class="field messages">
+            <div class="input-box">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+
+        <div class="installation-price-totals">
+            <div class="installation-base-price ">
+                <span class="mark"  data-bind="i18n: getAssemblyTitle()"></span>
+                <span class="price" data-bind="text: getBasePrice()"></span>
+            </div>
+            <div class="installation-high-ground-floor-price" data-bind="if: allowHighGroundFloorPrice()">
+                <span class="mark" data-bind="i18n: getHighGroundFloorTitle()"></span>
+                <span class="price" data-bind="text: getHighGroundFloorPrice()"></span>
+            </div>
+            <div class="installation-first-floor-price" data-bind="if: allowFirstFloorPrice()">
+                <span class="mark" data-bind="i18n: getFirstFloorTitle()"></span>
+                <span class="price" data-bind="text: getFirstFloorPrice()"></span>
+            </div>
+            <div class="installation-disposal-of-construction-waste-price" data-bind="if: allowDisposalOfConstructionWastePrice()">
+                <span class="mark" data-bind="i18n: getDisposalTitle()"></span>
+                <span class="price" data-bind="text: getDisposalOfConstructionWastePrice()"></span>
+            </div>
+            <div class="installation-internal-finish-price" data-bind="if: allowInternalFinishPrice()">
+                <span class="mark" data-bind="i18n: getInternalFinishTitle()"></span>
+                <span class="price" data-bind="text: getInternalFinishPrice()"></span>
+            </div>
+            <div class="installation-measurement-price" data-bind="if: allowMeasurementPrice()">
+                <span class="mark" data-bind="i18n: getMeasurementTitle()"></span>
+                <span class="price" data-bind="text: getMeasurementPrice()"></span>
+            </div>
+            <div class="installation-internal-finish-price" data-bind="if: allowDrivingPrice()">
+                <span class="mark" data-bind="i18n: getDrivingTitle()"></span>
+                <span class="price" data-bind="text: getDrivingPrice()"></span>
+            </div>
+            <!-- ko if: getRegion('additional-installation-price-totals') -->
+                <div class="additional-installation-price-totals">
+                    <each args="getRegion('additional-installation-price-totals')" render="" ></each>
+                </div>
+            <!-- /ko -->
+            <div class="field choice">
+                <input name="conditions_approved"
+                       id="conditions_approved"
+                       type="checkbox"
+                       class="checkbox"
+                       data-bind="checked: conditionsApproved"/>
+                <label class="label" for="conditions_approved" id="conditions_approved_label">
+                    <span class="label-text" data-bind="html: getConditionsApprovedLabel()"></span>
+                </label>
+            </div>
+            <div class="installation-price">
+                <span class="mark" data-bind="html: $t('<b>Total price</b> (incl. VAT)')"></span>
+                <span class="price" data-bind="text: getPrice()"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">&nbsp;</label>
+            <div class="input-box">
+                <button class="action apply primary"
+                        id="add-installation-product-button"
+                        data-bind="
+                        event: { click: add },
+                        enable: conditionsApproved,
+                        text: $t('Add')
+                    ">
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

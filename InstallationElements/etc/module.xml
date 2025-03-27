@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="BelVG_InstallationElements">
+        <sequence>
+            <module name="Magento_Checkout"/>
+            <module name="BelVG_AdditionalProductAttributes"/>
+            <module name="BelVG_MasterAccountDiscount"/>
+            <module name="BelVG_HelpdeskOrderPageTicketCreate"/>
+            <module name="BelVG_AdditionalServices"/>
+            <module name="BelVG_MadeInDenmark"/>
+            <module name="BelVG_FactoryMaterialOrderSplit"/>
+            <module name="BelVG_AutoProcessOrder"/>
+            <module name="BelVG_ShippingManager"/>
+        </sequence>
+    </module>
+</config>

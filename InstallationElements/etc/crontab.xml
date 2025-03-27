@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="installment_reminder_cron"
+             instance="BelVG\InstallationElements\Cron\InstallmentReminderCron" method="execute">
+            <!-- every hour -->
+            <schedule>0 * * * *</schedule>
+        </job>
+    </group>
+</config>

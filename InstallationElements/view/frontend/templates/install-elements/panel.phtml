@@ -1,0 +1,32 @@
+<?php
+/*
+ * ~ @package Vinduesgrossisten.
+ * ~ @author Tsai Eugene <tsai.evgenii@gmail.com>
+ * ~ Copyright (c) 2024.
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \BelVG\InstallationElements\ViewModel\Config $configViewModel */
+$configViewModel = $block->getData('config_view_model');
+
+?>
+<?php if($configViewModel->isEnabled()): ?>
+    <div id="installation-elements-panel" data-bind="scope:'installation-elements-panel'" class="installation-elements-panel">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#installation-elements-panel": {
+                    "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
+                }
+            }
+        </script>
+    </div>
+
+    <?php
+    $scriptString = <<<script
+        window.installationServiceConditions = "{$configViewModel->getConditionsFile()}";
+    script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php endif; ?>

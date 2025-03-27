@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Items\Column\DefaultColumn">
+        <plugin name="BelVG_InstallationElements::hide_hidden_options"
+                type="BelVG\InstallationElements\Plugin\Block\Adminhtml\Items\Column\DefaultColumn\HideOptions" disabled="false"/>
+    </type>
+</config>

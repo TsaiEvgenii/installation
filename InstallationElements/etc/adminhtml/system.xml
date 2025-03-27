@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="belvg_installation_elements" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20240708" translate="label">
+            <label>Installation Elements</label>
+            <tab>belvg</tab>
+            <resource>BelVG_InstallationElements::Config</resource>
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                <label>General</label>
+                <field id="is_enabled" translate="label" type="select" showInDefault="100" showInWebsite="1" showInStore="1">
+                    <label>Is enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="subscribers_list" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email subscribers</label>
+                    <tooltip>Email of the persons who will be notified about new measurement request</tooltip>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="standard_price" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                <label>Standard price for installing windows and doors</label>
+                <field id="window_sqr" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Window Square Price</label>
+                    <frontend_model>BelVG\InstallationElements\Block\Adminhtml\Form\Field\WindowSquarePrice</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>The 'From sqr' includes the value</tooltip>
+                </field>
+                <field id="door_sqr" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Door Square Price</label>
+                    <frontend_model>BelVG\InstallationElements\Block\Adminhtml\Form\Field\DoorSquarePrice</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>The 'From sqr' includes the value</tooltip>
+                </field>
+                <field id="layer_glass" translate="label" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <tooltip>Additional price to install 3 layer glass</tooltip>
+                    <label>3 Layer glass</label>
+                </field>
+            </group>
+            <group id="optional_price" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30" translate="label">
+                <label>Optional when installing windows and doors</label>
+                <field id="construction" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Construction Waste Disposal</label>
+                    <frontend_model>BelVG\InstallationElements\Block\Adminhtml\Form\Field\ConstructionWasteDisposalPrice</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>The 'From items' and 'To items' include the value</tooltip>
+                </field>
+                <field id="internal" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Internal Finish</label>
+                    <frontend_model>BelVG\InstallationElements\Block\Adminhtml\Form\Field\InternalFinishTypePrice</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>To set multiple SKUs use a comma as a separator</tooltip>
+                </field>
+            </group>
+            <group id="supplement_price" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40" translate="label">
+                <label>Supplement for installation of windows and doors</label>
+                <field id="driving" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Driving</label>
+                </field>
+                <field id="high_ground_floor" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Installation high ground floor (over 3 meters to top edge)</label>
+                </field>
+                <field id="assembly_1_floor" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Assembly 1st floor of alm. villa</label>
+                </field>
+                <field id="above_1_floor" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Installation above the 1st floor or storey builder</label>
+                </field>
+            </group>
+            <group id="routeplanner" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50" translate="label">
+                <label>RoutePlanner</label>
+                <field id="type_id" translate="label comment" type="select" showInDefault="100" showInWebsite="1" showInStore="0">
+                    <label>Type</label>
+                    <source_model>BelVG\RoutePlanner\Model\Config\Source\TaskType</source_model>
+                    <tooltip>This task type will be used for RoutePlanner tickets created after the form submission</tooltip>
+                </field>
+                <field id="status_after_creation" translate="label comment" type="select" showInDefault="150" showInWebsite="1" showInStore="0">
+                    <label>Status after creation</label>
+                    <source_model>BelVG\RoutePlanner\Model\Config\Source\Status</source_model>
+                    <tooltip>The first status for a ticket after it was created.</tooltip>
+                </field>
+                <field id="request_email_tpl" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Email template</label>
+                    <tooltip>Template is used to notify customer and sales about new report generated at the RoutePlanner side and attached to the ticket</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="create_ticket_status" translate="label comment" type="multiselect" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create ticket status</label>
+                    <tooltip>Order statuses after which ticket be created</tooltip>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+            </group>
+            <group id="conditions" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60" translate="label">
+                <label>Conditions For Customer</label>
+                <field id="file"
+                       translate="label"
+                       type="Magento\Config\Block\System\Config\Form\Field\File"
+                       sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>File of conditions (pdf)</label>
+                    <tooltip>Conditions for installation PDF file.</tooltip>
+                    <backend_model>BelVG\InstallationElements\Model\Config\Backend\FileTypeForInstallationConditions</backend_model>
+                    <upload_dir config="system" scope_info="1">ConditionsForInstallation</upload_dir>
+                </field>
+            </group>
+            <group id="reminder" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50" translate="label">
+                <label>Reminder</label>
+                <field id="template" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Installation reminder email template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="status" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Installation reminder status</label>
+                    <tooltip>Order statuses after which email with an installment reminder will be send</tooltip>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="subscribers_list" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email subscribers</label>
+                    <tooltip>Email of the persons who will be notified about new measurement request</tooltip>
+                </field>
+                <field id="delay" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Delay (days)</label>
+                    <hint>The reminder will be sent after the order status is changed + delay</hint>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

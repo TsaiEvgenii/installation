@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BelVG\InstallationElements\Api\Data\InstallationInterface"
+                type="BelVG\InstallationElements\Model\Data\Installation"/>
+    <preference for="BelVG\InstallationElements\Api\Data\AdditionalPriceInterface"
+                type="BelVG\InstallationElements\Model\Data\AdditionalPrice"/>
+    <preference for="BelVG\InstallationElements\Api\Webapi\GetCalculatedPriceInterface"
+                type="BelVG\InstallationElements\Model\Service\GetCalculatedPrice"/>
+    <preference for="BelVG\InstallationElements\Api\Webapi\AddInstallationProductInterface"
+                type="BelVG\InstallationElements\Model\Service\AddInstallationProduct"/>
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="BelVG_InstallationElements::addInstallationData"
+                type="BelVG\InstallationElements\Plugin\Checkout\CustomerData\Cart\AddInstallationData" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\Processor">
+        <plugin name="BelVG_InstallationElements::handle_quote_item_for_installlation_product"
+                type="BelVG\InstallationElements\Plugin\Model\Quote\Item\Processor\HandleQuoteItemForInstallationProduct"
+                sortOrder="100"/>
+    </type>
+    <type name="Magento\Sales\Model\ResourceModel\Order\Handler\State">
+        <plugin name="BelVG_InstallationElements::handleOrderWithInstallationProduct"
+                type="BelVG\InstallationElements\Plugin\Model\ResourceModel\Order\Handler\State\HandleOrderWithInstallationProduct"/>
+    </type>
+    <type name="BelVG\InstallationElements\Model\Service\InstallationProductHandler\HandlersPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="send_m2_email" xsi:type="object" sortOrder="100">
+                    BelVG\InstallationElements\Model\Service\InstallationProductHandler\SendEmailHandler
+                </item>
+                <item name="create_m2_ticket" xsi:type="object" sortOrder="200">
+                    BelVG\InstallationElements\Model\Service\InstallationProductHandler\CreateMagentoTicketHandler
+                </item>
+                <item name="create_routeplanner_ticket" xsi:type="object" sortOrder="300">
+                    BelVG\InstallationElements\Model\Service\InstallationProductHandler\CreateRoutePlannerTicketHandler
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\HelpdeskOrderPageTicketCreate\Block\DepartmentsList">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="installment" xsi:type="object">BelVG\InstallationElements\Model\Departments\Installment</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MadeInDenmark\Model\Service\DenmarkPreferred\QuoteEstimatorService">
+        <arguments>
+            <argument name="skipValidationProductSkus" xsi:type="array">
+                <item name="installment" xsi:type="const">BelVG\InstallationElements\Model\Config\InstallationProductConfig::SKU</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\FactoryMaterialOrderSplit\Model\Service\SplitOrderByFactoryMaterials">
+        <arguments>
+            <argument name="productTypeToSkip" xsi:type="array">
+                <item name="installmentType" xsi:type="const">BelVG\InstallationElements\Model\Config\InstallationProductConfig::PRODUCT_TYPE
+                </item>
+            </argument>
+        </arguments>
+    </type>
+<!--    Todo: check if we really need  the two plugins if we use BelVG\InstallationElements\Model\SalesRule\InstallationServiceValidator -->
+    <type name="BelVG\OrderEdit\Model\Service\SalesRuleExtended\RulesApplier\ApplyRulesService\Plugin\TryToApplyBackupSaleRuleIfNoOneWasApplied">
+        <plugin name="BelVG_InstallationElements::disable_discount_for_installment_product"
+                type="BelVG\InstallationElements\Plugin\Model\Service\SalesRuleExtended\RulesApplier\ApplyRulesService\Plugin\TryToApplyBackupSaleRuleIfNoOneWasApplied\DisableDiscountForInstallmentProduct"
+                sortOrder="100" disabled="true"/>
+    </type>
+    <type name="Magento\SalesRule\Model\RulesApplier">
+        <!-- Do not apply SaleCart Rule for Installment service items -->
+        <plugin name="BelVG_InstallationElements::canApplyRulesAlwaysFalseForInstallmentItem"
+                type="BelVG\InstallationElements\Plugin\SalesRule\RulesApplier\AlwaysFalseForInstallmentItem" disabled="true"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Validator\Pool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="discount" xsi:type="array">
+                    <item name="installment_service" xsi:type="object">BelVG\InstallationElements\Model\SalesRule\InstallationServiceValidator</item>
+                </item>
+                <item name="ma_discount" xsi:type="array">
+                    <item name="installment_service" xsi:type="object">BelVG\InstallationElements\Model\MasterAccountDiscount\InstallationServiceValidator</item>
+                </item>
+                <item name="b2b_discount" xsi:type="array">
+                    <item name="installment_service" xsi:type="object">BelVG\InstallationElements\Model\B2BDiscount\InstallationServiceValidator</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\AdditionalServices\Model\SubtotalWithoutServicesReader\Pool">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="installation_service" xsi:type="object">BelVG\InstallationElements\Model\SubtotalWithoutServicesReader</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\AdditionalServices\Model\Service\GetSubtotalWithoutServices">
+        <arguments>
+            <argument name="servicesSkus" xsi:type="array">
+                <item name="installment" xsi:type="const">BelVG\InstallationElements\Model\Config\InstallationProductConfig::SKU</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\QuotePdf\Block\Cart\Item\Image">
+        <arguments>
+            <argument name="allowedTypes" xsi:type="array">
+                <item name="installment" xsi:type="const">BelVG\InstallationElements\Model\Config\InstallationProductConfig::PRODUCT_TYPE</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\QuotePdf\Block\Cart\Item\Price">
+        <arguments>
+            <argument name="notAllowedTypes" xsi:type="array">
+                <item name="installment" xsi:type="const">BelVG\InstallationElements\Model\Config\InstallationProductConfig::PRODUCT_TYPE</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Item\Compare">
+        <plugin name="BelVG_InstallationElements::compareInstallmentItems"
+                type="BelVG\InstallationElements\Plugin\Model\Quote\Item\Compare\CompareInstallmentItems"
+                disabled="false"/>
+    </type>
+    <type name="BelVG\AutoProcessOrder\Model\Service\AutoProcessOrderService\AutoProcessOrderBlockersPool">
+        <arguments>
+            <argument name="blockers" xsi:type="array">
+                <item name="orderInstallment" sortOrder="200" xsi:type="object">
+                    BelVG\InstallationElements\Model\Service\AutoProcessOrderService\InstallmentOrderBlocker
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\ShippingManager\Model\ShippingInfo">
+        <plugin name="BelVG_InstallationElements::setInstallationData"
+                type="BelVG\InstallationElements\Plugin\Model\ShippingInfo\SetInstallationData"/>
+    </type>
+    <type name="BelVG\ShippingManager\Model\Service\ShippingInfo\SaveHandler">
+        <plugin name="BelVG_InstallationElements::updateInstallationData"
+                type="BelVG\InstallationElements\Plugin\Model\Service\ShippingInfo\SaveHandler\UpdateInstallationData"/>
+    </type>
+    <type name="BelVG\ShippingManager\Model\ResourceModel\ShippingInfo\Grid\Collection">
+
+        <plugin name="BelVG_InstallationElements::setInstallationDataForGrid"
+                type="BelVG\InstallationElements\Plugin\Model\ResourceModel\ShippingInfo\Grid\Collection\SetInstallationDataForGrid"/>
+    </type>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="BelVG_InstallationElements::hideOptions"
+                type="BelVG\InstallationElements\Plugin\Helper\Product\HideOptions" sortOrder="10"
+                disabled="false"/>
+    </type>
+</config>
