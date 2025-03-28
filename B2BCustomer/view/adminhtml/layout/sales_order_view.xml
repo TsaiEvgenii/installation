@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="BelVG_B2BCustomer::css/b2b-customer.css"/>
+    </head>
+    <body>
+        <referenceContainer name="order_additional_info">
+            <block
+                    class="BelVG\B2BCustomer\Block\Adminhtml\Order\Info"
+                    name="belvg.b2b_customer.container"
+                   before="belvg.order_comment.container"
+                   template="BelVG_B2BCustomer::order/view/info.phtml">
+                <arguments>
+                    <argument name="order_info_view_model" xsi:type="object">BelVG\B2BCustomer\ViewModel\Order\Info</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="order_totals">
+            <block class="BelVG\B2BCustomer\Block\Adminhtml\Order\Total\B2BDiscount"
+                   name="b2b.order.discount">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">tax</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

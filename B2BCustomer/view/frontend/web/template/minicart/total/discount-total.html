@@ -1,0 +1,15 @@
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<!-- ko if: isEnabled() -->
+<div class="total b2b-discount">
+    <span class="label" data-bind="html: getTitle()"></span>
+
+    <div class="amount price-container">
+        <span class="price-wrapper" data-bind="html: getValue()"></span>
+    </div>
+</div>
+<!-- /ko -->

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="invoice_pdf_generator"/>
+    <body>
+        <referenceBlock class="BelVG\B2BCustomer\Block\Pdf\Html\Header" name="quotepdf.header_1"
+                        template="BelVG_B2BCustomer::pdf/header/header_1.phtml">
+            <arguments>
+                <argument name="title" xsi:type="string">Invoice</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="order_items"
+                        class="BelVG\B2BCustomer\Block\Pdf\Invoice\SplitPayments\Items"
+                        template="BelVG_B2BCustomer::pdf/content/invoice/items.phtml">
+        </referenceBlock>
+        <referenceContainer name="quotepdf.content.bottom">
+            <block name="belvg.b2b_customer.info"
+                   class="BelVG\B2BCustomer\Block\Pdf\Invoice\Info"
+                   template="BelVG_B2BCustomer::pdf/content/invoice/info.phtml"
+                   after="quotepdf.content.quote-totals.cont"/>
+        </referenceContainer>
+        <referenceBlock name="quotepdf.content.b2b.area" remove="true"/>
+
+        <referenceContainer name="quotepdf.content.quote-totals.cont">
+            <block class="BelVG\B2BCustomer\Block\Pdf\Invoice\SplitPayments\Items" name="quotepdf.content.quote-totals.wrapper" template="BelVG_B2BCustomer::wrapper.phtml"/>
+        </referenceContainer>
+        <move element="quotepdf.content.quote-totals" destination="quotepdf.content.quote-totals.wrapper"/>
+        <referenceContainer name="quotepdf.content.bottom.block.cont">
+            <block class="BelVG\B2BCustomer\Block\Pdf\Invoice\SplitPayments\Items" name="quotepdf.content.bottom.block.cont.wrapper" template="BelVG_B2BCustomer::wrapper.phtml"/>
+        </referenceContainer>
+        <move element="order.invoice.info" destination="quotepdf.content.bottom.block.cont.wrapper"/>
+    </body>
+</page>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?><!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="order_totals">
+            <block class="BelVG\B2BCustomer\Block\Order\B2BDiscount" name="b2b_customer.order.discount"/>
+        </referenceContainer>
+    </body>
+</page>
+

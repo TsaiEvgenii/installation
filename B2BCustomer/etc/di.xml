@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="BelVG\QuotePdf\Block\Total\Fees\Pool">
+        <arguments>
+            <argument name="fee_blocks" xsi:type="array">
+                <item name="BelVG_B2BDiscount" sortOrder="300" xsi:type="object">
+                    BelVG\B2BCustomer\Block\Total\Fees\Discount
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\QuotePdf\ViewModel\PDF\Quote\Timing">
+        <plugin name="BelVG_B2BCustomer::changeOfferDeadline" type="BelVG\B2BCustomer\Plugin\ViewModel\Pdf\Quote\Timing"/>
+    </type>
+
+    <type name="BelVG\Minicart\Model\Service\ExtendedCartData\ColumnsPool">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="b2b_discount_data" xsi:type="array">
+                    <item name="class" xsi:type="object">BelVG\B2BCustomer\Model\Service\ExtendedCartData\Columns\B2BDiscount</item>
+                    <item name="sortOrder" xsi:type="number">480</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\SaveCartTotals\Model\Totals\ModifiersPool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="b2b_discount" xsi:type="object" sortOrder="100">BelVG\B2BCustomer\Model\SaveCart\Total\Modifier\Discount</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MatrixRateCommon\Override\Model\Carrier\Matrixrate">
+        <plugin name="BelVG_B2BCustomer::changeShippingRateForB2BCustomers"
+                type="BelVG\B2BCustomer\Plugin\Quote\Model\Address\RatePlugin" sortOrder="10"/>
+    </type>
+    <type name="BelVG\OrderEdit\Model\Service\SendC1BEmail">
+        <plugin name="BelVG_B2BCustomer::cancelC1BEmailForB2BCustomers"
+                type="BelVG\B2BCustomer\Plugin\Model\Service\SendC1BEmail" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Invoice">
+        <plugin name="BelVG_B2BCustomer::setInvoiceIncrementId"
+                type="BelVG\B2BCustomer\Plugin\Model\Order\Invoice" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="b2b_order_invoice" type="BelVG\B2BCustomer\Plugin\Model\Order\CanInvoice"/>
+    </type>
+    <type name="Magento\Payment\Model\Method\AbstractMethod">
+        <plugin name="b2b_payment_methods_disable" type="BelVG\B2BCustomer\Plugin\Model\Payment\Method\AbstractMethodPlugin"/>
+    </type>
+    <type name="Magento\Payment\Model\Method\Adapter">
+        <plugin name="b2b_payment_methods_disable" type="BelVG\B2BCustomer\Plugin\Model\Payment\Method\AbstractMethodPlugin"/>
+    </type>
+    <type name="BelVG\PartialCaptureQuickpay\ViewModel\Order\CaptureInfo">
+        <plugin name="b2b_slit_invoice_amount_paid" type="BelVG\B2BCustomer\Plugin\ViewModel\Order\CaptureInfo"/>
+    </type>
+    <type name="BelVG\ShippingManagerActions\Model\Service\InvoiceService">
+        <plugin name="BelVG_B2BCustomer::DisableInvoiceGeneration" type="BelVG\B2BCustomer\Plugin\Model\Service\InvoiceServicePlugin"/>
+    </type>
+    <type name="Magento\Backend\Block\Widget\Button\Toolbar">
+        <plugin name="BelVG_OrderEditUnlock::addForceInvoiceButton" type="BelVG\B2BCustomer\Plugin\Button\AddForceInvoiceButton" />
+    </type>
+    <type name="BelVG\EmailDispatcher\Model\EmailSentRulePool">
+        <arguments>
+            <argument name="rules" xsi:type="array">
+                <item name="b2b_deny_emails_rule" xsi:type="object">BelVG\B2BCustomer\Model\EmailDispatcher\RuleValidation\DenySendC2Emails</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\ActionInterface">
+        <plugin name="BelVG_B2BCustomer::AddB2BDiscountToContext"
+                type="BelVG\B2BCustomer\Plugin\App\Action\AddB2BDiscountToContext"/>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\PriceDiscountService">
+        <plugin name="BelVG_B2BCustomer::AddB2bDiscount" type="BelVG\B2BCustomer\Plugin\Model\Service\PriceDiscountService\AddB2bDiscount" />
+    </type>
+</config>

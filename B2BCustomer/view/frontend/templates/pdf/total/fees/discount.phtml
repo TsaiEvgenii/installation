@@ -1,0 +1,18 @@
+<?php
+/*
+ * @package Vinduesgrossisten.
+ * @author Simonchik <alexandr.simonchik@gmail.com>
+ * @Copyright
+ */
+
+/** @var \BelVG\B2BCustomer\Block\Total\Fees\Discount $block */
+$total = $block->getTotal();
+$totalPercent = $block->getTotalPercent();
+?>
+
+<?php if ($total != 0): ?>
+    <div class="discount masteraccount_discount">
+        <div class="head"><?= __('B2B discount (%1%)', $totalPercent); ?></div>
+        <div class="val"><?= $block->formatPrice($total); ?></div>
+    </div>
+<?php endif; ?>

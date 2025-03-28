@@ -1,0 +1,52 @@
+<?php if ($this->isEnabled()): ?>
+    <div class="admin__field b2b-split-container">
+        <div class="admin__field-label"><span>IS - B2B payment rates</span></div>
+        <div class="admin__field-control">
+            <div class="b2b-split-fields">
+                <?php for ($i = 1; $i <= $this->getPaymentsCount(); $i++): ?>
+                    <div class="b2b-split-payment">
+                        <label for="b2b_split_payment_<?= $i ?>">Payment <?= $i ?>:</label>
+                        <input type="text" id="b2b_split_payment_<?= $i ?>" name="b2b_split_payment_<?= $i ?>"
+                               value="<?= $this->getValue('b2b_split_payment_' . $i) ?>">
+                    </div>
+                <?php endfor; ?>
+            </div>
+            <div class="b2b-split-percentage-container">
+                <span>Percentage calculated:</span>
+                <p class="percentage"><span class="amount"></span>%</p>
+            </div>
+        </div>
+    </div>
+    <div class="admin__field b2b-split-container">
+        <div class="admin__field-label"><span>IS - B2B payment dates</span></div>
+        <div class="admin__field-control">
+            <div class="b2b-split-fields">
+                <?php for ($i = 1; $i <= $this->getPaymentsCount() - 1; $i++): ?>
+                    <div class="b2b-split-date">
+                        <label for="b2b_split_period_<?= $i ?>">Status - <?= $this->getPaymentStatus($i) ?></label>
+                        <input type="text" id="b2b_split_period_<?= $i ?>" name="b2b_split_period_<?= $i ?>"
+                               value="<?= $this->getValue('b2b_split_period_' . $i) ?>">
+                    </div>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+    <script>
+        require([
+            'jquery',
+        ], function ($) {
+            function applyPercentage()
+            {
+                var total = 0;
+                $.each($('.b2b-split-container .b2b-split-payment input'), function(index,item) {
+                    total += parseInt($(item).val()) || 0;
+                });
+                $('.b2b-split-percentage-container .amount').text(total)
+            }
+            applyPercentage();
+            $('.b2b-split-container .b2b-split-payment input').change(function(){
+                applyPercentage();
+            });
+        });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,82 @@
+/*
+ * @package Vinduesgrossisten
+ * @author Stelmakov <stelmakov@belvg.com>
+ * @Copyright
+ */
+
+.payments_section_table.b2b-block tbody span, .payments_section_table.b2b-block tbody th {
+    font-weight: 400;
+}
+.payments_section_table.b2b-block th {
+    padding:10px;
+}
+.payments_section_table.b2b-block span{
+
+    border: none;
+}
+.payments_section_table.b2b-block a {
+    border:none;
+    padding:0;
+}
+.payments_section_table.b2b-block a:hover {
+    cursor:pointer;
+}
+.payments_section_table.b2b-block button {
+    margin:-5px;
+}
+.undo-payment-text {
+    padding-right:0;
+}
+.undo-payment-action-container {
+    padding-left:0;
+}
+.admin__field[data-index*="b2b_split"] {
+    display: none;
+}
+
+.b2b-split-fields {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height:33px;
+}
+.b2b-split-container {
+    margin-left: -30px;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+}
+.b2b-split-container:after {
+    clear: both;
+    content: '';
+    display: table;
+}
+.b2b-split-container .admin__field-label {
+    width: calc( (100%) * 0.25 - 30px );
+    float: left;
+    margin-left: 30px;
+}
+.b2b-split-container .admin__field-control {
+    width: calc((100%) * 0.5 - 30px);
+    float: left;
+    margin-left: 30px;
+}
+.b2b-split-payment, .b2b-split-date {
+    display: flex;
+    align-items: center;
+    margin-right:20px;
+    justify-content: space-around;
+}
+.b2b-split-payment input, .b2b-split-date input {
+    width:80px;
+    height: 33px;
+    margin-left:5px;
+    line-height: 1.36;
+    padding: 0.6rem 1rem 0.6rem;
+    transition: border-color 0.1s linear;
+}
+.b2b-split-percentage-container {
+    margin-top:10px;
+}
+.b2b-split-percentage-container .percentage {
+    display:inline-block;
+}

@@ -1,0 +1,108 @@
+<?php
+/**
+ * @var \BelVG\B2BCustomer\Block\Adminhtml\Order\Info $block
+ * @var \BelVG\B2BCustomer\ViewModel\Order\Info $orderInfoViewModel
+ */
+$orderInfoViewModel = $block->getData('order_info_view_model');
+?>
+<?php if ($orderInfoViewModel->isEnabled($this->getOrder())): ?>
+    <table  class="payments_section_table b2b-block" >
+        <thead>
+        <tr>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Rate</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php for ($i = 1; $i <= $orderInfoViewModel->getPaymentsCount(); $i++): ?>
+            <tr>
+                <th><?= $i ?></th>
+                <th><?= $orderInfoViewModel->getStatus($i - 1); ?></th>
+                <th><?= $orderInfoViewModel->getPaymentRate($i, $this->getOrder()) ?>%</th>
+                <th><?= $orderInfoViewModel->getPaymentAmount($i, $this->getOrder()) ?></th>
+                <th>
+                    <?php $paymentInfo = $orderInfoViewModel->getPartIsPaid($i - 1, $this->getOrder()); ?>
+                    <span class="undo-payment" <?php if (!$paymentInfo): ?> style="display:none;"  <?php endif; ?>>
+                        <?php if ($paymentInfo): ?>
+                            <span class="undo-payment-text">Paid - <?= $paymentInfo['created_at'] ?? '' ?> (<?= $this->getUserName($paymentInfo['user_id']) ?>)</span>
+                        <?php else: ?>
+                            <span class="undo-payment-text"></span>
+                        <?php endif; ?>
+                        <span class="undo-payment-action-container" <?php if (!$paymentInfo): ?> style="display:none;"  <?php endif; ?>>
+                            (<a data-index="<?= $i - 1 ?>" class="undo-payment-action"   data-payment-id="<?= $this->getOrder()->getPayment()->getEntityId() ?>" >Undo</a>)
+                        </span>
+                    </span>
+                    <button <?php if ($paymentInfo): ?> style="display:none" <?php endif; ?>data-index="<?= $i - 1 ?>" data-payment-id="<?= $this->getOrder()->getPayment()->getEntityId() ?>" data-title="Mark as paid" type="button" class="mark-as-paid action-default scalable action-save action-secondary">
+                        <span>Mark as paid</span>
+                    </button>
+                </th>
+            </tr>
+        <?php endfor; ?>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="2">Totals</th>
+            <th><?= $orderInfoViewModel->getTotalRate() ?> %</th>
+            <th><?= $orderInfoViewModel->getGrandTotal($this->getOrder()) ?></th>
+        </tr>
+        </tfoot>
+
+    </table>
+    <script>
+        require([
+            'jquery',
+        ], function ($) {
+            $('body').on('click','.mark-as-paid', function(event){
+                event.preventDefault();
+                var self = $(this);
+                $.ajax({
+                        url : '<?= $this->getUrl('belvg_b2bcustomer/order/markaspaid') ?>',
+                        type : 'post',
+                        showLoader: true,
+                        dataType : 'json',
+                        data: {
+                            'payment_id': self.data('payment-id'),
+                            'index': self.data('index')
+                        },
+                        success : function (result) {
+                            if (result.status) {
+                                self.hide();
+                                let textElem = self.parent().find('.undo-payment');
+                                textElem.find('.undo-payment-text').html('Paid - ' + result.created_at + '(' + result.user + ')');
+                                textElem.find('.undo-payment-action-container').show()
+                                textElem.show();
+                            } else {
+                                console.log(result.message);
+
+                            }
+                        }
+                });
+            });
+            $('body').on('click','.undo-payment-action', function(event){
+                event.preventDefault();
+                var self = $(this);
+                $.ajax({
+                        url : '<?= $this->getUrl('belvg_b2bcustomer/order/undopayment') ?>',
+                        type : 'post',
+                        showLoader: true,
+                        dataType : 'json',
+                        data: {
+                            'payment_id': self.data('payment-id'),
+                            'index': self.data('index')
+                        },
+                        success : function (result) {
+                            if (result.status) {
+                                self.parents('.undo-payment').hide();
+                                self.parents('th').find('.mark-as-paid').show();
+                            } else {
+                                console.log(result.message);
+                            }
+                        }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>

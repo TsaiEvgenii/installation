@@ -1,0 +1,21 @@
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote">
+        <column xsi:type="decimal" name="b2b_discount" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="B2B Discount"/>
+        <column xsi:type="decimal" name="b2b_discount_percent" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="B2B Discount percent"/>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="decimal" name="b2b_discount" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="B2B Discount"/>
+        <column xsi:type="decimal" name="b2b_discount_percent" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="B2B Discount percent"/>
+    </table>
+</schema>

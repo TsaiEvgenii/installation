@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Antipov Alexander <antipov@belvg.com>
+  ~ @Copyright
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="BelVG_B2BCustomer" setup_version="1.0.1">
+        <sequence>
+            <module name="BelVG_QuotePdf"/>
+            <module name="BelVG_PartialCaptureBankwire"/>
+        </sequence>
+    </module>
+</config>

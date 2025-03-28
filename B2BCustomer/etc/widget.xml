@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="BelVG\B2BCustomer\Block\Widget\ContactForm" id="belvg_b2b_customer_contact">
+        <label>B2B customer contact form</label>
+        <description>BelVG b2b contact form</description>
+        <parameters>
+            <parameter name="enabled" xsi:type="select" required="false" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Enabled</label>
+            </parameter>
+            <parameter name="title" xsi:type="text" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+
+        </parameters>
+    </widget>
+</widgets>

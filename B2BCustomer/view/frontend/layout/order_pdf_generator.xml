@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="quotepdf.content.bottom">
+            <container name="quotepdf.content.bottom.b2b" htmlClass="b2b-container" htmlTag="div" after="quotepdf.content.quote-totals.cont">
+                <block class="BelVG\B2BCustomer\Block\Pdf\B2BArea"
+                       name="quotepdf.content.b2b.area"
+                       template="BelVG_B2BCustomer::pdf/quote/b2barea.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

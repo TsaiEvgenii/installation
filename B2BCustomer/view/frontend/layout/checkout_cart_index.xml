@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~ Copyright (c) 2022.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.messages">
+            <block class="BelVG\B2BCustomer\Block\Total\WarningMessage"
+                   name="belvg.b2b.warning.message"
+                   template="BelVG_B2BCustomer::warning_message.phtml" />
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="b2b_discount" xsi:type="array">
+                                    <item name="component" xsi:type="string">
+                                        BelVG_B2BCustomer/js/view/checkout/summary/b2b-discount
+                                    </item>
+                                    <item name="sortOrder" xsi:type="string">40</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="b2b_discount" xsi:type="string" translate="true">B2B Discount</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

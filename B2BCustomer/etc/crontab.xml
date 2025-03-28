@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="BelVG\B2BCustomer\Cron\PaymentReport"
+             method="execute"
+             name="belvg_b2bcustomer_payment_report">
+                <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+</config>

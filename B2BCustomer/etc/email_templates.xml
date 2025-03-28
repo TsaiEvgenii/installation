@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="b2b_template"
+              label="B2b customer request"
+              file="b2b_template.html"
+              type="html"
+              module="BelVG_B2BCustomer"
+              area="frontend" />
+    <template id="b2b_customer_split_payment_email_template_1"
+              label="B2b split payment template 1 "
+              file="b2b_split_template.html"
+              type="html"
+              module="BelVG_B2BCustomer"
+              area="frontend" />
+    <template id="b2b_customer_split_payment_email_template_2"
+              label="B2b split payment template 2 "
+              file="b2b_split_template.html"
+              type="html"
+              module="BelVG_B2BCustomer"
+              area="frontend" />
+    <template id="b2b_customer_split_payment_email_template_3"
+              label="B2b split payment template 3 "
+              file="b2b_split_template.html"
+              type="html"
+              module="BelVG_B2BCustomer"
+              area="frontend" />
+    <template id="b2b_split_email_report"
+              label="B2b split email report template"
+              file="b2b_split_email_report.html"
+              type="html"
+              module="BelVG_B2BCustomer"
+              area="frontend" />
+</config>

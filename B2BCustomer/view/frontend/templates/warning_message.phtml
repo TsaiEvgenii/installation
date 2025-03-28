@@ -1,0 +1,17 @@
+<?php
+/*
+ * @package Vinduesgrossisten
+ * @author Stelmakov <stelmakov@belvg.com>
+ * @Copyright
+ */
+declare(strict_types=1);
+/**
+ * @var \BelVG\B2BCustomer\Block\Total\WarningMessage $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<?php if($block->isShow()):?>
+    <div class="message-warning warning message">
+        <?= $escaper->escapeHtml($block->getText()) ?>
+    </div>
+<?php endif;?>

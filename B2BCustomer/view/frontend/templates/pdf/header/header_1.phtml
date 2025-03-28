@@ -1,0 +1,33 @@
+<?php
+/*
+ * @package Vinduesgrossisten
+ * @author Stelmakov <stelmakov@belvg.com>
+ * @Copyright
+ */
+
+use BelVG\QuotePdf\Block\Html\Header\Logo;
+use BelVG\QuotePdf\ViewModel\PDF\Order\OrderInfo;
+
+/** @var Logo $block */
+/** @var OrderInfo $orderInfoVM */
+$orderInfoVM = $block->getData('viewModel');
+?>
+<sethtmlpageheader name="header_1" value="on" show-this-page="1"></sethtmlpageheader>
+<htmlpageheader name="header_1" style="display: none">
+    <div class="header-wrapper" style="width: 100%; display: block; overflow: hidden;">
+        <?php if(isset($orderInfoVM) && !$block->getData('title')): ?>
+            <div style="width: 350px; float: left; font-weight: bold; font-size: 20px;"> #<?= $orderInfoVM->getOrderRealId(); ?> </div>
+        <?php elseif($this->isAllowed()) :
+            if($block->getData('title')): ?>
+                <div style="width: 350px; float: left; font-weight: bold; font-size: 20px;"><?= __('Rate ' .  $this->getIndex()) ?> </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <?php if($block->getData('title')): ?>
+            <div style="width: 350px; float: left; font-weight: bold; font-size: 20px;"><?= __($block->getData('title')); ?></div>
+            <?php endif; ?>
+        <?php endif; ?>
+        <div style="width: 250px; text-align: right; float: right">
+            <?php echo $block->setTemplate("BelVG_QuotePdf::pdf/header/logo.phtml")->toHtml(); ?>
+        </div>
+    </div>
+</htmlpageheader>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="belvg_b2bcustomer" frontName="belvg_b2bcustomer">
+            <module name="BelVG_B2BCustomer" />
+        </route>
+    </router>
+</config>

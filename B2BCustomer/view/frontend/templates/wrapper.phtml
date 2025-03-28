@@ -1,0 +1,4 @@
+<?php /** @var $block \BelVG\B2BCustomer\Block\Pdf\Invoice\SplitPayments\Items */ ?>
+<?php if (!$block->isAllowed()): ?>
+    <?= $block->getChildHtml(); ?>
+<?php endif; ?>

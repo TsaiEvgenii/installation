@@ -1,0 +1,31 @@
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="BelVG_B2BCustomer::add_b2b_data_from_quote_to_order"
+                  instance="BelVG\B2BCustomer\Observer\QuoteSubmitB2BDiscountSaveObserver"/>
+    </event>
+    <event name="belvg_economic_add_new_line_to_order">
+        <observer name="BelVG_B2BCustomer::add_b2b_discount_to_economic"
+                  instance="BelVG\B2BCustomer\Observer\B2BDiscountEconomic"/>
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="BelVG_B2BCustomer::create_b2b_invoice"
+                  instance="BelVG\B2BCustomer\Observer\CreateB2BInvoiceObserver" />
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer name="belvg_b2bcustomer_payment_parts_variables" instance="BelVG\B2BCustomer\Observer\Email\Order\AddCapturePartsVariables" />
+    </event>
+    <event name="email_order_comment_set_template_vars_before">
+        <observer name="belvg_b2bcustomer_payment_parts_variables" instance="BelVG\B2BCustomer\Observer\Email\Order\AddCapturePartsVariables" />
+    </event>
+    <!-- https://youtrack.belvgdev.com/issue/SD-4586/B2B-discount-isnt-calculated-for-child-orders [B2B discount isn't calculated for child orders] -->
+    <event name="belvg_splitorder_create_order_command_update_before_save">
+        <observer name="b2b_discount_for_split_order"
+                  instance="BelVG\B2BCustomer\Observer\SplitOrder\SetB2BDiscount" />
+    </event>
+</config>

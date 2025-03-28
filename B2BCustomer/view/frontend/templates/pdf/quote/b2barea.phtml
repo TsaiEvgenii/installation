@@ -1,0 +1,17 @@
+<?php if ($this->isAreaAllowed()): ?>
+    <div class="b2b-block fields">
+        <div class="b2b-field">
+            <p class="label"><?= __('Date') ?>:</p>
+        </div>
+        <div class="b2b-field">
+            <p class="label"><?= __('CVR') ?>:</p>
+        </div>
+        <div class="b2b-field">
+            <p class="label signature"><?= __('Signature') ?>:</p>
+        </div>
+    </div>
+    <div class="b2b-block">
+        <span><?= __('Stamp') ?></span>
+        <div class="b2b-stamp-block"></div>
+    </div>
+<?php endif;?>

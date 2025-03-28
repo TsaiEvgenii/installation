@@ -1,0 +1,92 @@
+<?php if ($this->getData('enabled')): ?>
+    <form class="form contact" action="<?= $this->getFormActionUrl(); ?>" id="contact-form" method="post"
+          data-hasrequired="<?php /* @escapeNotVerified */
+          echo __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <legend class="legend"><span><?php /* @escapeNotVerified */
+                    echo $this->getData('title') ?></span></legend>
+            <br/>
+            <div class="field first_name required">
+                <label class="label" for="first_name"><span><?php /* @escapeNotVerified */
+                        echo __('First Name') ?></span></label>
+                <div class="control">
+                    <input name="first_name" id="first_name" title="<?php /* @escapeNotVerified */
+                    echo __('First Name') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field last_name required">
+                <label class="label" for="last_name"><span><?php /* @escapeNotVerified */
+                        echo __('Last Name') ?></span></label>
+                <div class="control">
+                    <input name="last_name" id="last_name" title="<?php /* @escapeNotVerified */
+                    echo __('Last Name') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field company_name required">
+                <label class="label" for="company_name"><span><?php /* @escapeNotVerified */
+                        echo __('Company name') ?></span></label>
+                <div class="control">
+                    <input name="company_name" id="company_name" title="<?php /* @escapeNotVerified */
+                    echo __('Company name') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field cvr_number required">
+                <label class="label" for="cvr_number"><span><?php /* @escapeNotVerified */
+                        echo __('CVR Number') ?></span></label>
+                <div class="control">
+                    <input name="cvr_number" id="cvr_number" title="<?php /* @escapeNotVerified */
+                    echo __('CVR Number') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email"><span><?php /* @escapeNotVerified */
+                        echo __('Email address value') ?></span></label>
+                <div class="control">
+                    <input name="email" id="email" title="<?php /* @escapeNotVerified */
+                    echo __('Email address value') ?>" class="input-text" type="email"
+                           data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="field phone_number required">
+                <label class="label" for="phone_number"><span><?php /* @escapeNotVerified */
+                        echo __('Phone Number') ?></span></label>
+                <div class="control">
+                    <input name="phone_number" id="phone_number" title="<?php /* @escapeNotVerified */
+                    echo __('Phone Number') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                </div>
+            <div class="field text_message">
+                <label class="label" for="message"><span><?php /* @escapeNotVerified */
+                        echo __('Message text') ?></span></label>
+                <div class="control">
+                    <textarea name="message" id="message" title="<?php /* @escapeNotVerified */
+                    echo __('Message text') ?>" class="input-text" cols="5" rows="3"
+                              data-validate="{required:true}"></textarea>
+                </div>
+            </div>
+            <?= $this->getRecaptchaBlock(); ?>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <input type="hidden" name="currUrl" id="currUrl" value="<?= $this->getCurrentUrl(); ?>"/>
+                <button name="contactSubmit" type="submit" title="<?php /* @escapeNotVerified */
+                echo __('Submit ') ?>" class="action submit primary">
+                    <span><?php /* @escapeNotVerified */
+                        echo __('Submit') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <style>
+        .column:not(.sidebar-main) .form.contact, .column:not(.sidebar-additional) .form.contact {
+            width: 100%;
+        }
+        #contact-form .fieldset .field {
+            margin-top:5px;
+        }
+        #contact-form .actions-toolbar .primary {
+            margin: 10px 0;
+        }
+    </style>
+
+<?php endif; ?>

@@ -1,0 +1,13 @@
+<!--
+  ~ @package Vinduesgrossisten
+  ~ @author Stelmakov <stelmakov@belvg.com>
+  ~ @Copyright
+  -->
+
+<!--@subject {{var subject}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+{{block class='Magento\\Framework\\View\\Element\\Template' area='adminhtml' report=$report template='BelVG_B2BCustomer::email/report.phtml'}}
+
+{{template config_path="design/email/footer_template"}}

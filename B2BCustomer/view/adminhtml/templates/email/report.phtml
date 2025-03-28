@@ -1,0 +1,36 @@
+<?php $report = $block->getReport(); ?>
+<?php for ($i = 1; $i < $report['payments_count']; $i++): ?>
+    <?php if (isset($report['invoice_index_' . $i]) && isset($report['items'][$report['invoice_index_' . $i]])): ?>
+        <div class="payment_part">
+            <h4>Payment <?= $i + 1 ?> (<?= $report['status_' . $i] ?>) </h4>
+            <table>
+                <tr>
+                    <td>#</td>
+                    <td>Date/Time</td>
+                    <td>Order id</td>
+                    <td>Amount</td>
+                </tr>
+                <?php $index = 1; ?>
+                <?php foreach ($report['items'][$report['invoice_index_' . $i]] as $item): ?>
+                    <tr>
+                        <td><?= $index ?></td>
+                        <td><?= $item['exceeded_time'] ?></td>
+                        <td><?= $item['increment_id'] ?></td>
+                        <td><?= $item['amount'] ?></td>
+                    </tr>
+                    <?php $index++; ?>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    <?php endif; ?>
+<?php endfor; ?>
+<style>
+    .payment_part {
+        margin: 30px;
+    }
+
+    td {
+        padding: 5px;
+    }
+</style>
+

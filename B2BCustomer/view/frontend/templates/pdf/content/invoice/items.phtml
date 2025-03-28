@@ -1,0 +1,83 @@
+<?php /** @var $block \BelVG\B2BCustomer\Block\Pdf\Invoice\SplitPayments\Items */ ?>
+<?php /** @var $order \Magento\Sales\Api\Data\OrderInterface */ ?>
+<?php if ($block->isAllowed()): ?>
+    <div class="b2b-split-container">
+        <?php if ($block->getPartRate()): ?>
+            <h3><?= __('For payment now') ?></h3>
+            <div class="b2b-split-price-table" >
+                <div class="b2b-split-invoice-item">
+                    <p class="head"><?= __('Payment ' . $this->getIndex() . ' part') ?> <?= ' (' . $block->getPartRate() . '%)' ?></p>
+                    <p class="price main">
+                        <?=$block->getPartAmount() ?>
+                    </p>
+                </div>
+                <div class="tax-cont row">
+                    <p class="head"><?=  __('Tax (%1)', $block->getTaxRatePercentage()) ?></p>
+                    <p class="price"><?= $block->getTaxAmount(); ?></p>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if ($block->getPaymentDate()): ?>
+            <div class="b2b-split-invoice-date">
+                <span><?= __('Payment no later than') ?>:</span>
+                <span class="price">
+                    <?=$block->getPaymentDate() ?>
+                </span>
+            </div>
+        <?php endif; ?>
+        <div class="b2b-bottom-block" style="position: fixed; bottom: 0;">
+            <?php $order = $block->getOrder() ?>
+            <h3><?= __('Order') . ' '. $order->getIncrementId() . ' - ' . __('Payment Plan')?> </h3>
+
+            <div class="b2b-split-payment-info border-bottom">
+                <p><?=__('Total') . ' = ' . $block->getOrderGrandTotal() . ' (' . __('Tax') . ' = ' . $block->getOrderTax() . ')'?></p>
+            </div>
+
+            <div class="b2b-split-payment-info">
+                <p class="title"><b><?= __('Payment 1: Confirmation Payment') ?></b></p>
+                <p class="value">* <?= $block->getPartRate(1) . "% = " . $block->getPartAmount(1) . ' (' . __('Tax') . ' = ' . $block->getTaxAmount(1) . ')' ?></p>
+            </div>
+
+            <div class="b2b-split-payment-info">
+                <p class="title"><?= __('Payment 2: Progress Payment') ?></p>
+                <p class="value">* <?= $block->getPartRate(2) . "% = " . $block->getPartAmount(2) . ' (' . __('Tax') . ' = ' . $block->getTaxAmount(2) . ')' ?></p>
+            </div>
+
+            <div class="b2b-split-payment-info">
+                <p class="title"><?= __('Payment 3: Final Payment') ?></p>
+                <p class="value">* <?= $block->getPartRate(3) . "% = " . $block->getPartAmount(3) . ' (' . __('Tax') . ' = ' . $block->getTaxAmount(3) . ')' ?></p>
+            </div>
+        </div>
+
+        <div class="b2b-split-payment-notes">
+            <p class="b2b-invoice-text"><?= $block->getInvoiceText(); ?></p>
+            <h3><?=__('NOTE! The final invoice is issued when the order has been shipped.')?></h3>
+        </div>
+    </div>
+<?php else: ?>
+    <?php /** @var $block \BelVG\QuotePdf\Block\View\Order\Items */ ?>
+
+    <ul class="items">
+        <?php $items = $block->getItems(); ?>
+        <?php $i = 1; ?>
+
+        <?php $length = count($items); ?>
+        <?php foreach ($items as $key => $_item): ?>
+            <li style="width: 100%; height: <?php echo $_item['amount'] > 1 && $_item['nbr'] == 1 ? '100%' : 'auto' ?>" class="cart-item order_<?= $_item['nbr'] ?> <?= $block->getCssClass(); ?>">
+                <?= $block->getItemHtml($_item) ?>
+                <?= $block->getChildHtml('order_totals') ?>
+            </li>
+            <?php if($block->getChildBlock('quotepdf.content.bottom.block.prod'))
+                echo $block->getChildBlock('quotepdf.content.bottom.block.prod')->toHtml();
+            ?>
+
+            <?php //https://app.asana.com/0/1202243638585273/1202359809242361/f
+            //use $i for the Split order PDFs to avoid output useless pagebreakers ?>
+            <?php if($i < $length && $block->getChildBlock('pagebreaker'))
+                echo $block->getChildBlock('pagebreaker')->toHtml();
+            ?>
+            <?php $i++; ?>
+        <?php endforeach; ?>
+    </ul>
+
+<?php endif; ?>
