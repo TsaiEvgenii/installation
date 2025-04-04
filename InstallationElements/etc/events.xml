@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_merge_after">
+        <observer name="BelVG_InstallationElements::merge_installation_service_products"
+                  instance="BelVG\InstallationElements\Observer\MergeInstallationServiceProducts"/>
+    </event>
+    <event name="sales_order_status_history_save_after">
+        <observer name="BelVG_InstallationElements::email_reminder" instance="BelVG\InstallationElements\Observer\Email\Reminder" />
+    </event>
+</config>

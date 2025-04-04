@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer"
+                   name="checkout.cart.item.renderers.installation_product_type"
+                   as="installation_product_type"
+                   template="BelVG_InstallationElements::cart/item/installation_product.phtml">
+                <arguments>
+                    <argument name="size_config_view_model" xsi:type="object">BelVG\AdditionalProductAttributes\ViewModel\SizesConfig</argument>
+                    <argument name="material_finder_view_model" xsi:type="object">BelVG\AdditionalProductAttributes\ViewModel\MaterialFinder</argument>
+                    <argument name="main_img_locator_view_model" xsi:type="object">BelVG\LayoutQuoteItemImg\ViewModel\ImgLocator\MainImageLocator</argument>
+                </arguments>
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                       name="checkout.cart.item.renderers.installation_product_type.actions"
+                       as="actions">
+                    <block class="BelVG\InstallationElements\Block\Cart\Item\Renderer\Actions\Edit"
+                           name="checkout.cart.item.renderers.installation_product_type.actions.edit"
+                           template="BelVG_InstallationElements::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                           name="checkout.cart.item.renderers.bundle.installation_product_type.remove"
+                           template="Magento_Checkout::cart/item/renderer/actions/remove.phtml">
+                        <arguments>
+                            <argument name="ma_discount_remove_is_available_view_model" xsi:type="object">
+                                BelVG\MasterAccountDiscount\ViewModel\QuoteItemRemoveActionIsAvailable
+                            </argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+
+    </body>
+</page>
+

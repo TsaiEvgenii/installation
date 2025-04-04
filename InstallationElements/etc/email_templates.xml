@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="belvg_installation_elements_routeplanner_request_email_tpl"
+              label="New installation request email"
+              file="new_request_email.html"
+              type="html"
+              module="BelVG_InstallationElements"
+              area="frontend" />
+    <template id="belvg_installation_elements_routeplanner_report_email_tpl"
+              label="New installation report email"
+              file="new_report_email.html"
+              type="html"
+              module="BelVG_InstallationElements"
+              area="frontend" />
+    <template id="belvg_installation_elements_reminder_template"
+              label="Installment reminder"
+              file="installment_reminder.html"
+              type="html"
+              module="BelVG_InstallationElements"
+              area="frontend" />
+</config>

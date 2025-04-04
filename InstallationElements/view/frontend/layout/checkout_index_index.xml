@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~ Copyright (c) 2022.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="BelVG_NewCheckout::css/checkout_styles.css"/>
+    </head>
+    <body>
+        <attribute name="class" value="belvg_checkout"/>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="subtotal" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="service_codes" xsi:type="array">
+                                                                    <item name="installation" xsi:type="const">BelVG\InstallationElements\Model\Total\Quote\InstallationService::COLLECTOR_TYPE_CODE</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="installation-service" xsi:type="array">
+                                                            <item name="component" xsi:type="string">
+                                                                BelVG_InstallationElements/js/view/checkout/summary/installation-service
+                                                            </item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="sortOrder" xsi:type="string">80</item>
+                                                                <item name="template" xsi:type="string">
+                                                                    BelVG_InstallationElements/checkout/summary/installation-service
+                                                                </item>
+                                                                <item name="totalCodeType" xsi:type="const">BelVG\InstallationElements\Model\Total\Quote\InstallationService::COLLECTOR_TYPE_CODE</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

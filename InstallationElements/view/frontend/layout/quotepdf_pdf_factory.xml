@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_items">
+            <arguments>
+                <argument name="is_factory_pdf" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.item.renderers.installation_product_type">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">BelVG_QuotePdf::pdf/content/quote/item/default.phtml</argument>
+            </action>
+            <block class="BelVG\QuotePdf\Block\Cart\Item\Image"
+                   name="checkout.cart.item.renderers.img.installation_product_type" as="renderers_img"
+                   template="BelVG_QuotePdf::pdf/content/quote/item/img.phtml">
+            </block>
+            <block class="BelVG\QuotePdf\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.discount.installation_product_type"
+                   as="renderers_discount" template="BelVG_QuotePdf::pdf/content/quote/item/discount.phtml">
+                <block class="BelVG\QuotePdf\Block\Cart\Item\Price"
+                       name="checkout.cart.item.renderers.price.installation_product_type" as="renderers_price"
+                       template="BelVG_QuotePdf::pdf/content/quote/item/discount/price.phtml">
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="order_items">
+            <arguments>
+                <argument name="overridden_templates" xsi:type="array">
+                    <item name="installation_product_type" xsi:type="string">BelVG_InstallationElements::order/item/empty.phtml</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

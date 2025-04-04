@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/installation/get-price" method="POST">
+        <service class="BelVG\InstallationElements\Api\Webapi\GetCalculatedPriceInterface"
+                 method="getPrice"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+            <parameter name="installationData" force="false">%installation_data%</parameter>
+        </data>
+    </route>
+    <route url="/V1/guest-carts/:cartId/installation/add-product" method="PUT">
+        <service class="BelVG\InstallationElements\Api\Webapi\AddInstallationProductInterface"
+                 method="addProductForGuest"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <data>
+            <parameter name="storeId" force="false">%store_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/carts/mine/installation/add-product" method="PUT">
+        <service class="BelVG\InstallationElements\Api\Webapi\AddInstallationProductInterface"
+                 method="addProduct"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="false">%cart_id%</parameter>
+            <parameter name="storeId" force="false">%store_id%</parameter>
+        </data>
+    </route>
+</routes>

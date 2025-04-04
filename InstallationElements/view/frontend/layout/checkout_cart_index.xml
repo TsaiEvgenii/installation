@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="subtotal" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="service_codes" xsi:type="array">
+                                            <item name="installation" xsi:type="const">BelVG\InstallationElements\Model\Total\Quote\InstallationService::COLLECTOR_TYPE_CODE</item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="installation-service" xsi:type="array">
+                                    <item name="component" xsi:type="string">
+                                        BelVG_InstallationElements/js/view/checkout/summary/installation-service
+                                    </item>
+                                    <item name="sortOrder" xsi:type="string">200</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">
+                                            BelVG_InstallationElements/checkout/summary/installation-service
+                                        </item>
+                                        <item name="totalCodeType" xsi:type="const">BelVG\InstallationElements\Model\Total\Quote\InstallationService::COLLECTOR_TYPE_CODE</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="belvg.cart.form.container">
+            <block class="BelVG\InstallationElements\Block\Cart\Installation" name="belvg.checkout.cart.install.elements"
+                   template="BelVG_InstallationElements::install-elements/panel.phtml"
+                   before="belvg.master_account.empty_offer.not_empty_cart"
+                   ifconfig="belvg_installation_elements/general/is_enabled">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="installation-elements-panel" xsi:type="array">
+                                <item name="component" xsi:type="string">
+                                    BelVG_InstallationElements/js/view/installation-panel
+                                </item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">
+                                        BelVG_InstallationElements/installation-panel
+                                    </item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="description" xsi:type="array">
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="template" xsi:type="string">
+                                            BelVG_InstallationElements/installation-panel/description
+                                        </item>
+                                    </item>
+                                    <item name="price" xsi:type="array">
+                                        <item name="component" xsi:type="string">BelVG_InstallationElements/js/view/installation-panel/price</item>
+                                        <item name="template" xsi:type="string">
+                                            BelVG_InstallationElements/installation-panel/price
+                                        </item>
+                                    </item>
+                                    <item name="switcher" xsi:type="array">
+                                        <item name="component" xsi:type="string">BelVG_InstallationElements/js/view/installation-panel/switcher</item>
+                                        <item name="template" xsi:type="string">
+                                            BelVG_InstallationElements/installation-panel/switcher
+                                        </item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="confirmationTitle" xsi:type="string" translate="true">Delete Installation Product</item>
+                                            <item name="confirmationContent" xsi:type="string" translate="true">Are you sure you want to delete the Installation product</item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="settings-popup" xsi:type="array">
+                                                <item name="component" xsi:type="string">BelVG_InstallationElements/js/view/installation-panel/switcher/popup</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">BelVG_InstallationElements/installation-panel/switcher/popup</item>
+                                                    <item name="saveAction" xsi:type="url" path="belvg_installation/cart/add"/>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="messages" xsi:type="array">
+                                                        <item name="component" xsi:type="string">
+                                                            Magento_Ui/js/view/messages
+                                                        </item>
+                                                        <item name="displayArea" xsi:type="string">messages</item>
+                                                    </item>
+                                                    <item name="additional-price-totals" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="displayArea" xsi:type="string">additional-installation-price-totals</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <!-- additional-installation-price-totals -->
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                    <argument name="config_view_model" xsi:type="object">BelVG\InstallationElements\ViewModel\Config
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

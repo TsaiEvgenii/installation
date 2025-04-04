@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="belvg_installation_order_ticket" resource="default" engine="innodb" comment="belvg_installation_order_ticket Table">
+        <column name="entity_id" padding="11" unsigned="true" xsi:type="int" nullable="false" identity="true" comment="Entity Id"/>
+        <column name="ticket_id" unsigned="true" nullable="false" xsi:type="int" comment="ticket_id"/>
+        <column name="order_id" nullable="false" padding="11" unsigned="true" xsi:type="int" comment="Order Id"/>
+        <column name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                xsi:type="datetime" comment="Creation Time" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="test"
+                    table="belvg_installation_order_ticket" column="order_id"
+                    referenceTable="sales_order" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table engine="innodb" name="belvg_shippingmanager_shippinginfo_installment" resource="default"
+           comment="belvg_shippingmanager_shippinginfo Table">
+        <column comment="Installment Id" identity="true" name="installment_id" nullable="false" padding="10"
+                unsigned="false" xsi:type="int"/>
+        <column comment="Shipping Info Id" name="shippinginfo_id" nullable="false" padding="10"
+                unsigned="false" xsi:type="int"/>
+        <column name="is_set" nullable="true" xsi:type="boolean" default="0"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="installment_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_803FBCE1B907AF862F68C65B23251A28"
+                    table="belvg_shippingmanager_shippinginfo_installment" column="shippinginfo_id"
+                    referenceTable="belvg_shippingmanager_shippinginfo" referenceColumn="shippinginfo_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+
+    <table name="belvg_installation_reminder" resource="default" engine="innodb" comment="Installation Reminder Table">
+        <column name="entity_id" padding="11" unsigned="true" xsi:type="int" nullable="false" identity="true" comment="Entity Id"/>
+        <column name="order_id" nullable="false" padding="11" unsigned="true" xsi:type="int" comment="Order Id"/>
+        <column name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                xsi:type="datetime" comment="Creation Time" />
+        <column name="should_sent_after" nullable="false" xsi:type="datetime" comment="Reminder should be sent" />
+        <column name="is_processed" nullable="false" xsi:type="boolean" default="0"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="BELVG_INSTALLATION_REMINDER_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                    table="belvg_installation_reminder" column="order_id"
+                    referenceTable="sales_order" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

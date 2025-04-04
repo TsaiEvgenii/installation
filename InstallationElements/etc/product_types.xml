@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="installation_product_type"
+          label="Installation product type"
+          modelInstance="BelVG\InstallationElements\Model\ProductType\InstallationProductType"
+          isQty="true"
+          canUseQtyDecimals="false"
+          indexPriority="1000">
+    </type>
+</config>

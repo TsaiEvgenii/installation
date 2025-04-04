@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="installation_ticket_id" type="int"/>
+    </extension_attributes>
+    <extension_attributes for="BelVG\ShippingManager\Api\Data\ShippingInfoInterface">
+        <attribute code="installation" type="boolean">
+            <join reference_table="belvg_shippingmanager_shippinginfo_installment" reference_field="shippinginfo_id" join_on_field="shippinginfo_id">
+                <field>is_set</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+</config>
