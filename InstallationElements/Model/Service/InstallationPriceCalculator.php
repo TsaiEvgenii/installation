@@ -29,6 +29,14 @@ class InstallationPriceCalculator
     /**
      * @throws NoSuchEntityException
      */
+    /**
+     * Calculate installation price based on cart and installation data
+     *
+     * @param string|CartInterface $cart
+     * @param InstallationInterface $installationData
+     * @return array
+     * @throws NoSuchEntityException
+     */
     public function calculate(string|CartInterface $cart, InstallationInterface $installationData): array
     {
         $price = 0;
@@ -44,26 +52,31 @@ class InstallationPriceCalculator
         $drivingPrice = 0;
         $additionalPrices = $installationData->getAdditionalPrices() ?? [];
 
+        // Initialize scaffolding prices
+        $scaffoldingPrice = 0;
+        $scaffoldingHandlingPrice = 0;
+        $scaffoldingData = $this->installationElementsConfig->getScaffoldingPriceData();
+
         if ($cart instanceof CartInterface) {
-            //Calculate base price
+            // Calculate base price
             $basePrice = $this->calculateBasePrice($cart);
             $price += $basePrice;
 
-            //Calculate construction service
+            // Calculate construction service
             $constructionWasteDisposalPrice = $this->calculateConstructionWasteDisposalPrice($cart);
             if ($installationData->getDisposalOfConstructionWaste()) {
                 $constructionWasteDisposalPriceIncluded = true;
                 $price += $constructionWasteDisposalPrice;
             }
 
-            //Calculate internal finish service
+            // Calculate internal finish service
             $internalFinishPrice = $this->calculateInternalFinishPrice($cart);
             if ($installationData->getInternalFinish()) {
                 $internalFinishPriceIncluded = true;
                 $price += $internalFinishPrice;
             }
 
-            //Calculate floor price
+            // Calculate floor price and scaffolding
             $supplementPriceData = $this->installationElementsConfig->getSupplementPriceData();
             $highGroundFloorPriceForOneItem = $supplementPriceData['high_ground_floor'] ?? 0;
             $firstFloorPriceForOneItem = $supplementPriceData['assembly_1_floor'] ?? 0;
@@ -73,9 +86,16 @@ class InstallationPriceCalculator
                 || $installationData->getInstallationFirstFloorQty()
             ) {
                 if (($highGroundFloorQty = $installationData->getInstallationHighGroundFloorQty()) > 0) {
+                    // Add high ground floor standard price
                     $highGroundFloorPrice = $highGroundFloorPriceForOneItem * $highGroundFloorQty;
                     $price += $highGroundFloorPrice;
 
+                    // Calculate scaffolding for high ground floor
+                    $scaffoldingPrice = (float)$scaffoldingData['high_ground_floor_start_price'];
+                    $scaffoldingHandlingPrice = (float)$scaffoldingData['per_element_price'] * $highGroundFloorQty;
+
+                    // Add scaffolding prices to total
+                    $price += $scaffoldingPrice + $scaffoldingHandlingPrice;
                 }
 
                 if (($firstFloorQty = $installationData->getInstallationFirstFloorQty()) > 0) {
@@ -84,19 +104,21 @@ class InstallationPriceCalculator
                 }
             }
 
-            //Calculate driving price
+            // Calculate driving price
             $drivingPrice = $supplementPriceData['driving'] ?? 0;
             $price += $drivingPrice;
 
-            //Calculate additional prices
+            // Calculate additional prices
             if (count($additionalPrices) > 0) {
                 /** @var AdditionalPriceInterface $additionalPrice */
                 foreach ($additionalPrices as $additionalPrice) {
                     $price += $additionalPrice->getPrice();
                 }
             }
-
         }
+
+        // Define the flag for showing first floor note
+        $showFirstFloorNote = $installationData->getInstallationFirstFloorQty() > 0;
 
         return [
             'price'                                => $price,
@@ -115,10 +137,14 @@ class InstallationPriceCalculator
             'first_floor_price_for_one_item'       => $firstFloorPriceForOneItem,
             'driving_price'                        => $drivingPrice,
             'additional_prices'                    => $additionalPrices,
-            'conditions_approved'                  => $installationData->getConditionsApproved()
+            'conditions_approved'                  => $installationData->getConditionsApproved(),
+            'scaffolding_price'                    => $scaffoldingPrice,
+            'scaffolding_handling_price'           => $scaffoldingHandlingPrice,
+            'scaffolding_high_ground_floor_start_price' => (float)$scaffoldingData['high_ground_floor_start_price'],
+            'scaffolding_per_element_price'        => (float)$scaffoldingData['per_element_price'],
+            'show_first_floor_note'                => $showFirstFloorNote
         ];
     }
-
     /**
      * @throws NoSuchEntityException
      */

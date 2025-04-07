@@ -8,9 +8,22 @@
      data-bind="afterRender: setModalElement"
      style="display: none">
 
-    <p class="modal-description">
-        <!-- ko i18n: 'Shall we help you install? Then you can calculate a total price below.'--><!-- /ko -->
-    </p>
+    <div class="modal-header">
+        <h2><!-- ko i18n: 'Calculate standard installation price'--><!-- /ko --></h2>
+        <p class="modal-description">
+            <!-- ko i18n: 'Need help with installation? You can calculate a total price below.'--><!-- /ko -->
+        </p>
+        <div class="service-includes">
+            <p><!-- ko i18n: 'The installation includes:'--><!-- /ko --></p>
+            <ol>
+                <li><!-- ko i18n: 'Control measurement'--><!-- /ko --></li>
+                <li><!-- ko i18n: 'Removal of old windows'--><!-- /ko --></li>
+                <li><!-- ko i18n: 'Installation of new elements'--><!-- /ko --></li>
+                <li><!-- ko i18n: 'External sealing (RAL 9010, 9005, 7016)'--><!-- /ko --></li>
+            </ol>
+            <p class="first-floor-warning"><!-- ko i18n: 'Please note that we cannot calculate the additional price for installation on the 1st floor until we have carried out a control measurement.'--><!-- /ko --></p>
+        </div>
+    </div>
 
     <form class="form"
           method="post">
@@ -18,7 +31,7 @@
         <div class="floors-wrapper">
             <span class="wrapper-title">
                 <span data-bind="text: $t('Where should we install your %1 windows?').replace('%1', quoteItemQty()) "></span>
-                <span class="info-icon-data">
+                <span class="info-icon-data" data-bind="mageInit: { 'belvgTooltip': {} }">
                     <span class="icon"></span>
                     <span class="text" data-bind="html: getTooltipText()"></span>
                 </span>
@@ -63,28 +76,6 @@
                 </div>
             </div>
         </div>
-
-        <!--
-        <div class="fieldset above">
-            <div class="field">
-                <div class="input-box">
-                    <label class="label" for="above">
-                        <span data-bind="i18n: 'Above'"></span>
-                    </label>
-                    <input name="above"
-                           type="checkbox"
-                           class="actions-switch-checkbox"
-                           data-bind="checked: aboveChecked"/>
-                </div>
-            </div>
-            <div class="qty-field" data-bind="if: aboveChecked">
-                <button class="update-cart-item decr" data-bind="click: decreaseQty.bind($data,'aboveQty')"></button>
-                <div class="item-qty cart-item-qty" data-bind="text:aboveQty"></div>
-                <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
-                <button class="update-cart-item incr" data-bind="click: increaseQty.bind($data,'aboveQty')"></button>
-            </div>
-        </div>
-        -->
 
         <div class="service-wrapper">
             <p class="wrapper-title no-bold">
@@ -160,6 +151,18 @@
                 <span class="mark" data-bind="i18n: getFirstFloorTitle()"></span>
                 <span class="price" data-bind="text: getFirstFloorPrice()"></span>
             </div>
+            <div class="first-floor-additional-line" data-bind="if: firstFloorQty() > 0">
+                <span class="mark" data-bind="text: getScaffoldingFirstFloorTitle()"></span>
+                <span class="price">-</span>
+            </div>
+            <div class="scaffolding-price" data-bind="if: allowScaffoldingPrice()">
+                <span class="mark"><!-- ko i18n: 'Scaffold rental'--><!-- /ko --></span>
+                <span class="price" data-bind="text: getScaffoldingPrice()"></span>
+            </div>
+            <div class="scaffolding-handling-price" data-bind="if: allowScaffoldingPrice()">
+                <span class="mark" data-bind="text: getScaffoldingHandlingTitle()"></span>
+                <span class="price" data-bind="text: getScaffoldingHandlingPrice()"></span>
+            </div>
             <div class="installation-disposal-of-construction-waste-price" data-bind="if: allowDisposalOfConstructionWastePrice()">
                 <span class="mark" data-bind="i18n: getDisposalTitle()"></span>
                 <span class="price" data-bind="text: getDisposalOfConstructionWastePrice()"></span>
@@ -177,9 +180,9 @@
                 <span class="price" data-bind="text: getDrivingPrice()"></span>
             </div>
             <!-- ko if: getRegion('additional-installation-price-totals') -->
-                <div class="additional-installation-price-totals">
-                    <each args="getRegion('additional-installation-price-totals')" render="" ></each>
-                </div>
+            <div class="additional-installation-price-totals">
+                <each args="getRegion('additional-installation-price-totals')" render="" ></each>
+            </div>
             <!-- /ko -->
             <div class="field choice">
                 <input name="conditions_approved"
@@ -195,6 +198,11 @@
                 <span class="mark" data-bind="html: $t('<b>Total price</b> (incl. VAT)')"></span>
                 <span class="price" data-bind="text: getPrice()"></span>
             </div>
+        </div>
+
+        <!-- Add star with note at the end of the form: -->
+        <div class="first-floor-note" data-bind="if: firstFloorQty() > 0">
+            <p>* <!-- ko i18n: 'First floor installation is not included in the price.'--><!-- /ko --></p>
         </div>
 
         <div class="field">

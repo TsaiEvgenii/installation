@@ -84,6 +84,19 @@
                     <label>Installation above the 1st floor or storey builder</label>
                 </field>
             </group>
+            <group id="scaffolding_price" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="45" translate="label">
+                <label>Scaffolding prices</label>
+                <field id="high_ground_floor_start_price" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>High ground floor start price</label>
+                </field>
+                <field id="per_element_price" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Price per element</label>
+                </field>
+            </group>
             <group id="routeplanner" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50" translate="label">
                 <label>RoutePlanner</label>
                 <field id="type_id" translate="label comment" type="select" showInDefault="100" showInWebsite="1" showInStore="0">

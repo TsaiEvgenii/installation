@@ -35,6 +35,13 @@ define([
         let highGroundFloorPrice = data['highGroundFloorQty'] * (cart()?.belvg_installation_data?.high_ground_floor_price_for_one_item ?? 0);
         let firstFlorPrice = data['firstFloorQty'] * (cart()?.belvg_installation_data?.first_floor_price_for_one_item ?? 0);
         let measurementPrice = cart()?.belvg_installation_data?.measurement_price ?? 0;
+        let scaffoldingPrice = 0;
+        let scaffoldingHandlingPrice = 0;
+        if (data['highGroundFloorQty'] > 0) {
+            scaffoldingPrice = cart()?.belvg_installation_data?.scaffolding_high_ground_floor_start_price ?? 0;
+            const perElementPrice = cart()?.belvg_installation_data?.scaffolding_per_element_price ?? 0;
+            scaffoldingHandlingPrice = perElementPrice * data['highGroundFloorQty'];
+        }
 
         let price = data['basePrice'] +
             data['drivingPrice'] +
@@ -43,7 +50,9 @@ define([
             measurementPrice +
             livingRoomPrice +
             highGroundFloorPrice +
-            firstFlorPrice;
+            firstFlorPrice +
+            scaffoldingPrice +
+            scaffoldingHandlingPrice;
 
         if (Object.keys(data['additionalPrices']).length > 0) {
             Object.values(data['additionalPrices']).forEach((additionalPriceData) => {

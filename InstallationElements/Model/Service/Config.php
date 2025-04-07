@@ -276,4 +276,18 @@ class Config
         $storeId = $storeId ?: $this->getCurrentStoreId();
         return $this->getConfig('subscribers_list', $storeId, 'reminder') ?? '';
     }
+
+    /**
+     * @throws NoSuchEntityException
+     */
+    public function getScaffoldingPriceData($storeId = null): array
+    {
+        $storeId = $storeId ?: $this->getCurrentStoreId();
+        $data = [
+            'high_ground_floor_start_price' => $this->getConfig('high_ground_floor_start_price', $storeId, 'scaffolding_price'),
+            'per_element_price' => $this->getConfig('per_element_price', $storeId, 'scaffolding_price')
+        ];
+
+        return $data;
+    }
 }

@@ -414,6 +414,51 @@ define([
 
         getTooltipText: function () {
             return $t('The measurements are from the ground to the top edge of the opening in the wall where the window/door should be installed.');
-        }
+        },
+
+        /**
+         * Check if scaffolding price should be shown
+         * @returns {boolean}
+         */
+        allowScaffoldingPrice: function() {
+            return this.highGroundFloorQty() > 0;
+        },
+
+        /**
+         * Get scaffolding rental price
+         * @returns {string}
+         */
+        getScaffoldingPrice: function() {
+            if (this.highGroundFloorQty() > 0) {
+                const startPrice = this.cart()?.belvg_installation_data?.scaffolding_high_ground_floor_start_price ?? 0;
+                return this.getFormattedPrice(startPrice, false);
+            }
+            return this.getFormattedPrice(0, false);
+        },
+
+        /**
+         * Get scaffolding handling price
+         * @returns {string}
+         */
+        getScaffoldingHandlingPrice: function() {
+            if (this.highGroundFloorQty() > 0) {
+                const perElementPrice = this.cart()?.belvg_installation_data?.scaffolding_per_element_price ?? 0;
+                const handlingPrice = perElementPrice * this.highGroundFloorQty();
+                return this.getFormattedPrice(handlingPrice, false);
+            }
+            return this.getFormattedPrice(0, false);
+        },
+
+        /**
+         * Get scaffolding handling title with quantity
+         * @returns {string}
+         */
+        getScaffoldingHandlingTitle: function() {
+            return $t('- Supplement for scaffolding handling - High ground floor (%1 pcs.)').replace('%1', this.highGroundFloorQty());
+        },
+
+        getScaffoldingFirstFloorTitle: function() {
+            return $t('- Performed at hourly rate + surcharge for any extra rental - 1st floor (%1 pcs.)').replace('%1', this.firstFloorQty());
+        },
     });
 });

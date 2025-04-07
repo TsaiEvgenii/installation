@@ -102,6 +102,10 @@
                 <assembly_1_floor>600</assembly_1_floor>
                 <above_1_floor>700</above_1_floor>
             </supplement_price>
+            <scaffolding_price>
+                <high_ground_floor_start_price>3000</high_ground_floor_start_price>
+                <per_element_price>500</per_element_price>
+            </scaffolding_price>
             <routeplanner>
                 <type_id>14</type_id>
                 <status_after_creation>8</status_after_creation>
