@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">belvg_layoutcustomizer_layout_select_listing.belvg_layoutcustomizer_layout_select_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>belvg_layoutcustomizer_layout_select_columns</spinner>
+        <deps>
+            <dep>belvg_layoutcustomizer_layout_select_listing.belvg_layoutcustomizer_layout_select_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource component="Magento_Ui/js/grid/provider" name="belvg_layoutcustomizer_layout_listing_data_source">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">layout_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>BelVG_LayoutCustomizer::Layout</aclResource>
+        <dataProvider class="BelVG\LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider" name="belvg_layoutcustomizer_layout_select_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>layout_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+            </argument>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="belvg_layoutcustomizer_layout_select_columns" class="BelVG\LayoutCustomizer\Ui\Component\Listing\LayoutColumns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>layout_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="layout_id">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="identifier">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">identifier</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="material">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Material</label>
+            </settings>
+        </column>
+        <column name="family_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Family ID</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+    </columns>
+</listing>

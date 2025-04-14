@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <observer name="product_price_update" instance="BelVG\LayoutCustomizer\Observer\ProductSaveAfter" />
+        <observer name="layout_update_after_product_save" instance="BelVG\LayoutCustomizer\Observer\UpdateLayout\AfterProductSave" />
+    </event>
+    <event name="belvg_layoutcustomizer_layout_save_after">
+        <observer name="product_price_update_layout_save" instance="BelVG\LayoutCustomizer\Observer\LayoutSaveAfter" />
+        <observer name="product_layout_update_after_layout_save" instance="BelVG\LayoutCustomizer\Observer\UpdateLayout\AfterLayoutSave" />
+    </event>
+    <event name="belvg_layoutcustomizer_layout_delete_after">
+        <observer name="layout_delete_after" instance="BelVG\LayoutCustomizer\Observer\LayoutDeleteAfter" />
+    </event>
+</config>

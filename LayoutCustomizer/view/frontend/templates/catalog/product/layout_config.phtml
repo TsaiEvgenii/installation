@@ -1,0 +1,15 @@
+<?php
+/** @var \BelVG\LayoutCustomizer\Block\Product\View\LayoutConfig $block */
+?>
+
+<?php if ($block->getLayoutId() != 0) :?>
+    <script type="text/javascript">
+        require(["layoutBase", "uiRegistry"],
+            function(layout, registry) {
+                layout.init(<?php echo $block->getJsonLayoutConfig() ?>);
+
+                registry.set('belvgLayoutConfig', <?php echo $block->getJsonLayoutConfig() ?>);
+            }
+        );
+    </script>
+<?php endif; ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="BelVG_LayoutCustomizer::css/editor.css" />
+	</head>
+	<update handle="styles"/>
+	<body>
+		<referenceContainer name="page.main.actions">
+			<block class="Magento\Backend\Block\Store\Switcher" name="adminhtml.system.config.switcher" template="Magento_Backend::store/switcher.phtml" />
+		</referenceContainer>
+		<referenceContainer name="content" >
+			<uiComponent name="belvg_layoutcustomizer_layout_form"/>
+		</referenceContainer>
+	</body>
+</page>

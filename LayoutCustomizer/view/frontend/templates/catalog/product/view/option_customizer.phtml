@@ -1,0 +1,19 @@
+<?php /** @var BelVG\LayoutCustomizer\Block\Product\View\Customizer $block */ ?>
+<?php
+$config  = array_merge(
+    $block->getCustomizerConfig(), [
+        'toolbarSelector' => '#belvg-layout-customizer-toolbar',
+        'customizerConfig' => ['background' => '#fff']
+    ]
+);
+?>
+
+<aside id="option-product-customizer" class="product-viewer-2d"></aside>
+<script>
+    require([
+        'jquery',
+        'mixins!BelVG_LayoutCustomizer/js/catalog/product/customizer'
+    ], function($){
+        $('#option-product-customizer').layoutCustomizer(<?php echo json_encode($config) ?>)
+    })
+</script>

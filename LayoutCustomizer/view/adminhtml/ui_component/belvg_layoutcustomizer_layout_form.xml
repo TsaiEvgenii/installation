@@ -1,0 +1,320 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">belvg_layoutcustomizer_layout_form.layout_form_data_source</item>
+		</item>
+		<item name="label" translate="true" xsi:type="string">General Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button class="BelVG\LayoutCustomizer\Block\Adminhtml\Layout\Edit\BackButton" name="back"/>
+			<button class="BelVG\LayoutCustomizer\Block\Adminhtml\Layout\Edit\EditorButton" name="editor"/>
+			<button class="BelVG\LayoutCustomizer\Block\Adminhtml\Layout\Edit\DeleteButton" name="delete"/>
+			<button class="BelVG\LayoutCustomizer\Block\Adminhtml\Layout\Edit\SaveButton" name="save"/>
+			<button class="BelVG\LayoutCustomizer\Block\Adminhtml\Layout\Edit\SaveAndContinueButton" name="save_and_continue"/>
+		</buttons>
+		<namespace>belvg_layoutcustomizer_layout_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>belvg_layoutcustomizer_layout_form.layout_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="layout_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider class="BelVG\LayoutCustomizer\Model\DataProvider\Layout\Form\LayoutDataProvider" name="layout_form_data_source">
+			<settings>
+				<requestFieldName>layout_id</requestFieldName>
+				<primaryFieldName>main_table.layout_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general">
+		<settings>
+			<label translate="true">Layout Data</label>
+		</settings>
+		<field formElement="hidden" name="store" sortOrder="0">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<dataScope>store</dataScope>
+			</settings>
+		</field>
+		<field formElement="input" name="identifier" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">identifier</label>
+				<dataScope>identifier</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field name="materials" formElement="select" sortOrder="14">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+					<item name="default" xsi:type="number">0</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>int</dataType>
+				<label translate="true">Material</label>
+				<dataScope>layoutmaterial_id</dataScope>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="BelVG\LayoutMaterial\Ui\Component\Listing\Column\LayoutMaterial\Options"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="input" name="family_id" sortOrder="16">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Family ID</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Family ID</label>
+				<dataScope>family_id</dataScope>
+				<notice>Used to display links for different materials inside the same Family ID at the product view page</notice>
+				<tooltip>
+					<description>
+						<![CDATA[
+						This field used to collect related products at the product page view: products with <b>the same</b> values of <b>Family ID</b> will be linked.
+						<br>
+						<b>Notice</b> idea was that Products with <b>the same Family ID</b> should have different Material
+						]]>
+					</description>
+				</tooltip>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="height" sortOrder="20">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">height</label>
+				<dataScope>height</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="width" sortOrder="30">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">width</label>
+				<dataScope>width</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="horizontal_frame" sortOrder="70">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">horizontal_frame</label>
+				<dataScope>horizontal_frame</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="vertical_frame" sortOrder="80">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">vertical_frame</label>
+				<dataScope>vertical_frame</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="base_price" sortOrder="90">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">base_price</label>
+				<dataScope>base_price</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="sqm_price" sortOrder="100">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">sqm_price</label>
+				<dataScope>sqm_price</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="sqm_level_step2" sortOrder="110">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">sqm_level_step2</label>
+				<dataScope>sqm_level_step2</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="sqm_price_step2" sortOrder="120">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">sqm_price_step2</label>
+				<dataScope>sqm_price_step2</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="inoutcolor_price_both_diff" sortOrder="200">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">inoutcolor_price_both_diff</label>
+				<dataScope>inoutcolor_price_both_diff</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="inoutcolor_price_both_same" sortOrder="210">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">inoutcolor_price_both_same</label>
+				<dataScope>inoutcolor_price_both_same</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="inoutcolor_price_inside_otherwhite" sortOrder="220">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">inoutcolor_price_inside_otherwhite</label>
+				<dataScope>inoutcolor_price_inside_otherwhite</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="inoutcolor_price_outside_otherwhite" sortOrder="230">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Layout</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">inoutcolor_price_outside_otherwhite</label>
+				<dataScope>inoutcolor_price_outside_otherwhite</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+	</fieldset>
+	<fieldset name="family_layouts" sortOrder="40">
+		<settings>
+			<collapsible>true</collapsible>
+			<opened>true</opened>
+			<label translate="true">Family (associated layouts)</label>
+		</settings>
+		<container name="belvg_layoutcustomizer_layout_listing">
+			<insertListing name="belvg_layoutcustomizer_layout_listing">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="autoRender" xsi:type="boolean">true</item>
+						<item name="ns" xsi:type="string">belvg_layoutcustomizer_layout_listing</item>
+						<item name="externalProvider" xsi:type="string">${ $.ns }.belvg_layoutcustomizer_layout_listing_data_source</item>
+						<item name="imports" xsi:type="array">
+							<item name="layoutmaterialId" xsi:type="string">${ $.provider }:data.family_id</item>
+						</item>
+						<item name="exports" xsi:type="array">
+							<item name="layoutmaterialId" xsi:type="string">${ $.externalProvider }:params.family_id</item>
+						</item>
+					</item>
+				</argument>
+			</insertListing>
+		</container>
+	</fieldset>
+</form>

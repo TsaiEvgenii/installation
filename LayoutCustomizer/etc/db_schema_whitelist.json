@@ -1,0 +1,262 @@
+{
+    "belvg_layoutcustomizer_layout": {
+        "column": {
+            "layout_id": true,
+            "identifier": true,
+            "height": true,
+            "width": true,
+            "is_active": true
+        },
+        "constraint": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_IDENTIFIER": true,
+            "PRIMARY": true
+        }
+    },
+    "belvg_layoutcustomizer_layoutstore": {
+        "column": {
+            "layoutstore_id": true,
+            "layout_id": true,
+            "store_id": true,
+            "base_price": true,
+            "sqm_price": true,
+            "sqm_price_step2": true,
+            "sqm_level_step2": true,
+            "inoutcolor_price_both_diff": true,
+            "inoutcolor_price_both_same": true,
+            "inoutcolor_price_inside_otherwhite": true,
+            "inoutcolor_price_outside_otherwhite": true,
+            "horizontal_frame": true,
+            "vertical_frame": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_551C770099F58323F1C3337346A1018D": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUTSTORE_LAYOUT_ID_STORE_ID": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block": {
+        "column": {
+            "block_id": true,
+            "layout_id": true,
+            "parent_id": true,
+            "name": true,
+            "sort_order": true,
+            "pos_x": true,
+            "pos_y": true,
+            "height": true,
+            "width": true,
+            "color": true,
+            "texture": true,
+            "border": true,
+            "border_placement": true,
+            "border_color": true,
+            "inner_border": true,
+            "inner_border_placement": true,
+            "inner_border_color": true,
+            "shape": true,
+            "layout": true,
+            "padding": true,
+            "feature_padding": true,
+            "spacing": true,
+            "reverse": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_LAYOUT_ID": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_PARENT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_F444860E2B45B495AEF50B276AE6F7E4": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_shape_param": {
+        "column": {
+            "param_id": true,
+            "block_id": true,
+            "name": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_SHAPE_PARAM_BLOCK_ID_NAME": true,
+            "FK_3C7A1EB379027F0262820BB9E1D9DA43": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_restriction": {
+        "column": {
+            "restriction_id": true,
+            "block_id": true,
+            "option_type_id": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_RESTRICTION_BLOCK_ID": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_RESTRICTION_OPTION_TYPE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_3DF324F0F266B096062498020E591CFC": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_restriction_param": {
+        "column": {
+            "param_id": true,
+            "restriction_id": true,
+            "name": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNQ_E9DCB06F5C59D58DCBB9D4F893605512": true,
+            "FK_73B93C9B86B69FB895D99AF581BD9068": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_parameter": {
+        "column": {
+            "parameter_id": true,
+            "block_id": true,
+            "name": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_PARAMETER_BLOCK_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_E7F42B568BBA66C0365CEBD705EA8F7F": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_parameter_option": {
+        "column": {
+            "option_id": true,
+            "parameter_id": true,
+            "option_type_id": true,
+            "value": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LYTCUSTOMIZER_LYT_BLOCK_PARAMETER_OPT_PARAMETER_ID": true,
+            "BELVG_LYTCUSTOMIZER_LYT_BLOCK_PARAMETER_OPT_OPT_TYPE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNQ_25A4C543E4DBF22B40C8AEE9CB18B661": true,
+            "FK_9F6993309BD00DAFA09A2B80FB523E31": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_block_link": {
+        "column": {
+            "link_id": true,
+            "block_id": true,
+            "ref_id": true,
+            "name": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_LINK_BLOCK_ID": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_BLOCK_LINK_REF_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_203A754D3871355CC4D016CB898F04E2": true,
+            "FK_93DE99CF09FF30219B497EF6882F3F00": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_feature": {
+        "column": {
+            "feature_id": true,
+            "block_id": true,
+            "type": true,
+            "name": true,
+            "show_over_children": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_FEATURE_BLOCK_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_554BC1B66C214162D0A49D182D3FAEA8": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_feature_param": {
+        "column": {
+            "param_id": true,
+            "feature_id": true,
+            "name": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_FEATURE_PARAM_FEATURE_ID_NAME": true,
+            "FK_FABFEB34B82AAA9619DEC041DA04D65E": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_feature_parameter": {
+        "column": {
+            "parameter_id": true,
+            "feature_id": true,
+            "name": true,
+            "sort_order": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_FEATURE_PARAMETER_FEATURE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_869629734179EAF11DF72B38F13546C6": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_feature_parameter_option": {
+        "column": {
+            "option_id": true,
+            "parameter_id": true,
+            "option_type_id": true,
+            "value": true,
+            "sort_order": true,
+            "key_family": true,
+            "parent_key_family": true
+        },
+        "index": {
+            "BELVG_LYTCUSTOMIZER_LYT_FEATURE_PARAMETER_OPT_PARAMETER_ID": true,
+            "BELVG_LYTCUSTOMIZER_LYT_FEATURE_PARAMETER_OPT_OPT_TYPE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNQ_AF7E236B4E72B4F4D6BB59E935DB88DD": true,
+            "FK_DB5C4681C83692A1F41C8BEE843D4D4E": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_measurement": {
+        "column": {
+            "measurement_id": true,
+            "block_id": true,
+            "param_id": true,
+            "type": true,
+            "name": true,
+            "sort_order": true,
+            "is_customizable": true
+        },
+        "index": {
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_MEASUREMENT_BLOCK_ID": true,
+            "BELVG_LAYOUTCUSTOMIZER_LAYOUT_MEASUREMENT_PARAM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9952852E3C8850A1868D5893E4450CB7": true
+        }
+    },
+    "belvg_layoutcustomizer_layout_measurement_param": {
+        "column": {
+            "param_id": true,
+            "measurement_id": true,
+            "name": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_LYTCUSTOMIZER_LYT_MEASUREMENT_PARAM_MEASUREMENT_ID_NAME": true,
+            "FK_0A4DEB6C94F39BB1AFC1248179B5F163": true
+        }
+    }
+}

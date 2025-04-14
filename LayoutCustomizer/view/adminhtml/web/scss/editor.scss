@@ -1,0 +1,640 @@
+.belvg_layoutcustomizer-layout-edit {
+
+    // Var
+    $border-color: #8f9499;
+    $border-light-color: #c4c7c9;
+    $block-color: #f4f5f5;
+    $grey: #e3e3e3;
+    $error: #ed1b24;
+    $green: #156d6d;
+    $indent: 20px;
+
+    // Mixins
+    @mixin tree-line($color) {
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: -15px;
+            bottom: 45%;
+            width: 100%;
+            height: 0;
+            border-bottom: 1px solid $color;
+            z-index: -1;
+        }
+
+        &:last-of-type:before {
+            height: 2000px;
+            border-left: 1px solid $color;
+        }
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+
+    // Extensions
+    .hide {
+        z-index: -1;
+        opacity: 0;
+        height: 0;
+        width: 0;
+        padding: 0;
+    }
+
+    .show {
+        padding: 10px;
+        opacity: 1;
+        z-index: 9;
+        height: auto;
+        width: auto;
+    }
+
+    .flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .remove-btn {
+        border: none;
+        background: transparent;
+        color: $error;
+        order: 3;
+
+        &:hover {
+            color: darken($error, 4%);
+        }
+    }
+
+    .add-btn {
+        border: none;
+        background: transparent;
+        color: $green;
+        order: 2;
+        font-size: 1.4em;
+
+        &:hover {
+            color: darken(green, 4%);
+        }
+    }
+
+    .scroll {
+        scrollbar-color: $grey white;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: $green;
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px $grey;
+            width: 10px;
+        }
+    }
+
+    .modal {
+        &-inner-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-slide {
+            left: 88px;
+        }
+
+        &-content {
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        &-component {
+            height: 100%;
+        }
+
+        &-header {
+            box-sizing: border-box;
+        }
+    }
+
+    .belvg-layout-customizer-editor {
+        display: flex;
+        flex-basis: 100%;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        .top {
+            .toolbar {
+                display: flex;
+                align-items: stretch;
+
+                .scale {
+                    display: flex;
+                    order: 1;
+
+                    .select {
+                        height: 100%;
+
+                        select {
+                            height: 100%;
+                        }
+                    }
+
+                    .nullable {
+                        height: 100%;
+
+                        input {
+                            height: 100%;
+                        }
+                    }
+                }
+
+                .command-history {
+                    order: 0;
+
+                    button {
+                        color: black;
+                        background: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .main {
+            display: flex;
+            height: 100%;
+            padding: 0 0 15px 0;
+
+            .left-column {
+                height: 100%;
+                flex-basis: 45%;
+
+                canvas {
+                    width: 40vw;
+                    height: 40vw;
+                    border: solid 1px $grey;
+                }
+            }
+
+            .right-column {
+                display: flex;
+                flex-basis: 55%;
+                flex-direction: column;
+                align-content: stretch;
+                user-select: none;
+
+                .dialog {
+                    position: absolute;
+                    top: 100%;
+                    min-width: 300px;
+                    z-index: 999;
+                    background: white;
+                    border: 1px solid $border-light-color;
+                    box-shadow: 5px 6px 5px -5px black;
+                    margin: 0 0 $indent 0;
+
+                    > div {
+                        display: flex;
+                        flex-basis: 100%;
+                    }
+
+                    &-header {
+                        display: none;
+                        padding: 5px 10px;
+                        font-weight: bold;
+                    }
+
+                    &-body {
+                        flex-basis: 100%;
+                        ul {
+                            flex-basis: 100%;
+                            margin: 0;
+                            padding: 0;
+
+                            li {
+                                padding: 6px 10px;
+                                border-bottom: 1px solid $block-color;
+                                cursor: pointer;
+
+                                &:hover {
+                                    background: $block-color;
+                                }
+                            }
+                        }
+
+                        .value-tree {
+                            flex-basis: 100%;
+
+                            ul ul {
+                                padding: 3px 0 0 15px;
+                                margin: 5px 0 0 0;
+                                border-top: 1px solid $grey;
+                            }
+
+                            li {
+                                border: none;
+                                &:hover {
+                                    background: transparent;
+                                }
+
+                                li {
+                                    font-size: .98em;
+                                }
+                            }
+
+                            > span {
+                                border-bottom: 1px solid red
+                            }
+
+                            span {
+                                display: flex;
+                                flex-basis: 100%;
+                                align-items: center;
+
+                                button {
+                                    padding: 0 4px;
+                                    color: $green;
+                                    border: none;
+                                    font-size: 1.2em;
+                                    margin: 0 5px 0 0;
+                                    background: transparent;
+                                }
+
+                                a {
+                                    display: flex;
+                                    align-items: center;
+                                    position: relative;
+                                    background: transparent;
+                                    border: 0;
+                                    padding: 2px 0;
+                                    transition: .3s all;
+
+                                    &:before {
+                                        content: "✔";
+                                        transition: .05s all;
+                                        position: absolute;
+                                        left: -10px;
+                                        color: transparent;
+                                    }
+
+                                    &:hover {
+                                        padding: 2px 8px;
+                                        &:before {
+                                            color: lighten($green, 50%);
+                                        }
+                                    }
+
+                                    &.selected {
+                                        padding: 2px 8px;
+
+                                        &:before {
+                                            color: $green;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &-buttonset {
+                        justify-content: flex-end;
+
+                        button {
+                            border: none;
+                            background: none;
+                            border-right: 1px solid $block-color;
+                            border-left: 1px solid $block-color;
+
+                            &:hover {
+                                color: $green;
+                            }
+
+                            &.ok {
+                            }
+
+                            &.cancel {
+                                &:hover {
+                                    color: $error;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ul {
+                    padding-left: 15px;
+                    list-style: none;
+
+                    li {
+                        list-style: none;
+                    }
+                }
+
+                a {
+                    color: inherit;
+                    padding: 10px 15px;
+                    border: 1px solid $border-light-color;
+                    text-transform: capitalize;
+                    text-decoration: none;
+                    background: white;
+                    z-index: 2;
+
+                    &:hover {
+                        background: $block-color;
+                    }
+
+                    &.selected {
+                        color: #fff;
+                        background: $green;
+                    }
+                }
+
+                .panel {
+                    overflow: hidden;
+                    flex-basis: 100%;
+                    display: flex;
+                }
+
+                .object-tree {
+                    overflow-y: auto;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-content: flex-start;
+                    flex-wrap: wrap;
+                    flex-basis: 45%;
+                    @include scroll;
+
+                    button {
+                        transition: .1s all;
+                        background: white;
+                        border: 1px solid $grey;
+                        box-shadow: none;
+                        pointer-events: all;
+                        &:hover {
+                            background: $block-color;
+                        }
+                    }
+
+                    .block-node {
+                        align-items: center;
+
+                        > div {
+                            position: relative;
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-basis: 100%;
+                            > ul {
+                                flex-basis: 100%;
+                                order: 2;
+                                margin: 0 0 0 17px;
+                            }
+
+                            &:not(.block-container) {
+                                > button {
+                                    border: none;
+                                    background: none;
+                                    font-size: .9em;
+                                    font-weight: 600;
+                                    position: relative;
+
+                                    @include tree-line($grey);
+
+                                    &:before {
+                                        bottom: 1.1em;
+                                    }
+                                }
+
+                                li {
+                                    font-size: .9em;
+                                    position: relative;
+                                    pointer-events: all;
+                                    flex-direction: column;
+
+                                    label {
+                                        display: flex;
+                                        align-items: center;
+                                        padding: $indent / 2;
+                                        background: white;
+                                        flex-basis: content;
+                                        pointer-events: none;
+
+                                        a {
+                                            padding: 0;
+                                            margin: 0;
+                                            border: none;
+                                            pointer-events: all;
+                                            &:hover {
+                                                background: #fff;
+                                            }
+                                            &.selected {
+                                                padding: 2px 7px;
+                                                background: $green;
+                                                color: #fff;
+                                            }
+                                        }
+
+                                        .menu {
+                                            li {
+                                                font-size: 1em;
+                                            }
+                                            a {
+                                                padding: 10px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    > .add {
+                        margin: 0;
+                        order: 1;
+                        flex-basis: 100%;
+
+                        box-shadow: 0 0 0 10px white;
+                        z-index: 9;
+                    }
+
+
+
+                    ul {
+                        order: 2;
+                        flex-basis: 100%;
+
+                        li {
+                            display: flex;
+                            flex-wrap: wrap;
+                            label {
+                                position: relative;
+                                padding: 10px;
+                                align-items: center;
+                                display: flex;
+                                flex-basis: 100%;
+                                background: white;
+
+                                @include tree-line($border-color);
+
+                                a {
+                                    margin: 0 $indent / 2 0 0;
+                                    order: 1;
+                                    pointer-events: all;
+                                }
+
+                                > button {
+                                    display: flex;
+                                    align-items: center;
+                                    font-weight: bold;
+                                    width: 24px;
+                                    height: 24px;
+                                    padding: 0;
+                                    line-height: 0;
+
+                                    transition: .1s all;
+                                    border: none;
+                                    background: none;
+
+                                    &:hover {
+                                        background: white;
+                                    }
+
+                                    &.remove {
+                                        @extend .remove-btn;
+                                    }
+
+                                    &.add {
+                                        @extend .add-btn;
+                                    }
+                                }
+                            }
+
+                            .block-container {
+                                flex-basis: 100%;
+                                display: flex;
+
+                                .add {
+                                    order: 1;
+                                }
+
+                                ul {
+                                    order: 2;
+                                }
+                            }
+
+                            .feature-cont {
+                                font-size: 12px;
+                                transition: .1s all ease-in-out;
+                                border: 1px solid #e3e3e3;
+                                display: flex;
+
+                                label {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+
+                            .menu {
+                                position: absolute;
+                                top: 100%;
+                                padding: 0;
+                                border: 1px solid $border-light-color;
+                                box-shadow: 5px 6px 5px -5px black;
+                                z-index: 9;
+
+                                li {
+                                    &:not(:last-child) {
+                                        border-bottom: 1px solid $border-light-color;
+                                    }
+
+                                    a {
+                                        border: 0;
+                                        margin: 0;
+                                        flex-basis: 100%;
+
+                                        &:hover {
+                                            background: $block-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .object-editor {
+                    display: flex;
+                    overflow-y: auto;
+                    box-sizing: border-box;
+                    flex-basis: 55%;
+                    padding: 0 0 0 15px;
+                    @include scroll;
+
+                    .dialog-body .value-tree span A.selected {
+                        color: black;
+                    }
+
+                    form {
+                        flex-basis: 100%;
+                    }
+
+                    table {
+                        width: 100%;
+                        TR > TD, TR > TH {
+                            border: 1px solid rgba(0,0,0,.15);
+                        }
+                        TR.main-row > TD {
+                            border-bottom: none;
+                        }
+                        TR.added-row > TD {
+                            border-bottom: none;
+                            border-top: none;
+                        }
+                    }
+
+                    .form-field {
+                        .remove {
+                            @extend .remove-btn;
+                        }
+
+
+                        td {
+                            padding: 5px;
+
+                            .field {
+                                align-items: center;
+                                position: relative;
+
+                                label {
+                                    display: flex;
+                                    align-content: center;
+                                    justify-content: center;
+                                    margin: 0 $indent / 2;
+
+                                    input {
+                                        margin: 4px 0 0 $indent / 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .selected {
+            background-color: lightblue;
+        }
+
+        .dragged {
+            opacity: 0.5;
+        }
+    }
+}
+
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="BelVG_LayoutCustomizer::belvg_layoutcustomizer" module="BelVG_LayoutCustomizer" parent="Magento_Catalog::catalog" resource="Magento_Backend::content" sortOrder="9999" title="BelVG Layout Customizer"/>
+        <add action="belvg_layoutcustomizer/layout/index" id="BelVG_LayoutCustomizer::belvg_layoutcustomizer_layout" module="BelVG_LayoutCustomizer" parent="BelVG_LayoutCustomizer::belvg_layoutcustomizer" resource="Magento_Backend::content" sortOrder="9999" title="Layout"/>
+    </menu>
+</config>

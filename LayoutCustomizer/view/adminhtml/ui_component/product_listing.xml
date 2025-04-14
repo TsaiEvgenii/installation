@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+        <columns name="product_columns">
+            <column name="belvg_layout" class="BelVG\LayoutCustomizer\Ui\Component\Listing\Column\Product\Columns\BelvgLayout" sortOrder="30">
+                <settings>
+                    <addField>true</addField>
+                    <filter>text</filter>
+                    <sortable>true</sortable>
+                    <label translate="true">BelVG Layout</label>
+                </settings>
+            </column>
+        </columns>
+</listing>

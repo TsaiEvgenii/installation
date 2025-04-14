@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="BelVG_LayoutCustomizer::config_belvg_layoutcustomizer" title="layout_customizer"/>
+						</resource>
+					</resource>
+				</resource>
+				<resource id="BelVG_LayoutCustomizer::Layout" sortOrder="10" title="Layout">
+					<resource id="BelVG_LayoutCustomizer::Layout_save" sortOrder="10" title="Save Layout"/>
+					<resource id="BelVG_LayoutCustomizer::Layout_delete" sortOrder="20" title="Delete Layout"/>
+					<resource id="BelVG_LayoutCustomizer::Layout_update" sortOrder="30" title="Update Layout"/>
+					<resource id="BelVG_LayoutCustomizer::Layout_view" sortOrder="40" title="View Layout"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

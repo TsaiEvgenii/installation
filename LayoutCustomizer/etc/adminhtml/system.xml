@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="belvg" sortOrder="999" translate="label">
+			<label>belvg</label>
+		</tab>
+		<section id="layout_customizer" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Layout Customizer</label>
+			<tab>belvg</tab>
+			<resource>BelVG_LayoutCustomizer::config_belvg_layoutcustomizer</resource>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label">
+				<label>General</label>
+				<field id="overall_height_attribute" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="200" translate="label" type="select">
+					<label>Overall height attribute</label>
+					<comment/>
+					<source_model>BelVG\LayoutCustomizer\Model\Config\Source\Options</source_model>
+				</field>
+				<field id="overall_width_attribute" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="300" translate="label" type="select">
+					<label>Overall width attribute</label>
+					<comment/>
+					<source_model>BelVG\LayoutCustomizer\Model\Config\Source\Options</source_model>
+				</field>
+				<field id="sections_sizes_attribute" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="400" translate="label" type="select">
+					<label>Sections sizes attribute</label>
+					<comment/>
+					<source_model>BelVG\LayoutCustomizer\Model\Config\Source\Options</source_model>
+				</field>
+                <field id="additional_default_colors" showInStore="1" showInWebsite="1" showInDefault="1" translate="comment label" sortOrder="500" type="textarea">
+                    <label>Additional Default Colors</label>
+                    <comment>Set additional default colors for calculation delivery time. Example 'RAL 9001 Cremehvid,RAL 7035 Lysgrå'</comment>
+                    <hint>Use comma as a delimiter</hint>
+                </field>
+                <field id="option_description_link" showInDefault="1" showInWebsite="1" showInStore="1" translate="label comment" type="text" sortOrder="510">
+                    <label>Option description link</label>
+                    <tooltip>This link will be seen in the Sizes option on PDP</tooltip>
+                </field>
+				<field id="base_currency" showInStore="1" showInWebsite="1" showInDefault="1" translate="comment label" sortOrder="550" type="select">
+					<label>Layout base currency</label>
+					<comment>Works as base currency but for Layout and MWOT prices</comment>
+					<source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
+				</field>
+				<field id="mapping_store_tax"  showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment" type="select" sortOrder="600">
+					<label><![CDATA[Mapping Store <--> Tax Rate]]></label>
+					<backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+					<frontend_model>BelVG\LayoutCustomizer\Block\Adminhtml\Form\Field\StoreTaxMapping</frontend_model>
+				</field>
+            </group>
+		</section>
+	</system>
+</config>

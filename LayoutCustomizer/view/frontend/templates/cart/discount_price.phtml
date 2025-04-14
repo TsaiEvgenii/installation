@@ -1,0 +1,55 @@
+<?php
+//@todo: refactor this in a way to keep the `MasterAccount`, `Membership`, etc. logic in the own modules
+
+/** @var \BelVG\LayoutCustomizer\Block\Cart\DiscountPrice $block */
+
+$_item = $block->getData('item');
+$item_discount_price = $_item->getCalculationPrice() * $_item->getQty() - $_item->getTotalDiscountAmount();
+$showMembershipPrices = null;
+$membershipDiscountPercent = null;
+$isMember = null;
+/** @var \BelVG\MembershipDiscount\ViewModel\SubscriptionViewModel $subscriptionViewModel */
+$subscriptionViewModel = $block->getData('subscription_view_model');
+if ($subscriptionViewModel) {
+    $showMembershipPrices = $subscriptionViewModel->isAllowed() || $subscriptionViewModel->showMemberPrices();
+    $isMember = $subscriptionViewModel->isSubscribed();
+    //https://youtrack.belvgdev.com/issue/SD-2104 [Iceland (.is) membership discount]
+    $membershipDiscountPercent = $subscriptionViewModel->getDiscountPercent($_item);
+}
+?>
+
+<?php $discountIsVisible = false; ?>
+<?php if($_item->getTotalDiscountAmount() > 0 || ($showMembershipPrices && $membershipDiscountPercent)): ?>
+    <?php $discountIsVisible = true; ?>
+<?php endif; ?>
+
+
+<?php if ($item_discount_price): ?>
+    <p class="price-cont <?= ($showMembershipPrices ? 'membership-allowed' : '') ?>">
+
+        <?php if ($showMembershipPrices && $membershipDiscountPercent): ?>
+            <?php if ($isMember): ?>
+                <?= $this->helper('Magento\Checkout\Helper\Data')->formatPrice(($_item->getCalculationPrice() * (1 - $membershipDiscountPercent/100)) * $_item->getQty()) ?>
+            <?php else: ?>
+                <?= $this->helper('Magento\Checkout\Helper\Data')->formatPrice($item_discount_price * (1 - $membershipDiscountPercent/100)) ?>
+            <?php endif; ?>
+        <?php else: ?>
+            <?= $this->helper('Magento\Checkout\Helper\Data')->formatPrice($item_discount_price) ?>
+        <?php endif; ?>
+
+        <?php if($_item->getData(\BelVG\MasterAccount\Api\Service\QuoteItemInterface::CUSTOM_PRICE)): ?>
+            <p class="ma-label special-price"><?= __("Special price") ?></p>
+        <?php endif; ?>
+        <?php if($_item->getData(\BelVG\MasterAccount\Api\Service\QuoteItemInterface::LOCKED)): ?>
+            <p class="ma-label locked-price"><?= __("Locked price") ?></p>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
+
+<p class="price-cont_old <?= ($showMembershipPrices ? 'membership-allowed' : '') ?> <?php if($discountIsVisible): ?> visible <?php else: ?> hidden <?php endif; ?>" >
+    <?php if($showMembershipPrices): ?>
+        <span class="head"><?= __("Full price") ?>:</span>
+    <?php endif; ?>
+
+    <?= $this->helper('Magento\Checkout\Helper\Data')->formatPrice( $_item->getCalculationPrice() * $_item->getQty()) ?>
+</p>

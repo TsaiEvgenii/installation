@@ -1,0 +1,30 @@
+define(function() {
+    return [
+        {from: 'name', to: 'name', type: 'string', nullable: false},
+        {from: 'pos.x', to: 'pos_x', type: 'number', nullable: true},
+        {from: 'pos.y', to: 'pos_y', type: 'number', nullable: true},
+        {from: 'width', to: 'width', type: 'number', nullable: true},
+        {from: 'height', to: 'height', type: 'number', nullable: true},
+        {from: 'layout', to: 'layout', type: 'string'},
+        {from: 'border', to: 'border', type: 'number'},
+        {from: 'borderPlacement', to: 'border_placement', type: 'string'},
+        {from: 'borderColor', to: 'border_color', type: 'string', nullable: true},
+        {from: 'innerBorder', to: 'inner_border', type: 'number', nullable: true},
+        {from: 'innerBorderPlacement', to: 'inner_border_placement', type: 'string'},
+        {from: 'innerBorderColor', to: 'inner_border_color', type: 'string', nullable: true},
+        {from: 'padding', to: 'padding', type: 'number'},
+        {from: 'featurePadding', to: 'feature_padding', type: 'number', nullable: true},
+        {from: 'spacing', to: 'spacing', type: 'number'},
+        {from: 'color', to: 'color', type: 'string', nullable: true},
+        {from: 'children', to: 'children', type: 'Object', list: true},
+        {from: 'features', to: 'features', type: 'Object', list: true},
+        {from: 'measurements', to: 'measurements', type: 'Object', list: true},
+        {from: 'objectData.parameters', to: 'parameters', type: 'Object', list: true},
+        {from: 'objectData.restrictions', to: 'restrictions', type: 'Object', list: true},
+        {from: 'objectData.measurement_restrictions', to: 'measurement_restrictions', type: 'Object', list: true},
+        {from: 'objectData.links', to: 'links', type: 'Object', list: true},
+        {from: 'shape.shapeType', to: 'shape', type: 'string'},
+        {from: 'shape.params', to: 'shape_params', type: 'object'},
+        {from: 'reverse', to: 'reverse', type: 'string'}
+    ];
+});

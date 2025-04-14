@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="mageworx.option.base" template="BelVG_LayoutCustomizer::catalog/product/options.phtml">
+            <arguments>
+                <argument name="layout_extended_config" xsi:type="object">BelVG\LayoutCustomizer\ViewModel\Config</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="product.info.form.options">
+            <container name="belvg.base.layout.container" after="product.info.options">
+                <block class="BelVG\LayoutCustomizer\Block\Product\View\LayoutConfig" name="belvg.layout.base" template="BelVG_LayoutCustomizer::catalog/product/layout_config.phtml"/>
+            </container>
+            <referenceContainer name="belvg.product.info.representation">
+                <container name="product.viewer.cont" htmlTag="div" htmlId="product-viewer-cont"
+                           htmlClass="product-viewer-cont"
+                           after="product.info.media.image">
+<!--                    <block class="BelVG\LayoutCustomizer\Block\Product\View\MeasureLink" name="product.viewer.title"-->
+<!--                           template="BelVG_LayoutCustomizer::catalog/product/view/measure_link.phtml"/>-->
+<!--                    <container name="product.viewer.toolbar.cont" htmlId="belvg-layout-customizer-toolbar" htmlTag="div" htmlClass="view-toolbar">-->
+<!--                        <block class="Magento\Catalog\Block\Product\View" name="product.viewer.toolbar"-->
+<!--                               template="BelVG_LayoutCustomizer::catalog/product/view/toolbar.phtml"/>-->
+<!--                    </container>-->
+                    <block class="BelVG\LayoutCustomizer\Block\Product\View\Customizer" name="product.customizer" template="BelVG_LayoutCustomizer::catalog/product/view/customizer.phtml" />
+                    <!-- <container name="product.viewer.aside" htmlTag="aside" htmlClass="product-viewer-2d" -->
+                    <!--            htmlId="product-viewer-2d"> -->
+                    <!--     <block class="Magento\Framework\View\Element\Template" name="product.viewer" -->
+                    <!--            template="BelVG_LayoutCustomizer::catalog/product/view/customizer.phtml"> -->
+                    <!--         <arguments> -->
+                    <!--             <argument name="layout_quote_img_view_model" xsi:type="object"> -->
+                    <!--                 BelVG\LayoutQuoteItemImg\ViewModel\ProductView -->
+                    <!--             </argument> -->
+                    <!--         </arguments> -->
+                    <!--     </block> -->
+                    <!-- </container> -->
+
+
+                    <block class="BelVG\LayoutCustomizer\Block\Product\View\QtyPriceMultiplier"
+                           name="belvg.layout.qty-js"
+                           template="BelVG_LayoutCustomizer::catalog/product/view/qty_js.phtml" />
+
+
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="belvg.sqm.price"
+                           template="BelVG_LayoutCustomizer::catalog/product/view/sqm_price.phtml" />
+                </container>
+            </referenceContainer>
+        </referenceContainer>
+
+        <referenceBlock name="product.info.options.wrapper">
+            <container name="product.viewer.toolbar.cont" htmlId="belvg-layout-customizer-toolbar" htmlTag="div"
+                       htmlClass="field view-toolbar"
+                       before="-">
+                <block class="Magento\Catalog\Block\Product\View" name="product.viewer.toolbar"
+                       template="BelVG_LayoutCustomizer::catalog/product/view/toolbar.phtml">
+                    <arguments>
+                        <argument name="thumbnail_view_model" xsi:type="object">BelVG\LayoutCustomizer\ViewModel\Thumbnail</argument>
+                        <argument name="option_description_link_view_model" xsi:type="object">BelVG\LayoutCustomizer\ViewModel\OptionDescriptionLink</argument>
+                    </arguments>
+                    <block class="BelVG\LayoutCustomizer\Block\Product\View\Customizer"
+                           name="option.product.customizer"
+                           template="BelVG_LayoutCustomizer::catalog/product/view/option_customizer.phtml"/>
+                </block>
+            </container>
+        </referenceBlock>
+    </body>
+</page>

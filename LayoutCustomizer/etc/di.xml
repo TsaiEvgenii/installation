@@ -1,0 +1,200 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BelVG\LayoutCustomizer\Api\BulkLayoutRepositoryInterface" type="BelVG\LayoutCustomizer\Model\BulkLayoutRepository"/>
+    <preference for="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" type="BelVG\LayoutCustomizer\Model\LayoutRepository"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Data\LayoutInterface" type="BelVG\LayoutCustomizer\Model\Data\Layout"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Data\LayoutSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Service\DuplicateLayoutDataInterface" type="BelVG\LayoutCustomizer\Model\Service\DuplicateLayout"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Service\StoreFieldsInterface" type="BelVG\LayoutCustomizer\Model\Service\StoreFields"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Service\QuoteItemPriceInterface" type="BelVG\LayoutCustomizer\Model\Service\QuoteItemPrice"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Data\Params\FilterPriceParamInterface" type="BelVG\LayoutCustomizer\Model\Data\Params\FilterPriceParam"/>
+    <type name="BelVG\LayoutCustomizer\Api\Service\QuoteItemPriceInterface">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" sortOrder="9999" xsi:type="object">
+                    BelVG\LayoutCustomizer\Model\Service\QuoteItemPrice\DefaultHandler
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Layout -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="belvg_layoutcustomizer_layout_listing_data_source" xsi:type="string">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Layout store data -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="belvg_layoutcustomizer_layoutstore_listing_data_source" xsi:type="string">BelVG\LayoutCustomizer\Model\ResourceModel\LayoutStore\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="\Magento\Quote\Model\Quote\Item">
+        <plugin name="quote_item_custom_price" type="BelVG\LayoutCustomizer\Plugin\Magento\Quote\Model\Quote\ItemPlugin"/>
+    </type>
+
+    <!-- mageworx_optiontemplates_group_option_type_id -->
+    <type name="\MageWorx\OptionBase\Model\Entity\Base">
+        <plugin name="mageworx_optiontemplates_group_option_type_id_upd" type="BelVG\LayoutCustomizer\Plugin\MageWorx\OptionBase\Model\Entity\BasePlugin" sortOrder="20"/>
+    </type>
+    <preference for="MageWorx\OptionTemplates\Model\OptionSaver\Value" type="BelVG\LayoutCustomizer\Override\MageWorx\OptionTemplates\Model\OptionSaver\ValueOverride"/>
+
+    <type name="Magento\Catalog\Block\Product\View\Options\Type\Select">
+        <plugin name="mageworx_optionbase_around_option_values_html"
+            type="MageWorx\OptionBase\Plugin\AroundOptionValuesHtml"
+            sortOrder="5"
+            disabled="true"/> <!-- performance reason using 1 around plugin instead of 2: see `belvg_optionbase_around_option_values_html` -->
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Options\Type\Select">
+        <plugin name="belvg_optionbase_around_option_values_html"
+            type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Block\Product\View\Options\Type\SelectPlugin"
+            sortOrder="10"
+            disabled="false"/> <!-- instead `mageworx_optionbase_around_option_values_html` -->
+    </type>
+
+    <preference for="BelVG\LayoutCustomizer\Api\Helper\QuoteItemOptionManagement" type="BelVG\LayoutCustomizer\Model\Helper\QuoteItemOptionManagement"/>
+    <preference for="BelVG\LayoutCustomizer\Api\Helper\PriceCalculator" type="BelVG\LayoutCustomizer\Model\Helper\PriceCalculator"/>
+
+    <!-- replaced with plugin `quote_item_custom_price` <type name="Magento\Catalog\Model\Product\Type\Price">
+        <plugin name="AroundGetBasePrice" type="BelVG\LayoutCustomizer\Plugin\CustomPriceFollowDimensionPlugin" sortOrder="50" disabled="false"/>
+    </type> -->
+
+    <preference for="BelVG\LayoutCustomizer\Api\Service\ConnectLayoutsBySkuInterface" type="BelVG\LayoutCustomizer\Model\Service\ConnectLayoutsBySku"/>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="belvg_connect_layout_by_sku" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\ConnectLayoutBySkuCommand</item>
+                <item name="belvg_layout_add_root_block_measurements" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\AddRootMeasurementsCommand</item>
+                <item name="belvg_layout_mass_copy_block_data" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\MassCopyBlockDataCommand</item>
+                <item name="belvg_layout_empty" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\EmptyLayoutsCommand</item>
+                <item name="belvg_products_missing_layout" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\ProductsMissingLayoutCommand</item>
+                <item name="belvg_layout_name_measurements" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\AddMeasurementNames</item>
+                <item name="belvg_layout_hw_measurements" xsi:type="object">BelVG\LayoutCustomizer\Console\Command\GetWrapperHeightWidthReport</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\ConnectLayoutBySkuCommand">
+        <arguments>
+            <argument name="state" xsi:type="object">\Magento\Framework\App\State\Proxy</argument>
+            <argument name="storeManager" xsi:type="object">\Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+            <argument name="connectBySkuService" xsi:type="object">\BelVG\LayoutCustomizer\Api\Service\ConnectLayoutsBySkuInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\AddRootMeasurementsCommand">
+        <arguments>
+            <argument name="dataHelper" xsi:type="object">\BelVG\LayoutCustomizer\Helper\Data\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\MassCopyBlockDataCommand">
+        <arguments>
+            <argument name="layoutRepository" xsi:type="object">\BelVG\LayoutCustomizer\Model\LayoutRepository\Proxy</argument>
+            <argument name="materialRepository" xsi:type="object">\BelVG\LayoutMaterial\Model\LayoutMaterialRepository\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\ProductsMissingLayoutCommand">
+        <arguments>
+            <argument name="layoutResource" xsi:type="object">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Proxy</argument>
+            <argument name="productEntity" xsi:type="object">Magento\Catalog\Model\ResourceModel\Product\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\AddMeasurementNames">
+        <arguments>
+            <argument name="measurementResource" xsi:type="object">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Measurement\Proxy</argument>
+            <argument name="blockResource" xsi:type="object">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Block\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\LayoutCustomizer\Console\Command\GetWrapperHeightWidthReport">
+        <arguments>
+            <argument name="resource" xsi:type="object">Magento\Framework\App\ResourceConnection\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Type\Price">
+        <plugin name="BelVG_LayoutNullPriceModifier" type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Model\Product\Type\PricePlugin" />
+    </type>
+
+    <!-- Add layouts's width/height to `Magento\Quote\Api\Data\TotalsItemInterface` -->
+    <type name="Magento\Quote\Api\Data\TotalsInterface">
+        <plugin name="BelVG_LayoutCustomizer_TotalsItemInterfaceModifier" type="BelVG\LayoutCustomizer\Plugin\Magento\Quote\Data\Totals\AddLayoutDataToItem" />
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="layoutmaterial_select_listing_data_source" xsi:type="string">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Material\Grid\Collection</item>
+                <item name="belvg_layoutcustomizer_layout_select_listing_data_source" xsi:type="string">BelVG\LayoutCustomizer\Model\ResourceModel\Layout\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Remove `{section_sizes}` from order_item in email -->
+    <type name="Magento\Sales\Block\Order\Email\Items\Order\DefaultOrder">
+        <plugin name="belvg_layoutcustomizer_remove_section_sizes_from_email" type="BelVG\LayoutCustomizer\Plugin\Magento\Sales\Model\Order\Item\RemoveSectionSizesPlugin"/>
+    </type>
+
+    <!-- All prices should be without Tax [https://app.asana.com/0/1177395662263354/1177969533611915] -->
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="belvg_layoutcustomizer_option_value_price_add_tax"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Model\Product\Option\Value\AddTaxToOptionPrice"
+                sortOrder="100"
+                disabled="false" />
+    </type>
+
+    <!-- Layout customizer currency conversions [https://app.asana.com/0/1177395662263354/1197504336481685/f] -->
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="belvg_layoutcustomizer_option_value_price_convert_currency"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Model\Product\Option\Value\ConvertCurrencyOptionPrice"
+                sortOrder="2000"
+                disabled="false" />
+    </type>
+
+    <!-- Change subtotal in cart section data [https://app.asana.com/0/1193006953339046/1199538019072590/f] -->
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="BelVG_LayoutCustomizer:changeSubtotalAmountVariable"
+                type="BelVG\LayoutCustomizer\Plugin\CustomerData\CartSection"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\ProductOptionProcessor">
+        <!-- Build API for M2 to be able to read/write checkpoint history and other order details [https://youtrack.belvgdev.com/issue/SD-2832] -->
+        <plugin name="BelVG_LayoutCustomizer::addHeightForProductOptionProcessor"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Model\ProductOptionProcessor\AddHeightPlugin"
+                sortOrder="1000" disabled="false"/>
+        <!-- Build API for M2 to be able to read/write checkpoint history and other order details [https://youtrack.belvgdev.com/issue/SD-2832] -->
+        <plugin name="BelVG_LayoutCustomizer::addWidthForProductOptionProcessor"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Model\ProductOptionProcessor\AddWidthPlugin"
+                sortOrder="1000" disabled="false"/>
+    </type>
+
+
+    <type name="Magento\Quote\Model\ResourceModel\Quote\Item\Option\Collection">
+        <plugin name="BelVG_LayoutCustomizer::addMWOTHashToOptionValues"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Quote\Item\Option\Collection\AddMWOTHashToOptionValuesPlugin"
+                sortOrder="100" />
+    </type>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="BelVG_LayoutCustomizer::addMWOTHashToProductHelperConfigurator"
+                type="BelVG\LayoutCustomizer\Plugin\Magento\Catalog\Helper\AddMWOTHashToProductHelperConfiguratorPlugin"
+                sortOrder="100" />
+    </type>
+    <type name="MageKey\SaveCart\Block\SaveCart\View\Cart\Item\Renderer">
+        <plugin name="BelVG_LayoutCustomizer::addMWOTHashToCartItemRenderer"
+                type="BelVG\LayoutCustomizer\Plugin\Block\SaveCart\View\Cart\Item\Renderer\AddMWOTHashToCartItemRenderer"
+                sortOrder="100" />
+    </type>
+    <type name="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer">
+        <plugin name="BelVG_LayoutCustomizer::addMWOTHashToOrderItemRenderer"
+                type="BelVG\LayoutCustomizer\Plugin\Block\Order\Item\Renderer\DefaultRenderer\AddMWOTHashToOrderItemRenderer"
+                sortOrder="100" />
+    </type>
+
+    <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="BelVG_LayoutCustomizer::addIsQtyVisibleToItemCartData"
+                type="BelVG\LayoutCustomizer\Plugin\CustomerData\IsQtyVisibleToItemCartDataPlugin"
+                sortOrder="200" />
+    </type>
+</config>

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Simonchik <alexandr.simonchik@gmail.com>
+  ~ @Copyright
+  -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route method="POST" url="/V1/belvg_layout/layout">
+        <service class="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_save"/>
+        </resources>
+        <data>
+            <parameter name="storeId" force="false">%store_id%</parameter>
+            <parameter name="withOptions" force="false">true</parameter>
+        </data>
+    </route>
+    <route method="GET" url="/V1/belvg_layout/layout/search">
+        <service class="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_view"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/belvg_layout/layout/:layoutId">
+        <service class="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_view"/>
+        </resources>
+        <data>
+            <parameter name="withOptions" force="false">true</parameter>
+        </data>
+    </route>
+    <route method="PUT" url="/V1/belvg_layout/layout/:layoutId">
+        <service class="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_update"/>
+        </resources>
+    </route>
+    <route method="DELETE" url="/V1/belvg_layout/layout/:layoutId">
+        <service class="BelVG\LayoutCustomizer\Api\LayoutRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_delete"/>
+        </resources>
+    </route>
+
+
+    <route method="GET" url="/V1/belvg_layout/bulk/layout/search">
+        <service class="BelVG\LayoutCustomizer\Api\BulkLayoutRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_view"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/belvg_layout/bulk/layout/get_updated">
+        <service class="BelVG\LayoutCustomizer\Api\BulkLayoutRepositoryInterface" method="getUpdatedList"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_view"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/belvg_layout/bulk/layout">
+        <service class="BelVG\LayoutCustomizer\Api\BulkLayoutRepositoryInterface" method="saveList"/>
+        <resources>
+            <resource ref="BelVG_LayoutCustomizer::Layout_save"/>
+        </resources>
+    </route>
+</routes>

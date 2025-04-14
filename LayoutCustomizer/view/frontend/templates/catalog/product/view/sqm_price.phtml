@@ -1,0 +1,21 @@
+<script>
+    require([
+        'jquery',
+        'uiRegistry',
+        'BelVG_LayoutCustomizer/js/catalog/product/sqm-price-updater'
+    ], function($, registry, optionUpdater) {
+        let optionBase = registry.get('mageworxOptionBase'),
+            order = 28082019,
+            config = {};
+        if (optionBase) {
+            optionBase.addUpdater(order, optionUpdater(config));
+        } else {
+            var updaters = registry.get('mageworxOptionUpdaters');
+            if (!updaters) {
+                updaters = {};
+            }
+            updaters[order] = optionUpdater(config);
+            registry.set('mageworxOptionUpdaters', updaters);
+        }
+    });
+</script>

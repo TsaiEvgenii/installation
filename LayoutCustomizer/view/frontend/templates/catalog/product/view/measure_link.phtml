@@ -1,0 +1,26 @@
+<?php
+/** @var $block \BelVG\LayoutCustomizer\Block\Product\View\MeasureLink */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+
+<div id="product-title-variable">
+    <?php echo $block->getVariableValue(); ?>
+
+    <?php if($block->isPopupEnabled()) { ?>
+        <div id="product-title-popup" style="display: none;">
+            <?= $block->getPopupContent(); ?>
+        </div>
+    <?php } ?>
+
+</div>
+<?php if($block->isPopupEnabled()) { ?>
+    <script type="text/x-magento-init">
+      {
+        "#product-title-variable": {
+          "BelVG_LayoutCustomizer/js/catalog/product/view/product-info-popup": {
+            "hasContent": "<?php echo $block->getPopupContent() ? 1 : 0; ?>"
+          }
+        }
+      }
+    </script>
+ <?php } ?>

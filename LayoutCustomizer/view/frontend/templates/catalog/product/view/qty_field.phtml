@@ -1,0 +1,26 @@
+<?php if ($block->shouldRenderQuantity()): ?>
+    <div class="qty-field qty input-cont counter">
+        <button type="button" class="update-cart-item decr"></button>
+        <input type="number"
+               name="qty"
+               id="qty"
+               value="<?= /* @escapeNotVerified */
+               ($block->getProductDefaultQty() > 1 ? $block->getProductDefaultQty() : 1) * 1 ?>"
+               title="<?= /* @escapeNotVerified */
+               __('$quantity') ?>"
+               class="item-qty cart-item-qty"
+               required="true"
+               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+        />
+        <span class="qty-postfix"><?=__('stk') ?></span>
+        <button type="button" class="update-cart-item incr"></button>
+    </div>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "#qty": {
+            "BelVG_FrontendTheme/js/validator/qty-validator": {}
+        }
+    }
+</script>

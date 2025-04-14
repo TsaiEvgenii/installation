@@ -1,0 +1,199 @@
+Back,Back
+"Delete Layout","Delete Layout"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Save and Continue Edit","Save and Continue Edit"
+"Save Layout","Save Layout"
+"Delete Layoutblock","Delete Layoutblock"
+"Save Layoutblock","Save Layoutblock"
+"Delete Layoutblockopentype","Delete Layoutblockopentype"
+"Save Layoutblockopentype","Save Layoutblockopentype"
+"Delete Layoutrestriction","Delete Layoutrestriction"
+"Save Layoutrestriction","Save Layoutrestriction"
+"Delete Layoutrestrictionoption","Delete Layoutrestrictionoption"
+"Save Layoutrestrictionoption","Save Layoutrestrictionoption"
+"Delete Layoutstore","Delete Layoutstore"
+"Save Layoutstore","Save Layoutstore"
+BelVG,BelVG
+Layout,Layout
+"This layout no longer exists","This layout no longer exists"
+"Something went wrong while loading the Layout.","Something went wrong while loading the Layout."
+"You deleted the Layout.","You deleted the Layout."
+"We can't find a Layout to delete.","We can't find a Layout to delete."
+"You duplicated the Layout, new ID is %1.","You duplicated the Layout, new ID is %1."
+"We can't find a Layout to duplicate.","We can't find a Layout to duplicate."
+"Edit Layout","Edit Layout"
+"New Layout","New Layout"
+"Edit Layout ""%1"" (ID: %2)","Edit Layout ""%1"" (ID: %2)"
+Layouts,Layouts
+"Please correct the data sent.","Please correct the data sent."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"You saved the Layout.","You saved the Layout."
+"Something went wrong while saving the Layout.","Something went wrong while saving the Layout."
+Layoutblock,Layoutblock
+"You deleted the Layoutblock.","You deleted the Layoutblock."
+"We can't find a Layoutblock to delete.","We can't find a Layoutblock to delete."
+"This Layoutblock no longer exists.","This Layoutblock no longer exists."
+"Edit Layoutblock","Edit Layoutblock"
+"New Layoutblock","New Layoutblock"
+Layoutblocks,Layoutblocks
+"Edit Layoutblock %1","Edit Layoutblock %1"
+LayoutBlock,LayoutBlock
+"You saved the Layoutblock.","You saved the Layoutblock."
+"Something went wrong while saving the Layoutblock.","Something went wrong while saving the Layoutblock."
+Layoutblockopentype,Layoutblockopentype
+"You deleted the Layoutblockopentype.","You deleted the Layoutblockopentype."
+"We can't find a Layoutblockopentype to delete.","We can't find a Layoutblockopentype to delete."
+"This Layoutblockopentype no longer exists.","This Layoutblockopentype no longer exists."
+"Edit Layoutblockopentype","Edit Layoutblockopentype"
+"New Layoutblockopentype","New Layoutblockopentype"
+Layoutblockopentypes,Layoutblockopentypes
+"Edit Layoutblockopentype %1","Edit Layoutblockopentype %1"
+LayoutBlockOpenType,LayoutBlockOpenType
+"You saved the Layoutblockopentype.","You saved the Layoutblockopentype."
+"Something went wrong while saving the Layoutblockopentype.","Something went wrong while saving the Layoutblockopentype."
+Layoutrestriction,Layoutrestriction
+"You deleted the Layoutrestriction.","You deleted the Layoutrestriction."
+"We can't find a Layoutrestriction to delete.","We can't find a Layoutrestriction to delete."
+"This Layoutrestriction no longer exists.","This Layoutrestriction no longer exists."
+"Edit Layoutrestriction","Edit Layoutrestriction"
+"New Layoutrestriction","New Layoutrestriction"
+Layoutrestrictions,Layoutrestrictions
+"Edit Layoutrestriction %1","Edit Layoutrestriction %1"
+LayoutRestriction,LayoutRestriction
+"You saved the Layoutrestriction.","You saved the Layoutrestriction."
+"Something went wrong while saving the Layoutrestriction.","Something went wrong while saving the Layoutrestriction."
+Layoutrestrictionoption,Layoutrestrictionoption
+"You deleted the Layoutrestrictionoption.","You deleted the Layoutrestrictionoption."
+"We can't find a Layoutrestrictionoption to delete.","We can't find a Layoutrestrictionoption to delete."
+"This Layoutrestrictionoption no longer exists.","This Layoutrestrictionoption no longer exists."
+"Edit Layoutrestrictionoption","Edit Layoutrestrictionoption"
+"New Layoutrestrictionoption","New Layoutrestrictionoption"
+Layoutrestrictionoptions,Layoutrestrictionoptions
+"Edit Layoutrestrictionoption %1","Edit Layoutrestrictionoption %1"
+LayoutRestrictionOption,LayoutRestrictionOption
+"You saved the Layoutrestrictionoption.","You saved the Layoutrestrictionoption."
+"Something went wrong while saving the Layoutrestrictionoption.","Something went wrong while saving the Layoutrestrictionoption."
+Layoutstore,Layoutstore
+"You deleted the Layoutstore.","You deleted the Layoutstore."
+"We can't find a Layoutstore to delete.","We can't find a Layoutstore to delete."
+"This Layoutstore no longer exists.","This Layoutstore no longer exists."
+"Edit Layoutstore","Edit Layoutstore"
+"New Layoutstore","New Layoutstore"
+Layoutstores,Layoutstores
+"Edit Layoutstore %1","Edit Layoutstore %1"
+LayoutStore,LayoutStore
+"You saved the Layoutstore.","You saved the Layoutstore."
+"Something went wrong while saving the Layoutstore.","Something went wrong while saving the Layoutstore."
+Active,Active
+Inactive,Inactive
+"Could not save the layoutBlockOpenType: %1","Could not save the layoutBlockOpenType: %1"
+"LayoutBlockOpenType with id ""%1"" does not exist.","LayoutBlockOpenType with id ""%1"" does not exist."
+"Could not delete the LayoutBlockOpenType: %1","Could not delete the LayoutBlockOpenType: %1"
+"Could not save the layoutBlock: %1","Could not save the layoutBlock: %1"
+"LayoutBlock with id ""%1"" does not exist.","LayoutBlock with id ""%1"" does not exist."
+"Could not delete the LayoutBlock: %1","Could not delete the LayoutBlock: %1"
+"Could not save the layout: %1","Could not save the layout: %1"
+"Layout with id ""%1"" does not exist.","Layout with id ""%1"" does not exist."
+"Could not delete the Layout: %1","Could not delete the Layout: %1"
+"Could not save the layoutRestrictionOption: %1","Could not save the layoutRestrictionOption: %1"
+"LayoutRestrictionOption with id ""%1"" does not exist.","LayoutRestrictionOption with id ""%1"" does not exist."
+"Could not delete the LayoutRestrictionOption: %1","Could not delete the LayoutRestrictionOption: %1"
+"Could not save the layoutRestriction: %1","Could not save the layoutRestriction: %1"
+"LayoutRestriction with id ""%1"" does not exist.","LayoutRestriction with id ""%1"" does not exist."
+"Could not delete the LayoutRestriction: %1","Could not delete the LayoutRestriction: %1"
+"Could not save the layoutStore: %1","Could not save the layoutStore: %1"
+"LayoutStore with id ""%1"" does not exist.","LayoutStore with id ""%1"" does not exist."
+"Could not delete the LayoutStore: %1","Could not delete the LayoutStore: %1"
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.identifier }""","Delete ""${ $.$data.identifier }"""
+"Are you sure you wan't to delete a ""${ $.$data.identifier }"" record?","Are you sure you wan't to delete a ""${ $.$data.identifier }"" record?"
+Duplicate,Duplicate
+"Delete ""${ $.$data.title }""","Delete ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Are you sure you wan't to delete a ""${ $.$data.title }"" record?"
+Preview,Preview
+"Edit Layout Blocks","Edit Layout Blocks"
+belvg,belvg
+"Layout Customizer","Layout Customizer"
+General,General
+"Overall height attribute","Overall height attribute"
+"Overall width attribute","Overall width attribute"
+"Sections sizes attribute","Sections sizes attribute"
+"General Information","General Information"
+"Layout Data","Layout Data"
+identifier,identifier
+Material,Material
+"Family ID","Family ID"
+height,height
+width,width
+horizontal_frame,horizontal_frame
+vertical_frame,vertical_frame
+sqm_level_step2,sqm_level_step2
+base_price,base_price
+sqm_price,sqm_price
+sqm_price_step2,sqm_price_step2
+is_active,is_active
+"Family (associated layouts)","Family (associated layouts)"
+"Add new Layout","Add new Layout"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+ID,ID
+layout_id,layout_id
+id_parent,id_parent
+sort_order,sort_order
+min_height,min_height
+max_height,max_height
+min_width,min_width
+max_width,max_width
+is_size_modified_x,is_size_modified_x
+is_size_modified_y,is_size_modified_y
+can_open,can_open
+layoutblockopentype_id,layoutblockopentype_id
+is_footer,is_footer
+color,color
+is_crossbar,is_crossbar
+crossbar_frame_width,crossbar_frame_width
+cols,cols
+rows,rows
+is_door,is_door
+is_chamfer,is_chamfer
+is_free,is_free
+free_x,free_x
+free_y,free_y
+img_pattern,img_pattern
+border_top,border_top
+border_right,border_right
+border_bottom,border_bottom
+border_left,border_left
+type,type
+circle_radius,circle_radius
+circle_angle,circle_angle
+triangle_A_angle,triangle_A_angle
+triangle_A_angle_is_modified,triangle_A_angle_is_modified
+triangle_B_angle,triangle_B_angle
+triangle_B_angle_is_modified,triangle_B_angle_is_modified
+triangle_C_angle,triangle_C_angle
+triangle_C_angle_is_modified,triangle_C_angle_is_modified
+block_id_top,block_id_top
+block_id_right,block_id_right
+block_id_bottom,block_id_bottom
+block_id_left,block_id_left
+"Add new LayoutBlock","Add new LayoutBlock"
+is_indoor,is_indoor
+is_sliding,is_sliding
+to_right,to_right
+to_left,to_left
+to_top,to_top
+to_bottom,to_bottom
+"Add new LayoutBlockOpenType","Add new LayoutBlockOpenType"
+layoutblock_id,layoutblock_id
+option_type_id,option_type_id
+is_available,is_available
+err_msg,err_msg
+"Add new LayoutRestriction","Add new LayoutRestriction"
+key,key
+value,value
+"Add new LayoutRestrictionOption","Add new LayoutRestrictionOption"
+store_id,store_id
+"Add new LayoutStore","Add new LayoutStore"
+"BelVG Layout","BelVG Layout"

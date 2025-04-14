@@ -1,0 +1,21 @@
+<script>
+    require([
+        'jquery',
+        'uiRegistry',
+        'BelVG_LayoutCustomizer/js/catalog/product/price-qty-multiplier'
+    ], function($, registry, qtyMultiplier) {
+        let optionBase = registry.get('mageworxOptionBase'),
+            order = 2300,
+            config = <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>;
+        if (optionBase) {
+            optionBase.addUpdater(order, qtyMultiplier(config));
+        } else {
+            var updaters = registry.get('mageworxOptionUpdaters');
+            if (!updaters) {
+                updaters = {};
+            }
+            updaters[order] = qtyMultiplier(config);
+            registry.set('mageworxOptionUpdaters', updaters);
+        }
+    });
+</script>

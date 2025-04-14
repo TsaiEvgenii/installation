@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="BelVG\LayoutCustomizer\Ui\DataProvider\Layout\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="model_data" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\LayoutCustomizer\Ui\DataProvider\Layout\Form\Modifier\ModelData</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="block_json" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\LayoutCustomizer\Ui\DataProvider\Layout\Form\Modifier\BlockJson</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\LayoutCustomizer\Model\DataProvider\Layout\Form\LayoutDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">BelVG\LayoutCustomizer\Ui\DataProvider\Layout\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="belvg_layout" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\LayoutCustomizer\Ui\DataProvider\Product\Form\Modifier\BelVGLayout</item>
+                    <item name="sortOrder" xsi:type="number">250</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="material_select" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider\Modifier\MaterialSelect</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="layout_select" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider\Modifier\LayoutSelect</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="belvg_layout" xsi:type="object">BelVG\LayoutCustomizer\Ui\DataProvider\Product\Grid\AddBelVGLayoutFieldToCollection</item>
+            </argument>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="belvg_layout" xsi:type="object">BelVG\LayoutCustomizer\Ui\DataProvider\Product\Grid\AddBelVGLayoutFilterToCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- All prices should be without Tax [https://app.asana.com/0/1177395662263354/1177969533611915] -->
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="belvg_layoutcustomizer_option_value_price_add_tax" disabled="true" />
+    </type>
+
+    <!-- Layout customizer currency conversions [https://app.asana.com/0/1177395662263354/1197504336481685/f] -->
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="belvg_layoutcustomizer_option_value_price_convert_currency" disabled="true" />
+    </type>
+</config>

@@ -1,0 +1,68 @@
+<?php
+/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var $escaper \Magento\Framework\Escaper */
+/** @var $thumbnailViewModel \BelVG\LayoutCustomizer\ViewModel\Thumbnail */
+$thumbnailViewModel = $block->getData('thumbnail_view_model');
+$thumbnail = $thumbnailViewModel->getThumbnail($block->getProduct());
+
+?>
+<div class="label">
+    <p class="title-cont">
+        <span class="title">
+            <?php echo __('Frame dimensions') ?>:
+        </span>
+        <span class="option-description-text"
+              data-mage-init='{"BelVG_LayoutCustomizer/js/action/update-dimensions-label": {} }'>
+        </span>
+    </p>
+    <div class="thumbnail">
+        <img class="ls-is-cached before-lazyload" height="65" width="65" data-src="<?= $escaper->escapeUrl($thumbnail) ?>">
+    </div>
+</div>
+<div class="control frame-dimensions-option" style="display: none;">
+    <button class="close-modal">&nbsp;</button>
+    <span class="title"><?php echo __('Frame dimensions') ?></span>
+    <p class="desc">
+        <?php echo __('This drawing is indicative and seen from the outside.'); ?><br/>
+        <?php echo __('All measurements are frame measurements.'); ?>
+    </p>
+    <?= /* @escapeNotVerified */ $block->getChildHtml('option.product.customizer') ?>
+    <input type="hidden" name="estimated_delivery_time" value="" />
+    <div class="dimensions-wrapper">
+        <div class="field width dimensions">
+            <label class="label" for="width"><span><?= $escaper->escapeHtml(__('$width')) ?></span></label>
+            <div class="control dimensions with-icon">
+                <span class="icon width"></span>
+                <input type="text"
+                       name="width"
+                       id="width"
+                       value=""
+                       title="<?= $escaper->escapeHtml(__('$width')) ?>"
+                />
+                <span class="unit"><?= $escaper->escapeHtml(__('cm')) ?></span>
+            </div>
+            <p class="conditions">
+                <span class="min"><?= $escaper->escapeHtml(__('Min')) ?> <em>-</em></span> / <span class="max"><?= $escaper->escapeHtml(__('Max')) ?> <em>-</em></span>
+            </p>
+            <?= /* @escapeNotVerified */ $block->getChildHtml('product.customizer.restrictions.width.after') ?>
+        </div>
+        <span class="delimiter">x</span>
+        <div class="field height dimensions">
+            <label class="label" for="height"><span><?= $escaper->escapeHtml(__('$height')) ?></span></label>
+            <div class="control dimensions with-icon">
+                <span class="icon height"></span>
+                <input type="text"
+                       name="height"
+                       id="height"
+                       value=""
+                       title="<?= $escaper->escapeHtml(__('$height')) ?>"
+                />
+                <span class="unit"><?= $escaper->escapeHtml(__('cm')) ?></span>
+            </div>
+            <p class="conditions">
+                <span class="min"><?= $escaper->escapeHtml(__('Min')) ?> <em>-</em></span> / <span class="max"><?= $escaper->escapeHtml(__('Max')) ?> <em>-</em></span>
+            </p>
+            <?= /* @escapeNotVerified */ $block->getChildHtml('product.customizer.restrictions.height.after') ?>
+        </div>
+    </div>
+</div>

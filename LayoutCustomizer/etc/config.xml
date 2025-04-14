@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<layout_customizer>
+			<general>
+				<overall_height_attribute/>
+				<overall_width_attribute/>
+				<sections_sizes_attribute/>
+				<base_currency><![CDATA[DKK]]></base_currency>
+			</general>
+		</layout_customizer>
+	</default>
+</config>

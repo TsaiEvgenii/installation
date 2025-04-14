@@ -1,0 +1,17 @@
+<?php /** @var BelVG\LayoutCustomizer\Block\Product\View\Customizer $block */ ?>
+<?php
+$config  = array_merge(
+    $block->getCustomizerConfig(), [
+        'toolbarSelector' => '#belvg-layout-customizer-toolbar'
+    ]
+);
+?>
+
+<aside id="product-customizer" class="product-viewer-2d"></aside>
+<script type="text/x-magento-init">
+{
+    "#product-customizer": {
+        "BelVG_LayoutCustomizer/js/catalog/product/customizer": <?php echo json_encode($config) ?>
+    }
+}
+</script>

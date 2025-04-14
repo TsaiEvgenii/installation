@@ -1,0 +1,32 @@
+<?php
+/**
+ * override of the file: app/code/MageWorx/OptionBase/view/frontend/templates/catalog/product/options.phtml
+ */
+?>
+<?php
+/** @var \MageWorx\OptionBase\Block\Product\View\Options $block */
+
+/** @var \BelVG\LayoutCustomizer\ViewModel\Config $layoutExtendedConfig */
+$layoutExtendedConfig = $block->getLayoutExtendedConfig();
+?>
+<?php if (count($block->getOptions())) :?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "optionBase": {
+                    "optionConfig": <?php echo $block->getJsonConfig()?>,
+                    "productConfig": <?php echo $block->getProductJsonConfig()?>,
+                    "localePriceFormat": <?php echo $block->getLocalePriceFormat()?>,
+                    "productFinalPriceExclTax": <?php echo $block->getProductFinalPrice(false)?>,
+                    "productRegularPriceExclTax": <?php echo $block->getProductRegularPrice(false)?>,
+                    "productFinalPriceInclTax": <?php echo $block->getProductFinalPrice(true)?>,
+                    "productRegularPriceInclTax": <?php echo $block->getProductRegularPrice(true)?>,
+                    "priceDisplayMode": "<?php echo $block->getPriceDisplayMode()?>",
+                    "catalogPriceContainsTax": "<?php echo $block->getCatalogPriceContainsTax()?>",
+                    "extendedOptionsConfig": <?php echo $block->getExtendedOptionsConfig()?>,
+                    "optionSizesConfig": <?php echo $layoutExtendedConfig->getConfigBlock()->getJsonData() ?> <?php //override reason ?>
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

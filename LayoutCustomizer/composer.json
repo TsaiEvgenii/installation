@@ -1,0 +1,22 @@
+{
+    "name": "belvg/module-layoutcustomizer",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "alexandr.simonchik@gmail.com",
+            "name": "BelVG"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "BelVG\\LayoutCustomizer\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

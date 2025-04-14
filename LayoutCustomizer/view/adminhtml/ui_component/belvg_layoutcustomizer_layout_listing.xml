@@ -1,0 +1,281 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>belvg_layoutcustomizer_layout_columns</spinner>
+		<deps>
+			<dep>belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Layout</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="belvg_layoutcustomizer_layout_listing_data_source">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">layout_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>BelVG_LayoutCustomizer::Layout</aclResource>
+		<dataProvider class="BelVG\LayoutCustomizer\Ui\DataProvider\Layout\LayoutDataProvider" name="belvg_layoutcustomizer_layout_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>layout_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+		<massaction name="listing_massaction">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+				</item>
+			</argument>
+			<action name="delete">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="confirm" xsi:type="array">
+							<item name="title" xsi:type="string" translate="true">Delete items</item>
+							<item name="message" xsi:type="string" translate="true">Delete selected items?</item>
+						</item>
+						<item name="type" xsi:type="string">delete</item>
+						<item name="label" xsi:type="string" translate="true">Delete</item>
+						<item name="url" xsi:type="url" path="*/*/massDelete"/>
+					</item>
+				</argument>
+			</action>
+		</massaction>
+	</listingToolbar>
+	<columns name="belvg_layoutcustomizer_layout_columns" class="BelVG\LayoutCustomizer\Ui\Component\Listing\LayoutColumns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">layout_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" path="belvg_layoutcustomizer/Layout/inlineEdit" xsi:type="url"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_listing.belvg_layoutcustomizer_layout_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>layout_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="layout_id">
+			<settings>
+				<filter>textRange</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="identifier">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">identifier</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="material">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Material</label>
+			</settings>
+		</column>
+		<column name="family_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Family ID</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="height">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">height</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="width">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">width</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="horizontal_frame">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">horizontal_frame</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="vertical_frame">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">vertical_frame</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="base_price">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">base_price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="sqm_price">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">sqm_price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="sqm_level_step2">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">sqm_level_step2</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="sqm_price_step2">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">sqm_price_step2</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="inoutcolor_price_both_diff">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Both diff price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="inoutcolor_price_both_same">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Both same price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="inoutcolor_price_inside_otherwhite">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Inside otherwhite price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="inoutcolor_price_outside_otherwhite">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Outside otherwhite price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<actionsColumn class="BelVG\LayoutCustomizer\Ui\Component\Listing\Column\LayoutActions" name="actions">
+			<settings>
+				<indexField>layout_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>
