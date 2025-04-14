@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="BelVG_MageWorxOptionServerSideRender">
+        <sequence>
+            <module name="BelVG_LayoutOptionPriceType"/>
+            <module name="Magento_Catalog"/>
+            <module name="BelVG_MageWorxOptionFeatures"/>
+            <module name="BelVG_SalesDynamicRule"/>
+            <module name="BelVG_ProductPriceDisplay"/>
+            <module name="BelVG_MageWorxOptionTemplates"/>
+            <module name="BelVG_InsideOutsideColorPrice"/>
+            <module name="BelVG_MageWorxUrls"/>
+            <module name="BelVG_SaleCountdown"/>
+            <module name="BelVG_RaptorSmartAdvisor"/>
+            <module name="BelVG_LayoutMaterial"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,110 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BelVG\MageWorxOptionServerSideRender\Api\Data\SelectedOptionInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Dto\SelectedOption"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\SelectedRequestOptionInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Service\SelectedRequestOptionService"/>
+    <preference for="BelVG\LayoutOptionPriceType\Override\Magento\Catalog\Block\Product\View\Options\Type\SelectOverride" type="BelVG\MageWorxOptionServerSideRender\Block\Product\View\Options\Type\SelectOverride" />
+    <preference for="BelVG\ProductPriceDisplay\Pricing\Render\Amount" type="BelVG\MageWorxOptionServerSideRender\Model\Pricing\Render\Amount"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\GetProductLayoutInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Service\GetProductLayout"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Api\Data\ColorDescriptionInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Dto\ColorDescription"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\PriceDiscountInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Service\PriceDiscountService"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\ContextInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Context"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Service\CreateBlockServiceInterface" type="BelVG\MageWorxOptionServerSideRender\Model\Service\CreateBlockService"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\ContextFactoryInterface" type="BelVG\MageWorxOptionServerSideRender\Model\ContextFactory"/>
+    <preference for="BelVG\MageWorxOptionServerSideRender\Model\Spi\ContextResolveInterface" type="BelVG\MageWorxOptionServerSideRender\Model\DefaultContextResolve"/>
+    <type name="Magento\Catalog\Block\Product\View\Options\Type\Select">
+        <plugin name="server-size-render" sortOrder="100000" type="BelVG\MageWorxOptionServerSideRender\Plugin\Magento\Catalog\Block\Product\View\Options\Type\SelectOverridePlugin"/>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Plugin\Magento\Catalog\Block\Product\View\Options\Type\SelectOverridePlugin">
+        <arguments>
+            <argument name="resultRenderPipeline" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Model\Service\ResultRenderPipeline</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Block\Option\Type\Radio">
+        <arguments>
+            <argument name="parser" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Model\Service\HtmlProductOptionParserParser</argument>
+        </arguments>
+    </type>
+    <virtualType name="divWrapperOption" type="BelVG\MageWorxOptionServerSideRender\Model\Service\Parser">
+        <arguments>
+            <argument name="path" xsi:type="string">//div</argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions">
+        <arguments>
+            <argument name="parser" xsi:type="object">divWrapperOption</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\EmptyColor">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\DefaultColorProcessor</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\DefaultColorProcessor">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\SameColorNotDefault</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\SameColorNotDefault">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\DifferentColorNotDefault</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\DifferentColorNotDefault">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\InSideDefault</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\InSideDefault">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\OutSideDefault</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\OutSideDefault">
+        <arguments>
+            <argument name="next" xsi:type="string">BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\NotFitStateProcessor</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Helper\Data">
+        <arguments>
+            <argument name="optionPriceCalculator" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Model\Service\CalculateColorPrice</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\CalculateColorPrice">
+        <arguments>
+            <argument name="colorfulWindowType" xsi:type="object">\BelVG\MageWorxOptionServerSideRender\Model\Service\ColorfulWindowType\EmptyColor</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Pricing\Render\FinalPriceBox">
+        <plugin name="cache-plugin-option"  type="BelVG\MageWorxOptionServerSideRender\Plugin\Magento\Catalog\PriceBox\PriceBoxPlugin"/>
+    </type>
+    <type name="BelVG\MageWorxOptionServerSideRender\Block\Option\Type\Text">
+        <arguments>
+            <argument name="parser" xsi:type="object">divWrapperOption</argument>
+        </arguments>
+    </type>
+    <virtualType name="specificationDefaultRender" type="BelVG\MageWorxOptionServerSideRender\Model\RenderSpecification">
+        <arguments>
+            <argument name="additionalRenderAction" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Model\RenderSpecification\AdditionalRenderAction\DummyRenderAction</argument>
+            <argument name="blockName" xsi:type="string">\BelVG\MageWorxOptionServerSideRender\Block\Option\Type\Radio</argument>
+            <argument name="template" xsi:type="string">BelVG_MageWorxOptionServerSideRender::radio_button_template.phtml</argument>
+            <argument name="specification" xsi:type="object">\BelVG\MageWorxOptionServerSideRender\Model\RenderSpecification\TrueSpecification</argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\MageWorxOptionServerSideRender\Model\Service\CreateBlockService">
+        <arguments>
+            <argument name="defaultSpecification" xsi:type="object">specificationDefaultRender</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxSpecialColor\Model\Service\Renderer\AfterTitle\SpecialColorRenderer">
+        <plugin name="add-selected-option" type="BelVG\MageWorxOptionServerSideRender\Plugin\SpecialColor\Model\Service\SpecialColorRenderPlugin" />
+    </type>
+
+    <type name="BelVG\RaptorSmartAdvisor\Block\Product">
+        <!-- https://youtrack.belvgdev.com/issue/SD-3241/Raptor-Implement-p12-variable -->
+        <plugin name="BelVG_MageWorxOptionServerSideRender::useMWOTPrice"
+                type="BelVG\MageWorxOptionServerSideRender\Plugin\Block\Product\UseMWOTPricePlugin" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Options">
+        <plugin name="BelVG_MageWorxOptionServerSideRender::cache_key_info"
+                type="BelVG\MageWorxOptionServerSideRender\Plugin\Block\Product\View\OptionsPlugin" />
+    </type>
+</config>

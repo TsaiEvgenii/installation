@@ -1,0 +1,56 @@
+<?php
+/**
+ * Override reason: "Hide prices of colors option on product page"
+ * Task: https://app.asana.com/0/1118818755815544/1164411225857961/f
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+use BelVG\MageWorxOptionServerSideRender\Block\Option\Type\SpecialColorOptionWrapperBlock;
+
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */ ?>
+<?php
+$_option = $block->getOption();
+$classes[] = ($_option->getIsRequire()) ? ' required' : '';
+$classes[] = !empty($_option->getInsideOutsideColor()) ? 'color-' . $_option->getInsideOutsideColor() : ''; //add class indicate color
+/**
+ * @var BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions $wrapperBlock
+ */
+$wrapperBlock = $block->getDivWrapperBlock();
+$wrapperBlock->setOption($_option);
+/**
+ * @var SpecialColorOptionWrapperBlock $specialColorBlock
+ */
+$specialColorBlock = $block->getSpecialColorBlock();
+$selectedSpecialColor = $specialColorBlock->getSelectedSpecialColor($_option);
+$specialColorName = $specialColorBlock->getColorName($selectedSpecialColor);
+
+?>
+<div class="field<?= /* @noEscape */ implode(' ', $classes) ?>">
+    <label class="label" for="select_<?= $escaper->escapeHtmlAttr($_option->getId()) ?>">
+        <p class='title-cont'>
+            <span class='title'><em class='title-text'><?= $escaper->escapeHtml($_option->getTitle()) ?></em>
+                <em class='price' attr-price="<?= $escaper->escapeHtmlAttr($wrapperBlock->getValuePrice()); ?>"><?= $escaper->escapeHtml($wrapperBlock->renderValuePrice()) ?></em>
+                </span>
+            <span class='option-description-text'><?= $escaper->escapeHtml($wrapperBlock->getCurrentValue()->getTitle() . '  ' . $specialColorName) ?></span>
+        </p>
+        <?php if ($wrapperBlock->isValid()):?>
+            <div class="thumbnail">
+            <?php if ($selectedSpecialColor->getImg()):?>
+                <img class="ls-is-cached before-lazyload" data-src="<?=$escaper->escapeUrl($specialColorBlock->getImageUrl($selectedSpecialColor)); ?>" />
+            <?php else:?>
+                <div class="special-color-select__thumb" style="background: <?= $selectedSpecialColor->getHex()?>"><span></span></div>
+            <?php endif;?>
+            </div>
+        <?php endif;?>
+    </label>
+    <div class="control ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;">
+        <?= $block->getValuesHtml() ?>
+        <?php if ($_option->getIsRequire()):?>
+            <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_RADIO || $_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_CHECKBOX):?>
+                <span id="options-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>

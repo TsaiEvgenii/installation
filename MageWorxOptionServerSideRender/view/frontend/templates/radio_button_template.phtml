@@ -1,0 +1,25 @@
+<?php
+/**
+ * @package Vinduesgrossisten
+ * @author    artsem.belvg@gmail.com
+ * @copyraight Copyright © 2015 - 2021
+ * @var \BelVG\MageWorxOptionServerSideRender\Block\Option\Type\Radio $block
+ * @var array $images
+ * @var $escaper \Magento\Framework\Escaper
+ * rewrite jquery template @see app/code/BelVG/LazyLoad/view/frontend/web/template/option/gallery/lazy_load_radio.html
+ */
+declare(strict_types=1);
+$images = $block->getImages();
+?>
+<?php if ($block->isValid() && count($images)):?>
+<div class="option_images_gallery">
+<div class="mageworx-optionswatches-option-gallery mageworx-optionswatches-option-gallery-type_radio">
+    <?php foreach ($images as $image):?>
+        <?php if((int)$image['disabled'] === 0):?>
+            <img data-src="<?= $escaper->escapeUrl($image['url']) ?>" alt="<?= $escaper->escapeHtml($image['label']) ?>" class="before-lazyload mageworx-optionswatches-option-gallery_image"/>
+            <button class="search-btn open-popup" type="button"/>
+        <?php endif;?>
+    <?php endforeach;?>
+</div>
+</div>
+<?php endif;?>

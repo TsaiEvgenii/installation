@@ -1,0 +1,18 @@
+<?php
+/**
+ * @package Vinduesgrossisten
+ * @author    artsem.belvg@gmail.com
+ * @copyraight Copyright © 2015 - 2021
+ * @var \BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions $block
+ * @var array $images
+ * @var $escaper \Magento\Framework\Escaper
+ * rewrite jquery template @see app/code/BelVG/LazyLoad/view/frontend/web/template/option/gallery/lazy_load_radio.html
+ */
+declare(strict_types=1);
+$imageData = $block->getImages();
+?>
+<?php if ($block->isValid()):?>
+<div class="thumbnail">
+    <img class="ls-is-cached lazyloaded" data-src="<?=$escaper->escapeUrl($imageData['url']); ?>" />
+</div>
+<?php endif;?>

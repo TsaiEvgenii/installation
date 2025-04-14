@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="belvg_mageworx_side_render" showInDefault="1" showInWebsite="1"  showInStore="0" sortOrder="10" translate="label">
+            <label>Mageworx server side render settings</label>
+            <tab>belvg</tab>
+            <resource>Magento_Backend::admin</resource>
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10" translate="label">
+                <label>General</label>
+                <field id="placeholder" type="image" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system" scope_info="1">mageworx/option/defaults</upload_dir>
+                    <base_url type="media" scope_info="1">mageworx/option/defaults</base_url>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

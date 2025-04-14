@@ -1,0 +1,62 @@
+<?php
+/**
+ * Override reason: "Hide prices of colors option on product page"
+ * Task: https://app.asana.com/0/1118818755815544/1164411225857961/f
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */ ?>
+<?php /* @var $imgHelperVM \BelVG\MageWorxOptionServerSideRender\ViewModel\ImageHelper */ ?>
+<?php
+$_option = $block->getOption();
+$classes[] = ($_option->getIsRequire()) ? ' required' : '';
+$classes[] = !empty($_option->getInsideOutsideColor()) ? 'color-' . $_option->getInsideOutsideColor() : ''; //add class indicate color
+/**
+ * @var BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions $wrapperBlock
+ */
+$wrapperBlock = $block->getDivWrapperBlock();
+$wrapperBlock->setOption($_option);
+$imageData = $wrapperBlock->getImages();
+
+$defaultHeight = 65;
+$defaultWidth = 65;
+$imgHelperVM = $block->getData('img_helper');
+$resizedThumbnail = $imgHelperVM->getResizedThumbnailImg($imageData, $defaultWidth, $defaultHeight);
+
+?>
+
+<div class="field<?= /* @noEscape */ implode(' ', $classes) ?>" <?= $wrapperBlock->isHiddenOption() ? 'style="display: none"': '' ?>>
+    <label class="label" for="select_<?= $escaper->escapeHtmlAttr($_option->getId()) ?>">
+        <p class='title-cont'>
+            <span class='text-wrapper'>
+                <span class="text-title">
+                    <span class='title'>
+                        <?= $escaper->escapeHtml($_option->getTitle()) ?>:
+                    </span>
+                    <span class='option-description-text'><?= $escaper->escapeHtml($wrapperBlock->getCurrentValue()->getTitle()) ?></span>
+                </span>
+            </span>
+            <em class='price' attr-price="<?= $escaper->escapeHtmlAttr($wrapperBlock->getValuePrice()); ?>"><?= $escaper->escapeHtml($wrapperBlock->renderValuePrice()) ?></em>
+        </p>
+        <?php if ($wrapperBlock->isValid() && isset($imageData['url'])):?>
+            <div class="thumbnail">
+                <img class="ls-is-cached before-lazyload"
+                     data-src="<?= $escaper->escapeUrl($resizedThumbnail); ?>"
+                     height="<?= (int)$defaultHeight ?>"
+                     width="<?= (int)$defaultWidth ?>"/>
+            </div>
+        <?php endif;?>
+    </label>
+    <div class="control ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;">
+        <button class="close-modal">&nbsp;</button>
+        <span class="title"><?= $escaper->escapeHtml($_option->getTitle()) ?></span>
+
+        <?= $block->getValuesHtml() ?>
+        <?php if ($_option->getIsRequire()):?>
+            <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_RADIO || $_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_CHECKBOX):?>
+                <span id="options-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>

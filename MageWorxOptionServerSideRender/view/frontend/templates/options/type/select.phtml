@@ -1,0 +1,12 @@
+<?php
+/**
+ * Override reason: "Hide prices of colors option on product page"
+ * Task: https://app.asana.com/0/1118818755815544/1164411225857961/f
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */ ?>
+<?php
+echo $block->toHtml()
+?>

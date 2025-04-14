@@ -1,0 +1,18 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+       <referenceBlock name="catalog.produt.view.select.option.renders" >
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" name="catalog.produt.view.select.option.renders.default" as="option.select.default" template="BelVG_MageWorxOptionServerSideRender::options/type/select_option.phtml">
+                <arguments>
+                    <argument name="div_wrapper_block" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions</argument>
+                    <argument name="img_helper" xsi:type="object">BelVG\MageWorxOptionServerSideRender\ViewModel\ImageHelper</argument>
+                </arguments>
+            </block>
+           <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" name="catalog.produt.view.select.option.renders.select.special_color" as="option.select.special_color" template="BelVG_MageWorxOptionServerSideRender::options/type/select_option_special_color.phtml">
+               <arguments>
+                   <argument name="div_wrapper_block" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Block\Option\Type\WrapperDivAroundOptions</argument>
+                   <argument name="special_color_block" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Block\Option\Type\SpecialColorOptionWrapperBlock</argument>
+               </arguments>
+           </block>
+       </referenceBlock>
+    </body>
+</page>

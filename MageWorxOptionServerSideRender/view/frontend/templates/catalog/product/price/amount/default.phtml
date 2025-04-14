@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php /** @var $block \Magento\Framework\Pricing\Render\Amount */ ?>
+
+<span class="price-container <?= $block->escapeHtmlAttr($block->getAdjustmentCssClasses()) ?>"
+<?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+    <?php if ($block->getDisplayLabel()):?>
+        <span class="price-label"><?= $block->escapeHtml($block->getDisplayLabel()) ?></span>
+    <?php endif; ?>
+    <span <?php if ($block->getPriceId()):?> id="<?= $block->escapeHtmlAttr($block->getPriceId()) ?>"<?php endif;?>
+        <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->escapeHtmlAttr($block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes()) . '"' : '' ?>
+        data-price-amount="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>"
+        data-price-type="<?= $block->escapeHtmlAttr($block->getPriceType()) ?>"
+        class="price-wrapper <?= $block->escapeHtmlAttr($block->getPriceWrapperCss()) ?>"
+    ><span class="price" attr-price="<?= $block->escapeHtmlAttr($block->getDisplayValueWithoutDiscont()) ?>"><?= $block->escapeHtml($block->formatCurrency($block->getDisplayValue(), false), ['span']) ?></span></span>
+    <?php if ($block->hasAdjustmentsHtml()):?>
+        <?= $block->getAdjustmentsHtml() ?>
+    <?php endif; ?>
+    <?php if ($block->getSchema()):?>
+        <?php //Override reason: change itemprop?>
+        <meta itemprop="price" content="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>" />
+        <meta itemprop="priceCurrency" content="<?= $block->escapeHtmlAttr($block->getDisplayCurrencyCode()) ?>" />
+        <meta itemprop="product:price:amount" content="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>" />
+        <meta itemprop="product:price:currency" content="<?= $block->escapeHtmlAttr($block->getDisplayCurrencyCode()) ?>" />
+        <?php if ($priceValidUntil = $block->getPriceValidUntil()): ?>
+            <meta itemprop="priceValidUntil" content="<?= $block->escapeHtmlAttr($priceValidUntil) ?>" />
+        <?php endif; ?>
+        <meta itemprop="availability" content="PreOrder" />
+        <?php //Override reason: [End]?>
+    <?php endif; ?>
+</span>

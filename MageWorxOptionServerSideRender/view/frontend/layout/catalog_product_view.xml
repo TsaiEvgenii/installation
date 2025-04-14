@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */S
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalog_product_view_option_renders"/>
+
+    <body>
+        <referenceBlock name="product.info.options.wrapper">
+        <referenceBlock  name="product.info.options" >
+            <arguments>
+                    <argument name="cache_lifetime" xsi:type="number">3600</argument>
+            </arguments>
+            <referenceBlock
+                   name="mageworx.option.features"
+                   template="BelVG_MageWorxOptionServerSideRender::catalog/product/options.phtml"/>
+        </referenceBlock>
+        </referenceBlock>
+        <referenceContainer name="product.info.form.options">
+            <referenceBlock name="product.info.options.select" class="BelVG\MageWorxOptionServerSideRender\Block\Product\View\Options\Type\Select" template="BelVG_MageWorxOptionServerSideRender::options/type/select.phtml">
+                <block class="BelVG\MageWorxOptionServerSideRender\Block\Product\View\Options\Label\RenderSelectList" name="catalog.produt.view.select.option.renders" as="option_render_list"/>
+            </referenceBlock>
+            <referenceBlock name="product.info.options.text" template="BelVG_MageWorxOptionServerSideRender::options/type/text.phtml">
+                <arguments>
+                    <argument name="div_wrapper_block" xsi:type="object">BelVG\MageWorxOptionServerSideRender\Block\Option\Type\Text</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="product.customizer" template="BelVG_MageWorxOptionServerSideRender::catalog/product/view/customizer.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
