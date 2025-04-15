@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BelVG\MageWorxOptionMadeInDenmark\Api\Data\MadeInDenmarkOptionTypePriceInterface"
+                type="BelVG\MageWorxOptionMadeInDenmark\Model\Data\MadeInDenmarkOptionTypePrice"/>
+    <type name="BelVG\MageWorxGroupProductCsv\Model\DataAdapter\AbstractPriceOptionDataAdapter">
+        <arguments>
+            <argument name="priceOptionDataAdapterProcessors" xsi:type="array">
+                <item name="storeMadeInDenmarkPrice" xsi:type="object" sortOrder="30">BelVG\MageWorxOptionMadeInDenmark\Model\DataAdapter\StoreProcessorMadeInDenmarkPrice</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxGroupProductCsv\Model\DataAdapter\AssignedRowRetrieveDataStrategyPool">
+        <arguments>
+            <argument name="assignedRowRetrieveDataStrategies" xsi:type="array">
+                <item name="made_in_denmark_price" xsi:type="object" sortOrder="300">BelVG\MageWorxOptionMadeInDenmark\Model\DataAdapter\AssignedRowRetrieveDataMadeInDenmarkPrice</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxGroupProductCsv\Model\Import\PriceImport">
+        <plugin name="BelVG_MageWorxOptionMadeInDenmark::import_made_in_denmark_prices"
+                type="BelVG\MageWorxOptionMadeInDenmark\Plugin\Model\Import\PriceImport\MadeInDenmarkPriceImport"/>
+    </type>
+    <type name="\BelVG\MageWorxGroupProductCsv\Model\Import\SqlProcessorManager">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="made-in-denmark_option-type-price" xsi:type="object">BelVG\MageWorxOptionMadeInDenmark\Model\Import\SqlProcessor\MadeInDenmarkOptionPriceProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageWorx\OptionBase\Model\Product\Option\Value\Attributes">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="made_in_denmark_price" xsi:type="object">BelVG\MageWorxOptionMadeInDenmark\Model\Attribute\OptionValue\MadeInDenmarkPrice</item>
+                <item name="mageworx_option_type_made_in_denmark_price" xsi:type="object">BelVG\MageWorxOptionMadeInDenmark\Model\Attribute\OptionValue\MageworxOptionTypeMadeInDenmarkPrice</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxGroupProductCsv\Model\ResourceModel\Collection\PriceOptionCollection">
+        <plugin name="BelVG_MageWorxOptionMadeInDenmark::add_made_in_denmark_price_value_to_export"
+                type="BelVG\MageWorxOptionMadeInDenmark\Plugin\Model\ResourceModel\Collection\PriceOptionCollection\AddMadeInDenmarkPriceValue"/>
+    </type>
+    <type name="MageWorx\OptionTemplates\Model\ResourceModel\Group\Option\Value\Collection">
+        <plugin name="BelVG_MageWorxOptionMadeInDenmark::retrive_made_in_denmark_price"
+                type="BelVG\MageWorxOptionMadeInDenmark\Plugin\Model\ResourceModel\Group\Option\Value\Collection\RetrieveMadeInDenmarkPrice"/>
+    </type>
+    <type name="BelVG\MageWorxOptionTemplates\Model\OptionSaver">
+        <plugin name="BelVG_MageWorxOptionMadeInDenmark::replace_price_with_made_in_denmark_price"
+                type="BelVG\MageWorxOptionMadeInDenmark\Plugin\Model\OptionSaver\ReplacePriceWithMadeInDenmarkPrice"/>
+    </type>
+    <type name="MageWorx\OptionBase\Model\Product\Option\Value\CollectionUpdaters">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="option_type_made_in_denmark_price" xsi:type="object">BelVG\MageWorxOptionMadeInDenmark\Model\CollectionUpdater\Value\MadeInDenmarkPrice</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MageWorxCollectionUpdaterFix\Model\ResourceModel\CollectionUpdater\Value">
+        <arguments>
+            <argument name="updaterListMap" xsi:type="array">
+                <item name="disabled_in_frontend" xsi:type="array">
+                    <item name="made-in-denmark-price" xsi:type="string">BelVG\MageWorxOptionMadeInDenmark\Model\CollectionUpdater\Value\MadeInDenmarkPrice</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

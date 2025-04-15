@@ -1,0 +1,33 @@
+{
+    "mageworx_optiontemplates_group_option_made_in_denmark_price": {
+        "column": {
+            "option_price_id": true,
+            "option_id": true,
+            "store_id": true,
+            "price": true,
+            "price_type": true
+        },
+        "index": {
+            "MAGEWORX_OPTIONTEMPLATES_GROUP_OPTION_MADE_IN_DENMARK_PRICE_OPTION_PRICE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageworx_optiontemplates_group_option_type_made_in_denmark_price": {
+        "column": {
+            "option_type_price_id": true,
+            "option_type_id": true,
+            "factory_id": true,
+            "store_id": true,
+            "price": true,
+            "price_type": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_19BE192FE4C69D36EB142DFE9140E0E1": true,
+            "FK_1AABB121CE5477812B7DC2D5600B2CB5": true,
+            "UNQ_A1025EED67BE98772ECF29704E57E64A": true
+        }
+    }
+}

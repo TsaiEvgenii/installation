@@ -1,0 +1,21 @@
+{
+  "name": "belvg/module-mage-worx-option-made-in-denmark",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "mageworx/module-optiontemplates": "2.5.*"
+  },
+  "license": [
+    ""
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "BelVG\\MageWorxOptionMadeInDenmark\\": ""
+    }
+  }
+}

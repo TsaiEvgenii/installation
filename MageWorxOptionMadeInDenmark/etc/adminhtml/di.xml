@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="mageworx-option-factory-price" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        BelVG\MageWorxOptionMadeInDenmark\Ui\DataProvider\Product\Form\Modifier\MadeInDenmarkPrice
+                    </item>
+                    <item name="sortOrder" xsi:type="number">72</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MageWorx\OptionTemplates\Model\Group\Option\Value">
+        <plugin name="BelVG_MageWorxOptionMadeInDenmark::save_made_in_denmark_price"
+                type="BelVG\MageWorxOptionMadeInDenmark\Plugin\Model\Group\Option\Value\SaveMadeInDenmarkPrice"/>
+    </type>
+
+    <virtualType name="MageWorx\OptionTemplates\Ui\DataProvider\Group\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="made_in_denmark_price_option_value" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\MageWorxOptionMadeInDenmark\Ui\DataProvider\Group\Form\Modifier\MadeInDenmarkPriceOptionValue</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

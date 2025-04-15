@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="BelVG_MageWorxOptionMadeInDenmark">
+        <sequence>
+            <module name="MageWorx_OptionTemplates"/>
+            <module name="BelVG_MadeInDenmark"/>
+            <module name="BelVG_MageWorxLayoutApi"/>
+        </sequence>
+    </module>
+</config>

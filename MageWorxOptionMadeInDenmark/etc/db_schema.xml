@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023.
+  -->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mageworx_optiontemplates_group_option_type_made_in_denmark_price" resource="default" engine="innodb"
+           comment="Made in Denmark price">
+        <column xsi:type="int" name="option_type_price_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="option_type_id" default="0" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="smallint" name="store_id" default="0" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="decimal" name="price" unsigned="true" nullable="false" default="0.0000" scale="4" precision="12"/>
+        <column xsi:type="varchar" name="price_type" nullable="false" length="7" default="fixed"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="option_type_price_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_E010997EE11AF5C7B430DCC11FBD375C"
+                    table="mageworx_optiontemplates_group_option_type_made_in_denmark_price"
+                    column="store_id"
+                    referenceTable="store"
+                    referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="UNQ_7059E20853D73B85145E0A92DC1F0C59">
+            <column name="option_type_id"/>
+            <column name="store_id"/>
+        </constraint>
+    </table>
+</schema>
