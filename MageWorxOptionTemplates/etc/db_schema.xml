@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Log -->
+    <table name="belvg_option_templates_log" resource="default" engine="innodb" comment="Log">
+        <column xsi:type="int" name="item_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Log item ID" />
+        <column xsi:type="varchar" name="event_type" length="64" nullable="false" comment="Event Type" />
+        <column xsi:type="int" name="group_id" padding="10" nullable="false" unsigned="true" comment="Option Template Id" />
+        <column xsi:type="varchar" name="product_ids" length="64" nullable="true" comment="Failed products from queue" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" />
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation time" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="item_id" />
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="STORE_ID"
+                    table="belvg_option_templates_log" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE" />
+    </table>
+</schema>

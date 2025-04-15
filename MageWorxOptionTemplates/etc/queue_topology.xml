@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="option-template-save" type="topic" connection="amqp">
+        <binding id="updateBinding" topic="option_templates.save" destinationType="queue" destination="option_templates.save"/>
+    </exchange>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  ~ * @package Vinduesgrossisten
+  ~  * @author  Tsai<tsai.evgenii@belvg.com>
+  ~  * @Copyright
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="belvg_mageworx_option_templates_update" showInDefault="1" sortOrder="10" translate="label" showInWebsite="1" showInStore="1">
+            <label>MageWorx Option Templates Update</label>
+            <tab>belvg</tab>
+            <resource>MageWorx_OptionTemplates::options</resource>
+            <group id="general" showInDefault="1" sortOrder="10" translate="label" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="csv_file"
+                       translate="label"
+                       type="Magento\Config\Block\System\Config\Form\Field\File"
+                       sortOrder="4"
+                       showInDefault="1">
+                    <label>Import file</label>
+                    <comment>Upload CSV Import file, use comma as a delimiter</comment>
+                    <backend_model>BelVG\MageWorxOptionTemplates\Model\Config\Backend\CsvFileType</backend_model>
+                    <upload_dir config="system" scope_info="1">MageWorxOptionTemplatesUpdateFile</upload_dir>
+                </field>
+                <field id="product_edit_options" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable edit options on product on page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

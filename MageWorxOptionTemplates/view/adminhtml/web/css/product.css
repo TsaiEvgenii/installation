@@ -1,0 +1,15 @@
+/*
+ * @package Vinduesgrossisten
+ * @author Stelmakov <stelmakov@belvg.com>
+ * @Copyright
+ */
+
+.admin__field[data-index="hide_options_container"]{
+    position: absolute;
+    width:100%;
+    bottom:-30px;
+    top:-50px;
+    left:30px;
+    z-index: 600;
+    background: rgba(255, 255, 255, 0.5);
+}

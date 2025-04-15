@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <!-- Module for split saving of mageworx option template into batches with queue implementation
+    because of 502 error(may be caused by mysql timeout, memory limit, etc) -->
+    <module name="BelVG_MageWorxOptionTemplates" setup_version="1.0.6">
+        <sequence>
+            <module name="MageWorx_OptionTemplates"/>
+        </sequence>
+    </module>
+</config>

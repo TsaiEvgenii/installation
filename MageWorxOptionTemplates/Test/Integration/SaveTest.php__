@@ -1,0 +1,70 @@
+<?php
+/**
+ * SaveTest
+ * @package BELVG
+ * @author    artsem.belvg@gmai.com
+ * @copyright Copyright © 2012 - 2020
+ */
+
+namespace BelVG\MageWorxOptionTemplates\Test\Integration;
+
+
+use Magento\AdvancedPricingImportExport\Model\Export\AdvancedPricing as ExportAdvancedPricing;
+use Magento\Framework\Filesystem;
+use Magento\TestFramework\Db\Mysql;
+use Magento\TestFramework\Helper\Bootstrap;
+
+class SaveTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * @var \Magento\Framework\ObjectManagerInterface
+     */
+    private $objectManager;
+
+    public static function setUpBeforeClass()
+    {
+//        $dbInstance = self::getDbInstance();
+        parent::setUpBeforeClass();
+    }
+
+    protected static function getDbInstance()
+    {
+        $application = Bootstrap::getInstance()
+            ->getBootstrap()
+            ->getApplication();
+        $dbConfigFile = include $GLOBALS["installConfigFile"];
+        $host = $dbConfigFile['db-host'];
+        $user = $dbConfigFile['db-user'];
+        $password = $dbConfigFile['db-password'];
+        $dbName = $dbConfigFile['db-name'];
+        $path = __DIR__.'/../../../../../../'.'scripts/deploy_localhost/dump.sql';
+        $shell = Bootstrap::getObjectManager()->get(\Magento\Framework\Shell::class);
+        $db = new \BelVG\MageWorxOptionTemplates\Test\Integration\Mysql($host,
+            $user,
+            $password,
+            $dbName,
+            $application->getTempDir(),
+            $shell,
+            $path
+            );
+        if($db->isDbDumpExists() === true){
+           $db->restoreFromDbDump();
+        }
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->objectManager = Bootstrap::getObjectManager();
+    }
+
+    public function testSaveFromAdmin()
+    {
+    }
+
+
+    public static function tearDownAfterClass()
+    {
+
+    }
+}
