@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="adminhtml.system.config.switcher" template="Magento_Backend::store/switcher.phtml" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" before="belvg_factory_factory_listing"
+                   name='belvg.factory_form.current_week' template="BelVG_Factory::current_week.phtml">
+                <arguments>
+                    <argument name="current_week_view_model" xsi:type="object">
+                        BelVG\Factory\ViewModel\CurrentWeekViewModel
+                    </argument>
+                </arguments>
+            </block>
+            <uiComponent name="belvg_factory_factory_listing" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * @package Vinduesgrossisten.
+ * @author Ivanenko <a.ivanenko@belvg.com>
+ * @Copyright
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \BelVG\Factory\ViewModel\CurrentWeekViewModel $currentWeekVM */
+
+$currentWeekVM = $block->getCurrentWeekViewModel();
+$currentWeek = $currentWeekVM?->getWeekNumber();
+?>
+
+<?php if ($currentWeek): ?>
+    <div>
+        <h3 style="color: #0a820b"><?= __('This week number is %week', ['week' => $currentWeek]) ?></h3>
+    </div>
+<?php endif; ?>

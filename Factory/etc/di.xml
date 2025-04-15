@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- factory -->
+    <preference for="BelVG\Factory\Api\FactoryRepositoryInterface" type="BelVG\Factory\Model\FactoryRepository" />
+    <preference for="BelVG\Factory\Api\Data\FactoryInterface" type="BelVG\Factory\Model\Data\Factory" />
+    <preference for="BelVG\Factory\Api\Data\FactorySearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="BelVG\Factory\Api\Data\DeliveryRuleInterface" type="BelVG\Factory\Model\Data\DeliveryRule" />
+
+    <!-- factory material -->
+    <preference for="BelVG\Factory\Api\FactoryMaterialRepositoryInterface" type="BelVG\Factory\Model\FactoryMaterialRepository" />
+    <preference for="BelVG\Factory\Api\Data\FactoryMaterialInterface" type="BelVG\Factory\Model\Data\FactoryMaterial" />
+    <preference for="BelVG\Factory\Api\Data\FactoryMaterialSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+
+    <!-- grid collections -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="belvg_factory_factory_listing_data_source" xsi:type="string">BelVG\Factory\Model\ResourceModel\Factory\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- factory extension attribute: "materials" -->
+    <type name="BelVG\Factory\Controller\Adminhtml\Factory\Helper\Factory">
+        <plugin name="factory_material" type="BelVG\Factory\Plugin\FactoryHelperMaterial" />
+    </type>
+    <type name="BelVG\Factory\Api\FactoryRepositoryInterface">
+        <plugin name="factory_material" type="BelVG\Factory\Plugin\FactoryRepositoryMaterial" sortOrder="100"/>
+    </type>
+
+    <type name="BelVG\Factory\Model\Service\DeliveryRulesHandlersPool">
+        <arguments>
+            <argument name="deliveryRulesHandlers" xsi:type="array">
+                <!-- Name of item should be the same as related type in FactoryMaterialDeliveryTypesPool -->
+                <item name="category_colour" xsi:type="object">
+                    BelVG\Factory\Model\Service\DeliveryRulesHandlers\DeliveryRulesCategoryTypeHandler
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <type name="BelVG\Factory\Plugin\FactoryRepositoryMaterial\AfterSave\ActionsPool">
+        <arguments>
+            <argument name="actions" xsi:type="array">
+                <item name="save" sortOrder="2000" xsi:type="object">
+                    BelVG\Factory\Plugin\FactoryRepositoryMaterial\AfterSave\ActionsPool\SaveMaterials
+                </item>
+                <item name="invalidate_cache" sortOrder="3000" xsi:type="object">
+                    BelVG\Factory\Plugin\FactoryRepositoryMaterial\AfterSave\ActionsPool\CacheInvalidate
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="BelVG\Factory\Api\Data\FactoryWithMaterialInterface"
+                type="BelVG\Factory\Model\Data\FactoryWithMaterial"/>
+
+    <type name="BelVG\Factory\Plugin\FactoryRepositoryMaterial\AfterGetById\FrontNamesPool\FrontNamesPool">
+        <arguments>
+            <argument name="frontNames" xsi:type="array">
+                <item name="factory" sortOrder="10" xsi:type="string">factory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\Factory\Helper\Factory\StoreData">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="is_active" sortOrder="100" xsi:type="string">is_active</item>
+                <item name="name" sortOrder="200" xsi:type="string">name</item>
+                <item name="calculation_type" sortOrder="250" xsi:type="string">calculation_type</item>
+                <item name="default_delivery_time" sortOrder="300" xsi:type="string">default_delivery_time</item>
+                <item name="delivery_weeks_interval" sortOrder="400" xsi:type="string">delivery_weeks_interval</item>
+                <item name="delivery_weeks_interval_frontend" sortOrder="500" xsi:type="string">delivery_weeks_interval_frontend</item>
+                <item name="factory_delivery_transport_time" sortOrder="600" xsi:type="string">factory_delivery_transport_time</item>
+                <item name="factory_delivery_weeks_interval" sortOrder="700" xsi:type="string">factory_delivery_weeks_interval</item>
+                <item name="email_template" sortOrder="800" xsi:type="string">email_template</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,169 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <!-- Config -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">belvg_factory_factory_listing.belvg_factory_factory_listing_data_source</item>
+        </item>
+    </argument>
+
+    <!-- Settings -->
+    <settings>
+        <spinner>belvg_factory_factory_columns</spinner>
+        <deps>
+            <dep>belvg_factory_factory_listing.belvg_factory_factory_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new" />
+                <class>primary</class>
+                <label translate="true">Add New Factory</label>
+            </button>
+        </buttons>
+    </settings>
+
+    <!-- Data source -->
+    <dataSource component="Magento_Ui/js/grid/provider" name="belvg_factory_factory_listing_data_source">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">factory_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render" />
+        </settings>
+        <aclResource>BelVG_Factory::factories</aclResource>
+        <dataProvider class="BelVG\Factory\Ui\DataProvider\Factory" name="belvg_factory_factory_listing_data_source">
+            <settings>
+                <requestFieldName>factory_id</requestFieldName>
+                <primaryFieldName>factory_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- Toolbar -->
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmark" />
+        <columnsControls name="columns_controls" />
+        <filters name="listing_filters" />
+        <paging name="listing_paging" />
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+
+    <!-- Columns -->
+    <columns name="belvg_factory_factory_columns">
+        <!-- Settings -->
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">belvg_factory_factory_listing.belvg_factory_factory_listing.belvg_factory_factory_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">factory_id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="factory/Grid/InlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">belvg_factory_factory_listing.belvg_factory_factory_listing.belvg_factory_factory_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <!-- Selection -->
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>factory_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <!-- factory_id -->
+        <column name="factory_id">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+
+        <!-- name -->
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+
+        <!-- email -->
+        <column name="email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+            </settings>
+        </column>
+
+        <!-- calculation_type -->
+        <column name="calculation_type" class="BelVG\Factory\Ui\Component\Listing\Columns\EstimationType">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Delivery week estimation type</label>
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="string">0</item>
+                        <item name="label" xsi:type="string" translate="true">Dynamic</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="string">1</item>
+                        <item name="label" xsi:type="string" translate="true">Static</item>
+                    </option>
+                </options>
+                <dataType>select</dataType>
+                <editor>
+                    <editorType>select</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+
+        <!-- default_delivery_time -->
+        <column name="default_delivery_time">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Default Delivery Time (weeks)</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+
+        <!-- actions -->
+        <actionsColumn name="actions" class="BelVG\Factory\Ui\Component\Listing\Columns\FactoryActions" sortOrder="200">
+            <settings>
+                <indexField>factory_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

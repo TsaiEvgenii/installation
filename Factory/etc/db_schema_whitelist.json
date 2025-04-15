@@ -1,0 +1,66 @@
+{
+    "belvg_factory": {
+        "column": {
+            "factory_id": true,
+            "email": true,
+            "identifier": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_FACTORY_IDENTIFIER": true
+        }
+    },
+    "belvg_factory_store": {
+        "column": {
+            "factory_id": true,
+            "is_active": true,
+            "store_id": true,
+            "name": true,
+            "calculation_type": true,
+            "default_delivery_time": true,
+            "delivery_weeks_interval": true,
+            "delivery_weeks_interval_frontend": true,
+            "factory_delivery_transport_time": true,
+            "factory_delivery_weeks_interval": true
+        },
+        "constraint": {
+            "BELVG_FACTORY_STORE_FACTORY_ID_BELVG_FACTORY_FACTORY_ID": true,
+            "BELVG_FACTORY_STORE_STORE_ID_STORE_STORE_ID": true,
+            "BELVG_FACTORY_STORE_FACTORY_ID_STORE_ID": true
+        }
+    },
+    "belvg_factory_material": {
+        "column": {
+            "factory_material_id": true,
+            "factory_id": true,
+            "material_id": true,
+            "priority": true,
+            "store_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_FACTORY_MATERIAL_FACTORY_ID_BELVG_FACTORY_FACTORY_ID": true,
+            "FK_BB88BB80DC9060D24EB07CFFFBE99F1B": true,
+            "BELVG_FACTORY_MATERIAL_STORE_ID_STORE_STORE_ID": true,
+            "BELVG_FACTORY_MATERIAL_FACTORY_ID_MATERIAL_ID_STORE_ID": true
+        }
+    },
+    "belvg_factory_material_delivery": {
+        "column": {
+            "delivery_rule_id": true,
+            "factory_material_id": true,
+            "store_id": true,
+            "colors": true,
+            "category_id": true,
+            "delivery_time": true,
+            "sort_order": true,
+            "types": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNQ_349474B5F4D2244DE2693EB4C35BBC67": true,
+            "BELVG_FACTORY_MATERIAL_DELIVERY_STORE_ID_STORE_STORE_ID": true,
+            "FK_32712BC9543D7F705A0A1CBD3E35283D": true
+        }
+    }
+}

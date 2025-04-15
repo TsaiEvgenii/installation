@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Factory -->
+    <table name="belvg_factory" resource="default" engine="innodb" comment="Factory">
+        <column xsi:type="int" name="factory_id" identity="true" padding="11" unsigned="true" nullable="false" comment="Factory ID" />
+        <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email" />
+        <column xsi:type="varchar" name="identifier" length="255" nullable="true" default="null" />
+        <!-- primary key constraint -->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="factory_id" />
+        </constraint>
+        <constraint xsi:type="unique" referenceId="FACTORY_IDENTIFIER">
+            <column name="identifier"/>
+        </constraint>
+    </table>
+
+    <!-- Factory store data -->
+    <table name="belvg_factory_store" resource="default" engine="innodb" comment="Factory store data">
+        <column xsi:type="int" name="factory_id" padding="11" unsigned="true" nullable="false" comment="Factory ID" />
+        <column xsi:type="boolean" name="is_active" default="true" nullable="true" comment="Is Active"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" />
+        <column xsi:type="varchar" name="name" length="255" nullable="true" comment="Name" />
+        <column xsi:type="tinyint" name="calculation_type" padding="3" unsigned="true" nullable="true"
+                comment="Calculation Type"/>
+        <column xsi:type="smallint" name="default_delivery_time" padding="5" unsigned="true" nullable="true" />
+        <column xsi:type="tinyint" name="delivery_weeks_interval" padding="3" unsigned="true" nullable="true" default="0"
+                comment="Delivery Weeks Interval (order)"/>
+        <column xsi:type="tinyint" name="delivery_weeks_interval_frontend" padding="3" unsigned="true" nullable="true"
+                default="0" comment="Delivery Weeks Interval (frontend)"/>
+        <column xsi:type="tinyint" name="factory_delivery_transport_time" padding="3" unsigned="true" nullable="true"
+                default="0" comment="Estimated delivery week for Factory PDF will be reduced on this number of weeks"/>
+        <column xsi:type="tinyint" name="factory_delivery_weeks_interval" padding="3" unsigned="true" nullable="true"
+                default="0" comment="The delivery range for Factory PDF"/>
+        <!-- factory constraint -->
+        <constraint xsi:type="foreign" referenceId="FACTORY_ID"
+                    table="belvg_factory_store" column="factory_id"
+                    referenceTable="belvg_factory" referenceColumn="factory_id"
+                    onDelete="CASCADE" />
+        <!-- store constraint -->
+        <constraint xsi:type="foreign" referenceId="STORE_ID"
+                    table="belvg_factory_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE" />
+        <!-- unique factory/store constraint -->
+        <constraint xsi:type="unique" referenceId="UNIQUE_FACTORY_ID_STORE_ID">
+            <column name="factory_id" />
+            <column name="store_id" />
+        </constraint>
+    </table>
+
+    <!-- Factory material -->
+    <table name="belvg_factory_material" resource="default" engine="innodb" comment="Factory material">
+        <column xsi:type="int" name="factory_material_id" identity="true" padding="11" unsigned="true" nullable="false" comment="Factory material ID" />
+        <column xsi:type="int" name="factory_id" padding="11" unsigned="true" nullable="false" comment="Factory ID" />
+        <column xsi:type="int" name="material_id" padding="11" unsigned="true" nullable="false" comment="Material ID" />
+        <column xsi:type="int" name="priority" padding="11" unsigned="true" nullable="false" comment="Material usage priority" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" comment="Store ID" />
+        <!-- primary key constraint -->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="factory_material_id" />
+        </constraint>
+        <!-- factory constraint -->
+        <constraint xsi:type="foreign" referenceId="FACTORY_ID"
+                    table="belvg_factory_material" column="factory_id"
+                    referenceTable="belvg_factory" referenceColumn="factory_id"
+                    onDelete="CASCADE" />
+        <!-- material constraint -->
+        <constraint xsi:type="foreign" referenceId="MATERIAL_ID"
+                    table="belvg_factory_material" column="material_id"
+                    referenceTable="belvg_layoutmaterial_layoutmaterial" referenceColumn="layoutmaterial_id"
+                    onDelete="CASCADE" />
+        <!-- store constraint -->
+        <constraint xsi:type="foreign" referenceId="STORE_ID"
+                    table="belvg_factory_material" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE" />
+        <!-- unique factory/material constraint -->
+        <constraint xsi:type="unique" referenceId="UNIQUE_FACTORY_ID_MATERIAL_ID" > <!-- disabled="true" -->
+            <column name="factory_id" />
+            <column name="material_id" />
+            <column name="store_id" />
+        </constraint>
+    </table>
+
+    <!-- Factory material delivery -->
+    <table name="belvg_factory_material_delivery" resource="default" engine="innodb" comment="Factory material delivery">
+        <column xsi:type="int" name="delivery_rule_id" identity="true" padding="11" unsigned="true" nullable="false" comment="Factory material delivery rule ID" />
+        <column xsi:type="int" name="factory_material_id" padding="11" unsigned="true" nullable="false" comment="Factory material ID" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" />
+        <column xsi:type="varchar" name="colors" length="50" nullable="false" default="" comment="In/out colors" />
+        <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="true" comment="Category ID" />
+        <column xsi:type="smallint" name="delivery_time" padding="5" unsigned="true" nullable="false" comment="Delivery time" />
+        <column xsi:type="smallint" name="sort_order" padding="5" unsigned="true" nullable="false" comment="Sort order" />
+        <column xsi:type="varchar" name="types" length="20" nullable="false" default="category_colour"
+                comment="Type of factory material delivery"/>
+        <!-- primary key constraint -->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="delivery_rule_id" />
+        </constraint>
+        <!-- unique factory material/store/category constraint -->
+        <constraint xsi:type="unique" referenceId="UNIQUE_FACTORY_MATERIAL_ID_COUNTRY_CODE_CATEGORY_ID">
+            <column name="factory_material_id" />
+            <column name="store_id" />
+            <column name="category_id" />
+            <column name="colors" />
+        </constraint>
+        <!-- store constraint -->
+        <constraint xsi:type="foreign" referenceId="STORE_ID"
+                    table="belvg_factory_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="FACTORY_MATERIAL_ID"
+                    table="belvg_factory_material_delivery" column="factory_material_id"
+                    referenceTable="belvg_factory_material" referenceColumn="factory_material_id"
+                    onDelete="CASCADE" />
+    </table>
+</schema>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="BelVG_Factory::factory"
+             module="BelVG_Factory"
+             resource="BelVG_Factory::factories"
+             parent="Magento_Catalog::catalog"
+             sortOrder="1000"
+             title="Factories"
+             translate="title" />
+        <add id="BelVG_Factory::factories"
+             module="BelVG_Factory"
+             resource="BelVG_Factory::factories"
+             parent="BelVG_Factory::factory"
+             action="factory/factory/index"
+             sortOrder="1000"
+             title="Factories"
+             translate="title" />
+    </menu>
+</config>
