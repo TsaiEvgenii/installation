@@ -1,0 +1,21 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024-2025.
+  -->
+
+<div class="field switch no-padding" data-role="switcher">
+    <input type="checkbox"
+           class="actions-switch-checkbox"
+           id="order-upgrader-switcher"
+           data-bind="
+           checked: checked"/>
+    <label for="order-upgrader-switcher">
+        <span class="on label-text" data-bind="i18n: 'On'"></span>
+        <span class="off label-text" data-bind="i18n: 'Off'"></span>
+    </label>
+</div>
+
+<!-- ko foreach: elems() -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,13 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024-2025.
+  -->
+
+<div if="isAllowed()" class="upgrade-order-panel-wrapper" data-bind="blockLoader: isLoading">
+    <div class="order-upgrader">
+        <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>

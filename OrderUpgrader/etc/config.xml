@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <belvg_order_upgrader>
+            <general>
+                <is_enabled>1</is_enabled>
+            </general>
+            <options_config>
+                <types>
+                    <item_energy_class>
+                        <code>energy_class</code>
+                        <label>Glass</label>
+                    </item_energy_class>
+                </types>
+                <values>
+                    <item_2_layer_glass>
+                        <option_code>energy_class</option_code>
+                        <label>Two layers</label>
+                        <value>2_layer_glass</value>
+                    </item_2_layer_glass>
+                    <item_3_layer_glass>
+                        <option_code>energy_class</option_code>
+                        <label>Three layers</label>
+                        <value>3_layer_glass</value>
+                    </item_3_layer_glass>
+                </values>
+            </options_config>
+        </belvg_order_upgrader>
+    </default>
+</config>

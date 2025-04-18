@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="belvg_order_upgrader" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20252802"
+                 translate="label">
+            <label>Order Upgrader</label>
+            <tab>belvg</tab>
+            <resource>BelVG_OrderUpgrader::Config</resource>
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                <label>General</label>
+                <field id="is_enabled" translate="label" type="select" showInDefault="1" showInWebsite="1"
+                       showInStore="1" sortOrder="10">
+                    <label>Is enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <!-- Options Configuration -->
+            <group id="options_config" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                <label>Options Configuration</label>
+                <comment>Configure option types and their values for product upgrading</comment>
+
+                <!-- Option Types Configuration -->
+                <field id="types" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Option Types</label>
+                    <frontend_model>BelVG\OrderUpgrader\Block\Adminhtml\Form\Field\OptionTypes</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>Define option types (e.g. energy_class, material_type, etc.)</tooltip>
+                </field>
+
+                <!-- Option Values Configuration -->
+                <field id="values" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Option Values</label>
+                    <frontend_model>BelVG\OrderUpgrader\Block\Adminhtml\Form\Field\OptionValues</frontend_model>
+                    <backend_model>BelVG\OrderUpgrader\Model\Config\Backend\FileUploadBackend</backend_model>
+                    <tooltip>Define values for each option type defined above</tooltip>
+                </field>
+                <!-- Material Images Configuration -->
+                <field id="material_image" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Material Images</label>
+                    <frontend_model>BelVG\OrderUpgrader\Block\Adminhtml\Form\Field\MaterialImages</frontend_model>
+                    <backend_model>BelVG\OrderUpgrader\Model\Config\Backend\FileUploadBackend</backend_model>
+                    <tooltip>Upload images for materials</tooltip>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,18 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<div class="action">
+    <button type="button"
+            class="action primary _arrow-after"
+            data-bind="attr: { title: $t('Compare and adjust your choices here.') },
+                          click: showPopUp()">
+        <span translate="'Compare and adjust your choices here.'"></span>
+    </button>
+</div>
+
+<!-- ko foreach: elems() -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

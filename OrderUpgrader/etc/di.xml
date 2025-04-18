@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BelVG\OrderUpgrader\Api\Data\OptionsToUpgradeInterface"
+                type="BelVG\OrderUpgrader\Model\Data\OptionsToUpgrade"/>
+    <preference for="BelVG\OrderUpgrader\Api\Webapi\GetOptionsToUpgradeForQuoteInterface"
+                type="BelVG\OrderUpgrader\Model\Service\Quote\GetOptionsToUpgradeForQuoteService"/>
+    <preference for="BelVG\OrderUpgrader\Api\Webapi\UpgradeQuoteInterface"
+                type="BelVG\OrderUpgrader\Model\Service\Quote\UpgradeQuote"/>
+    <preference for="BelVG\OrderUpgrader\Api\Data\MaterialUpgradeInterface"
+                type="BelVG\OrderUpgrader\Model\Data\MaterialUpgrade"/>
+    <preference for="BelVG\OrderUpgrader\Api\Data\PriceMapEntityInterface"
+                type="BelVG\OrderUpgrader\Model\Data\PriceMapEntity"/>
+    <preference for="BelVG\OrderUpgrader\Api\Data\UpgradeParameterInterface"
+                type="BelVG\OrderUpgrader\Model\Data\UpgradeParameter"/>
+</config>

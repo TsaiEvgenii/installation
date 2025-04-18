@@ -1,0 +1,106 @@
+<div class="belvg-order-upgrader-block"
+     data-bind="afterRender: setModalElement, blockLoader: isLoading"
+     style="display: none">
+
+    <!-- ko if: isLoading -->
+    <div style="height: 400px; display: flex; align-items: center; justify-content: center; text-align: center;"
+         class="price-calculation"
+         data-bind="i18n: 'Price difference calculation...'">
+    </div>
+
+    <!-- /ko -->
+
+    <!-- ko ifnot: isLoading -->
+    <p class="modal-description" data-bind="html: modalDescription"></p>
+
+    <form class="form"
+          method="post">
+        <!-- ko if: getRegion('messages') -->
+        <!-- ko foreach: getRegion('messages') -->
+        <div class="field messages">
+            <div class="input-box">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+        <div class="option-group">
+            <p class="options-title" data-bind="i18n: 'Materials'"></p>
+            <div class="options-list" data-bind="foreach: materials">
+                <div class="field choice"
+                     data-bind="
+                        css: { 'active': $parent.selectedMaterial() == id },
+                        click: function(data, event) { return $parent.customRadioClicked('material', id, event); }
+                ">
+                    <div class="label">
+                        <div class="option_images_gallery">
+                            <div>
+                                <img data-bind="attr: { src: image }" loading="lazy">
+                                <button class="search-btn open-popup" type="button"></button>
+                            </div>
+                        </div>
+                        <p class="title-cont">
+                            <span class="title" data-bind="text: label"></span>
+                            <em class="current price">
+                                <span class="price" data-bind="text: priceDifference()"></span>
+                            </em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ko foreach: options -->
+            <div class="option-group">
+                <p class="options-title" data-bind="text: label"></p>
+                <div class="options-list" data-bind="foreach: values">
+                    <div class="field choice"
+                         data-bind="
+                            css: { 'active': $parent.selectedValue() == value },
+                            click: function(data, event) { return $parents[1].customRadioClicked($parent.code, value, event); }
+                    ">
+                        <div class="label">
+                            <div class="option_images_gallery">
+                                <div>
+                                    <img data-bind="attr: { src: file }" loading="lazy">
+                                    <button class="search-btn open-popup" type="button"></button>
+                                </div>
+                            </div>
+                            <p class="title-cont">
+                                <span class="title" data-bind="text: label"></span>
+                                <em class="current price">
+                                    <span class="price" data-bind="text: priceDifference()"></span>
+                                </em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+
+        <div class="summary-block">
+            <span class="title">
+                <b data-bind="i18n: 'Totalpris'"></b>
+                (<span data-bind="i18n: 'include tax'"></span>)
+            </span>
+            <span class="price" data-bind="text: totalPrice"></span>
+        </div>
+
+        <div class="actions">
+            <button class="action bordered"
+                    data-bind=" event: { click: closePopup }, text: $t('Keep my cart')">
+            </button>
+
+            <button class="action apply primary"
+                    id="upgrade-cart-button"
+                    data-bind="
+                              event: { click: upgradeCart },
+                              text: $t('Upgrade Cart')
+                              ">
+            </button>
+        </div>
+
+    </form>
+    <!-- /ko -->
+</div>
