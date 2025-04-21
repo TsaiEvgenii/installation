@@ -1,0 +1,43 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+<div class="file-uploader-summary">
+    <div class="file-uploader-preview image-uploader-preview">
+        <a class="image-uploader-preview-link" attr="href: $parent.getFilePreview($file)" target="_blank">
+            <div class="file-uploader-spinner image-uploader-spinner"></div>
+            <img
+                    class="preview-image measurement-tool-preview-image"
+                    tabindex="0"
+                    event="load: $parent.onPreviewLoad.bind($parent)"
+                    attr="
+                    src: $parent.getFilePreview($file),
+                    alt: $file.name,
+                    title: $file.name">
+        </a>
+
+        <div class="actions">
+            <button class="action-delete"
+                    data-role="delete-button"
+                    attr="title: $t('Delete image')"
+                    disable="$parent.disabled"
+                    click="$parent.removeFile.bind($parent, $file)">
+            </button>
+            <!-- ko ifnot: $parent.isMultipleFiles -->
+            <button class="action-close"
+                    data-role="close"
+                    attr="title: $t('Delete image')"
+                    disable="$parent.disabled"
+                    click="$parent.closeImagePopup.bind($parent)">
+            </button>
+            <!-- /ko -->
+        </div>
+    </div>
+
+<!--    <div class="file-uploader-filename" text="$file.name"></div>-->
+<!--    <div class="file-uploader-meta">-->
+<!--        <text args="$file.previewWidth"></text>x<text args="$file.previewHeight"></text>,-->
+<!--        <text args="$parent.formatSize($file.size)"></text>-->
+<!--    </div>-->
+</div>

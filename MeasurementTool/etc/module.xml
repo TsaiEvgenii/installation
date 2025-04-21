@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="BelVG_MeasurementTool">
+        <sequence>
+            <module name="Magento_Sales"/>
+            <module name="Magento_Customer"/>
+            <module name="Magento_Widget" />
+            <module name="BelVG_CustomerLoginPopup"/>
+        </sequence>
+    </module>
+</config>

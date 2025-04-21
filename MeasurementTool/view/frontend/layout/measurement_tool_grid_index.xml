@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account_index"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Measurement Tools</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="sidebar.main.account_nav"
+                   template="Magento_Theme::html/collapsible.phtml" before="-">
+                <arguments>
+                    <argument name="block_css" xsi:type="string">account-nav</argument>
+                </arguments>
+            </block>
+
+            <referenceContainer name="user_account_info">
+                <block class="BelVG\MeasurementTool\Block\MeasurementTool\Grid" name="belvg.measurement_tool.grid" cacheable="false">
+                    <container name="belvg.measurement_tool.grid.info" as="info" label="Measurement Tools Info"/>
+                    <container name="belvg.measurement_tool.grid.extra.column.header" as="extra.column.header" label="Measurement Tools Extra Column Header"/>
+                    <block class="BelVG\MeasurementTool\Block\MeasurementTool\Grid\Container"
+                           name="belvg.measurement_tool.grid.extra.container" as="extra.container">
+                        <block class="Magento\Framework\View\Element\Template"
+                               name="belvg.measurement_tool.grid.extra.container.data" as="extra.container.data"/>
+                    </block>
+                </block>
+            </referenceContainer>
+<!--            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>-->
+        </referenceContainer>
+
+<!--        <referenceContainer name="content">-->
+<!--                        <block class="Magento\Framework\View\Element\Template" name="sidebar.main.account_nav"-->
+<!--                               template="Magento_Theme::html/collapsible.phtml" before="-">-->
+<!--                            <arguments>-->
+<!--                                <argument name="block_css" xsi:type="string">account-nav</argument>-->
+<!--                            </arguments>-->
+<!--                        </block>-->
+<!--            <block class="Magento\Sales\Block\Order\History" name="sales.order.history" cacheable="false">-->
+<!--                <container name="sales.order.history.info" as="info" label="Order History Info"/>-->
+<!--                <container name="sales.order.history.extra.column.header" as="extra.column.header" label="Order History Extra Column Header"/>-->
+<!--                <block class="Magento\Sales\Block\Order\History\Container"-->
+<!--                       name="sales.order.history.extra.container" as="extra.container">-->
+<!--                    <block class="Magento\Framework\View\Element\Template"-->
+<!--                           name="sales.order.history.extra.container.data" as="extra.container.data"/>-->
+<!--                </block>-->
+<!--            </block>-->
+<!--            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>-->
+<!--        </referenceContainer>-->
+
+        <referenceBlock name="address_book" remove="true"/>
+        <referenceBlock name="customer_account_dashboard_info" remove="true"/>
+    </body>
+</page>

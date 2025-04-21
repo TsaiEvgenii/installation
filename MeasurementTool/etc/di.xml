@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--    Measurement Tool  -->
+    <preference for="BelVG\MeasurementTool\Api\Data\MeasurementToolInterface"
+                type="BelVG\MeasurementTool\Model\Data\MeasurementTool"/>
+    <preference for="BelVG\MeasurementTool\Api\Data\MeasurementToolSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\MeasurementTool\Api\MeasurementToolRepositoryInterface"
+                type="BelVG\MeasurementTool\Model\MeasurementToolRepository"/>
+
+    <!--    Measurement Tool Img -->
+    <preference for="BelVG\MeasurementTool\Api\Data\MeasurementToolImageInterface"
+                type="BelVG\MeasurementTool\Model\Data\MeasurementToolImage"/>
+    <preference for="BelVG\MeasurementTool\Api\Data\MeasurementToolImageSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\MeasurementTool\Api\MeasurementToolImageRepositoryInterface"
+                type="BelVG\MeasurementTool\Model\MeasurementToolImageRepository"/>
+
+    <!--    Room  -->
+    <preference for="BelVG\MeasurementTool\Api\Data\RoomInterface"
+                type="BelVG\MeasurementTool\Model\Data\Room"/>
+    <preference for="BelVG\MeasurementTool\Api\Data\RoomSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\MeasurementTool\Api\RoomRepositoryInterface"
+                type="BelVG\MeasurementTool\Model\RoomRepository"/>
+
+    <!--    Element  -->
+    <preference for="BelVG\MeasurementTool\Api\Data\ElementInterface"
+                type="BelVG\MeasurementTool\Model\Data\Element"/>
+    <preference for="BelVG\MeasurementTool\Api\Data\ElementSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\MeasurementTool\Api\ElementRepositoryInterface"
+                type="BelVG\MeasurementTool\Model\ElementRepository"/>
+
+    <!--    Customer Element  -->
+    <preference for="BelVG\MeasurementTool\Api\Data\CustomerElementInterface"
+                type="BelVG\MeasurementTool\Model\Data\CustomerElement"/>
+    <preference for="BelVG\MeasurementTool\Api\Data\CustomerElementSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="BelVG\MeasurementTool\Api\CustomerElementRepositoryInterface"
+                type="BelVG\MeasurementTool\Model\CustomerElementRepository"/>
+
+    <!-- Form modifier pool -->
+    <virtualType name="BelVG\MeasurementTool\Ui\DataProvider\Factory\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="measurement_tool_data" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\MeasurementTool\Ui\DataProvider\MeasurementTool\Form\Modifier\MeasurementToolData</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="images" xsi:type="array">
+                    <item name="class" xsi:type="string">BelVG\MeasurementTool\Ui\DataProvider\MeasurementTool\Form\Modifier\Images</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\MeasurementTool\Ui\Component\Form\MeasurementTool">
+        <arguments>
+            <argument name="pool" xsi:type="object">BelVG\MeasurementTool\Ui\DataProvider\Factory\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <type name="BelVG\MeasurementTool\Block\Cart\MeasurementElements">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="elements-data" xsi:type="object">BelVG\MeasurementTool\Block\Cart\MeasurementElements\ElementDataProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="BelVG\MeasurementTool\Api\Webapi\CustomerElementsManagerInterface"
+                type="BelVG\MeasurementTool\Model\Service\CustomerElementsManager"/>
+    <preference for="BelVG\MeasurementTool\Api\Webapi\MeasurementToolManagerInterface"
+                type="BelVG\MeasurementTool\Model\Service\MeasurementToolManager"/>
+
+    <type name="BelVG\MeasurementTool\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="general" xsi:type="object">BelVG\MeasurementTool\Model\ConfigProvider\General</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="BelVG\MeasurementTool\Model\Element\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">measurement_tool_element/tmp/img</argument>
+            <argument name="basePath" xsi:type="string">measurement_tool_element/img</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\MeasurementTool\Controller\Element\UploadImage">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">BelVG\MeasurementTool\Model\Element\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MeasurementTool\Model\Service\PrepareImgToSave">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">BelVG\MeasurementTool\Model\Element\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="BelVG\MeasurementTool\Model\Entity\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">measurement_tool_entity/tmp/img</argument>
+            <argument name="basePath" xsi:type="string">measurement_tool_entity/img</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="BelVG\MeasurementTool\Controller\Entity\UploadImage">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">BelVG\MeasurementTool\Model\Entity\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="BelVG\MeasurementTool\Model\Service\PrepareEntityImgToSave">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">BelVG\MeasurementTool\Model\Entity\ImageUploader</argument>
+        </arguments>
+    </type>
+    <preference for="BelVG\MeasurementTool\Api\Data\MeasurementToolImageInterface"
+                type="BelVG\MeasurementTool\Model\Data\MeasurementToolImage"/>
+</config>
+

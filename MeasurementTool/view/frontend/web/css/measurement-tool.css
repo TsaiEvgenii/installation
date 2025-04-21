@@ -1,0 +1,26 @@
+/*
+ * ~ @package Vinduesgrossisten.
+ * ~ @author Tsai Eugene <tsai.evgenii@gmail.com>
+ * ~ Copyright (c) 2024.
+ */
+
+.draggable-handle:before {
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.8rem;
+    line-height: inherit;
+    color: #9e9e9e;
+    content: '\e617';
+    font-family: 'Admin Icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+.data-row{
+    background-color: lightgray;
+}
+.room-name{
+    width: fit-content;
+}

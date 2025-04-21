@@ -1,0 +1,19 @@
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+
+<div id="measurement_tool_control_panel"
+     data-bind="scope:'measurement_tool_control_panel'" class="block measurement-tool-control-panel">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#measurement_tool_control_panel": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "measurement_tool_control_panel": {
+                            "component": "BelVG_MeasurementTool/js/view/control-panel"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>

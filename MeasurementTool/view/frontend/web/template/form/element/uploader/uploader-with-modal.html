@@ -1,0 +1,42 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="field-control field-file-uploader" css="'_with-tooltip': $data.tooltip">
+    <div class="file-uploader" data-role="drop-zone" css="_loading: isLoading">
+        <div class="file-uploader-area">
+            <!-- ko if: showPreviewButton -->
+            <span class="file-uploader-button file-uploaded" data-bind="event: { click: toggleImagePopup }"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: showPreviewButton -->
+            <input type="file" afterRender="onElementRender" attr="id: uid, name: inputName, multiple: isMultipleFiles"
+                   disable="disabled"/>
+            <label class="file-uploader-button action-default"
+                   css="'_with-dropdown': value"
+                   attr="for: uid"></label>
+
+            <span class="file-uploader-spinner"></span>
+            <!-- /ko -->
+
+            <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"></render>
+        </div>
+
+        <render args="tooltipTpl" if="$data.tooltip"></render>
+
+        <!-- ko if: showPreviewButton -->
+            <div class="image-preview-popup" data-bind="visible: imgPopupOpened, afterRender: initImagePopup">
+                <each args="data: value, as: '$file'" render="$parent.getPreviewTmpl($file)"></each>
+            </div>
+        <!-- /ko -->
+
+        <div class="field-note" if="$data.notice" attr="id: noticeId">
+            <span><strong translate="NOTE"></strong>: <translate args="$data.notice"></translate></span>
+        </div>
+
+    </div>
+    <render args="$data.service.template" if="$data.hasService()"></render>
+</div>
+

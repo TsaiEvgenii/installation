@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023-2024.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="BelVG_MeasurementTool::css/measurement-tool.css"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">VinduesAssistenten</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <container name="measurement.tool.after-page-title.wrapper" htmlClass="big-wrapper" htmlTag="div">
+                <block class="Magento\Cms\Block\Block" name="measurement.tool.after-page-title">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">measurement-tool-after-page-title</argument>
+                    </arguments>
+                </block>
+            </container>
+
+            <block name="measurement.tool.content.nav" template="BelVG_MeasurementTool::content-nav-bar.phtml">
+                <arguments>
+                    <argument name="links" xsi:type="array">
+                        <item name="measurement-info" xsi:type="string">Opmålingsguide vinduer</item>
+                        <item name="measurement-video" xsi:type="string">Opmålingsguide dører</item>
+                    </argument>
+                </arguments>
+            </block>
+
+<!--            <block class="BelVG\MeasurementTool\Block\View" name="measurement_tool.root" template="BelVG_MeasurementTool::measurement-tool.phtml" cacheable="false">-->
+<!--            </block>-->
+            <container name="measurement.form.wrapper" htmlClass="measurement-form-wrapper big-wrapper" htmlTag="div">
+
+                <container name="measurement-info-wrapper" htmlTag="div" htmlId="measurement-info">
+                    <block class="Magento\Cms\Block\Block" name="measurement-info">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">measurement-tool-info</argument>
+                        </arguments>
+                    </block>
+                </container>
+
+                <block class="Magento\Framework\View\Element\Template" name="measurement.form.key" template="BelVG_MeasurementTool::form-key.phtml" cacheable="false">
+                    <arguments>
+                        <argument name="measurement_tool_view_model" xsi:type="object">
+                            BelVG\MeasurementTool\ViewModel\ConfigViewModel
+                        </argument>
+                    </arguments>
+                </block>
+
+                <container name="measurement.form">
+                    <uiComponent name="measurement_tool_form" cacheable="false"/>
+                    <block class="Magento\Framework\View\Element\Template" name="page.actions.toolbar" template="BelVG_MeasurementTool::pageactions.phtml" after="-"/>
+                </container>
+
+                <container  name="measurement-video-wrapper" htmlTag="div" htmlId="measurement-video">
+                    <block class="Magento\Cms\Block\Block" name="measurement-video">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">measurement-tool-video</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,60 @@
+<?php
+/** @var BelVG\MeasurementTool\Block\MeasurementTool\Grid $block */
+/** @var BelVG\MeasurementTool\Block\MeasurementTool\Grid $measurementToolList */
+/** @var BelVG\MeasurementTool\Api\Data\MeasurementToolInterface $measurementTool */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+<?php $measurementToolList = $block->getMeasurementTools(); ?>
+<?= $block->getChildHtml('info') ?>
+
+<?php if ($measurementToolList && count($measurementToolList)) : ?>
+    <div class="measurement-tools">
+        <?php foreach ($measurementToolList as $measurementTool) : ?>
+        <div class="measurement-tool-item box"
+             data-mage-init='{ "belvgRemoveMeasurementTool": { "measurementToolId": <?= $measurementTool->getEntityId(); ?> } }'>
+            <div class="savecart-name data">
+                <span class="label"><?= __('Name'); ?></span>
+                <span class="value highlight bold"><?= $measurementTool->getName() ?></span>
+            </div>
+            <div class="savecart-date data w-content">
+                <span class="label"><?= __('Date'); ?></span>
+                <span class="value"><?= $block->formatDate($measurementTool->getCreatedAt()) ?></span>
+            </div>
+            <div class="savecart-amount data w-content">
+                <span class="label"><?= __('Amount of elements'); ?></span>
+                <span class="value"><?= $block->getElementQty($measurementTool). ' ' . __('qty.'); ?></span>
+            </div>
+            <div class="box-actions m-l-auto">
+                <div class="action-button">
+                    <a href="<?= $block->getViewUrl($measurementTool) ?>"
+                       class="action primary edit _arrow-after white"
+                       title="<?= __('View Measurement Tool') ?>">
+                        <span><?= __('View Measurement Tool') ?></span>
+                    </a>
+                </div>
+                <div class="action-button">
+                    <a href="<?= $block->getBuildUrl($measurementTool); ?>"
+                       class="action build-cart _arrow-after"
+                       title="<?= __('Build on your cart') ?>">
+                        <span><?= __('Build on your cart') ?></span>
+                    </a>
+                </div>
+            </div>
+
+            <button class="close-btn delete-action"></button>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="bottom-actions-toolbar">
+        <div class="primary">
+            <button type="button" title="<?= $escaper->escapeHtmlAttr(__('Add New Measurement tool')) ?>"
+                    class="action primary add _arrow-after" onclick="location.href='<?= $block->getViewUrl()?>'"><span><?= $block->escapeHtml(__('Add New Measurement tool')) ?></span>
+            </button>
+        </div>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyMeasurementToolMessage()) ?></span></div>
+<?php endif ?>

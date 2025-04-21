@@ -1,0 +1,38 @@
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Anastasiya Misiukevich <nastya.misiukevich@gmail.com>
+  ~ Copyright (c) 2025.
+  -->
+
+<div class="admin__field room-name-field-wrapper"
+     visible="visible"
+     css="$data.additionalClasses"
+     attr="'data-index': index">
+
+    <div class="admin__field-control"
+         css="'_with-tooltip': $data.tooltip, '_with-reset': $data.showFallbackReset && $data.isDifferedFromDefault">
+
+        <div class="room-name-field">
+            <span class="prefix" data-bind="i18n: 'Placering:'"></span>
+            <render args="elementTmpl"></render>
+        </div>
+
+        <render args="tooltipTpl" if="$data.tooltip"></render>
+
+        <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"></render>
+
+        <label class="admin__field-error" if="error" attr="for: uid" text="error"></label>
+
+        <div class="admin__field-note" if="$data.notice" attr="id: noticeId">
+            <span translate="notice"></span>
+        </div>
+
+        <!-- ko if: $data.additionalInfo -->
+        <!-- ko with: {additionalInfoUnsanitizedHtml: $data.additionalInfo} -->
+        <div class="admin__additional-info" html="additionalInfoUnsanitizedHtml"></div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+        <render args="$data.service.template" if="$data.hasService()"></render>
+    </div>
+</div>

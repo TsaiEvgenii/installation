@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  ~ * @package Vinduesgrossisten
+  ~  * @author  Tsai<tsai.evgenii@belvg.com>
+  ~  * @Copyright
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="measurement_tool" frontName="measurement-tool">
+            <module name="BelVG_MeasurementTool" />
+        </route>
+    </router>
+</config>

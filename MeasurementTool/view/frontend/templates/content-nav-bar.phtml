@@ -1,0 +1,23 @@
+<?php
+/*
+ * @package Vinduesgrossisten.
+ * @author Anastasiya Misiukevich <nastya.misiukevich@gmail.com>
+ * Copyright (c) 2025.
+ */
+
+ /** @var \Magento\Cms\Block\Block $block */
+
+$links = $block->getData('links');
+?>
+
+<?php if(count($links)): ?>
+<div class="links-nav-bar-wrapper">
+    <ul class="links-nav-bar">
+        <?php foreach($links as $key => $value): ?>
+            <li class="link">
+                <a href="#<?= $key; ?>"><?= $value; ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

@@ -1,0 +1,28 @@
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <belvg_measurement_tool>
+            <settings>
+                <is_enabled>1</is_enabled>
+                <element_type>
+                    <item1>
+                        <element_type_code>window</element_type_code>
+                        <element_type_label>Window</element_type_label>
+                        <element_type_url_key>vinduer</element_type_url_key>
+                    </item1>
+                    <item2>
+                        <element_type_code>door</element_type_code>
+                        <element_type_label>Door</element_type_label>
+                        <element_type_url_key>doere</element_type_url_key>
+                    </item2>
+                </element_type>
+            </settings>
+        </belvg_measurement_tool>
+    </default>
+</config>

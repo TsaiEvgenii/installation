@@ -1,0 +1,11 @@
+<div class="field"
+     css="$data.additionalClasses">
+    <button class="action-delete"
+            data-bind="
+                click: function(){ $parent.processingDeleteRecord($record().index, $record().recordId); },
+                attr: {
+                    title: $parent.deleteButtonLabel
+                }
+            ">
+    </button>
+</div>

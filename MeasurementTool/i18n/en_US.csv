@@ -1,0 +1,47 @@
+"Add Room","Add Room"
+"Save Measurement tool","Save Measurement tool"
+"Placering:","Placering:"
+"Room name","Room name"
+"Add Element","Add Element"
+"URL key","URL key"
+Add,Add
+"Measurement Tools","Measurement Tools"
+"There are no saved measurement tools yet.","There are no saved measurement tools yet."
+"Measurement Tool with ID ""%1"" doesn't exist for the current customer.","Measurement Tool with ID ""%1"" doesn't exist for the current customer."
+"No one room was set","No one room was set"
+"Measurement Tool ""%1"" was created","Measurement Tool ""%1"" was created"
+"Something went wrong while creating the Measurement Tool.","Something went wrong while creating the Measurement Tool."
+"Could not save the economicCustomer: %1","Could not save the economicCustomer: %1"
+"Could not delete the economic_customer: %1","Could not delete the economic_customer: %1"
+"economic_customer with id ""%1"" does not exist.","economic_customer with id ""%1"" does not exist."
+"Could not save the measurementToolImgModel: %1","Could not save the measurementToolImgModel: %1"
+Name,Name
+Date,Date
+"Amount of elements","Amount of elements"
+qty,qty
+"View Measurement Tool","View Measurement Tool"
+"Build on your cart","Build on your cart"
+"Add New Measurement tool","Add New Measurement tool"
+"Remove measurement tool data","Remove measurement tool data"
+"Previous Page","Previous Page"
+"Next Page","Next Page"
+cm,cm
+"Delete image","Delete image"
+Upload,Upload
+qty.,qty.
+Survey,Survey
+"Measurement Tool name","Measurement Tool name"
+"Measurement Tool warning","Measurement Tool warning"
+"All measurement tool elements will be removed","All measurement tool elements will be removed"
+"Please add at least one valid row.","Please add at least one valid row."
+"Measurement tool Configuration","Measurement tool Configuration"
+BelVG,BelVG
+"Measurement Tool","Measurement Tool"
+Settings,Settings
+Enabled,Enabled
+"Element Types","Element Types"
+"Widget Image","Widget Image"
+VinduesAssistenten,VinduesAssistenten
+"Add Room","Add Room"
+"Add Element","Add Element"
+Note,Note

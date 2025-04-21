@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="BelVG\MeasurementTool\Block\Widget\MeasurementToolEntryPoint" id="belvg_measurement_tool_entry_point">
+        <label>BelVG Measurement Tool Entry Point</label>
+        <description>Entry point to the page for creating a new measurement tool entity.</description>
+    </widget>
+</widgets>

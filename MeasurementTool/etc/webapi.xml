@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2025.
+  -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/measurement-tool/get-customer-elements" method="GET">
+        <service class="BelVG\MeasurementTool\Api\Webapi\CustomerElementsManagerInterface"
+                 method="getCustomerElements"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/measurement-tool/remove-customer-elements/:elementId" method="DELETE">
+        <service class="BelVG\MeasurementTool\Api\Webapi\CustomerElementsManagerInterface"
+                 method="removeCustomerElement"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/measurement-tool/remove-measurement-tool/:measurementToolId" method="DELETE">
+        <service class="BelVG\MeasurementTool\Api\Webapi\MeasurementToolManagerInterface"
+                 method="removeMeasurementTool"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+</routes>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="BelVG_MeasurementTool::manage" title="Measurement tool"/>
+                <resource id="BelVG_MeasurementTool::config" title="Measurement tool Configuration" translate="title" sortOrder="20"/>
+            </resource>
+        </resources>
+    </acl>
+</config>

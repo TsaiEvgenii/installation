@@ -1,0 +1,51 @@
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Anastasiya Misiukevich <nastya.misiukevich@gmail.com>
+  ~ Copyright (c) 2025.
+  -->
+<div class="admin__field"
+     visible="visible"
+     css="$data.additionalClasses"
+     attr="'data-index': index">
+
+    <div class="qty-field qty">
+        <button data-bind="event: { click: decreaseQty }, afterRender: initDecrButton"
+                class="update-cart-item decr">
+        </button>
+
+        <input class="item-qty cart-item-qty"
+               type="number"
+               data-bind="
+                    value: value,
+                    valueUpdate: 'keyup',
+                    hasFocus: focused,
+                    event: {
+                        keypress: preventSymbols,
+                        input: maxLength
+                    },
+                    attr: {
+                        name: inputName,
+                        'aria-describedby': getDescriptionId(),
+                        'aria-required': required,
+                        'aria-invalid': error() ? true : 'false',
+                        id: uid,
+                        disabled: disabled
+                    }">
+        <span class="qty-postfix" data-bind="text: $t('qty.')"></span>
+
+        <button data-bind="event: { click: increaseQty }, afterRender: initIncrButton"
+                class="update-cart-item incr">
+        </button>
+    </div>
+
+    <render args="tooltipTpl" if="$data.tooltip"></render>
+
+    <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"></render>
+
+    <label class="admin__field-error" if="error" attr="for: uid" text="error"></label>
+
+    <div class="admin__field-note" if="$data.notice" attr="id: noticeId">
+        <span translate="notice"></span>
+    </div>
+
+</div>

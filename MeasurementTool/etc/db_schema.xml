@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="belvg_measurement_tool" resource="default" engine="innodb" comment="Measurement Tool">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="name" nullable="false"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="text" name="description" nullable="false"/>
+        <column name="created_at" comment="Creation Time" nullable="false" default="CURRENT_TIMESTAMP"
+                xsi:type="datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="BELVG_MEASUREMENT_TOOL_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="BELVG_MEASUREMENT_TOOL_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="belvg_measurement_tool" column="customer_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+    <table name="belvg_measurement_tool_room" resource="default" engine="innodb" comment="Measurement Tool Room">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="measurement_tool_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="name" nullable="false"/>
+        <column xsi:type="int" name="record_id" unsigned="true" nullable="false" identity="false"
+                comment="Record ID"/>
+        <column name="created_at" comment="Creation Time" nullable="false" default="CURRENT_TIMESTAMP"
+                xsi:type="datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="BELVG_MEASUREMENT_TOOL_ROOM_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId=""
+                    table="belvg_measurement_tool_room" column="measurement_tool_id"
+                    referenceTable="belvg_measurement_tool" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table name="belvg_measurement_tool_element" resource="default" engine="innodb" comment="Measurement Tool Element">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="room_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="type" nullable="false"/>
+        <column xsi:type="varchar" name="img" nullable="true"/>
+        <column xsi:type="varchar" name="name" nullable="false"/>
+        <column xsi:type="float" name="width" unsigned="true" nullable="false"/>
+        <column xsi:type="float" name="height" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="qty" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="int" name="record_id" unsigned="true" nullable="false" identity="false"
+                comment="Record ID"/>
+        <column name="created_at" comment="Creation Time" nullable="false" default="CURRENT_TIMESTAMP"
+                xsi:type="datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="BELVG_MEASUREMENT_TOOL_ELEMENT_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId=""
+                    table="belvg_measurement_tool_element" column="room_id"
+                    referenceTable="belvg_measurement_tool_room" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table name="belvg_measurement_tool_customer_element" resource="default" engine="innodb" comment="Customer Elements">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int"  name="customer_id" padding="10" unsigned="true" nullable="true" comment="Customer ID" />
+        <column xsi:type="int" name="measurement_tool_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="int" name="room_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="room_name" nullable="false"/>
+        <column xsi:type="int" name="element_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="type" nullable="false"/>
+        <column xsi:type="varchar" name="name" nullable="false"/>
+        <column xsi:type="float" name="width" unsigned="true" nullable="false"/>
+        <column xsi:type="float" name="height" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="qty" unsigned="true" nullable="false" identity="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="BELVG_MEASUREMENT_TOOL_CUSTOMER_ELEMENT_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="belvg_measurement_tool_img" resource="default" engine="innodb" comment="Measurement Tool Images">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="measurement_tool_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="img" nullable="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="BELVG_MEASUREMENT_TOOL_IMG_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="FK_DE22BC94213B9E729379CDAD453B1F88"
+                    table="belvg_measurement_tool_img" column="measurement_tool_id"
+                    referenceTable="belvg_measurement_tool" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+</schema>

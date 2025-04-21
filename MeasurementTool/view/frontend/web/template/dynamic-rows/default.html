@@ -1,0 +1,65 @@
+<div class="measurement-tool" visible="visible" disable="disabled" css="element.setClasses(element)">
+    <p if="element.label" class="data-title" attr="for: element.uid">
+        <span translate="element.label"></span>
+    </p>
+
+    <div data-role="spinner"
+             class="data-grid-loading-mask"
+             if="$data.showSpinner">
+            <div class="spinner">
+                <span repeat="8"></span>
+            </div>
+        </div>
+
+    <section class="dynamic-rows control-table"
+             data-role="grid" attr="{'data-index': index}">
+        <div class="control-table-header" if="element.columnsHeader">
+            <p>
+                <span if="dndConfig.enabled"></span>
+                <span repeat="foreach: labels, item: '$label'"
+                      css="setClasses($label())"
+                      visible="$label().visible"
+                      disable="$label().disabled">
+                            <span translate="$label().label"></span>
+                        </span>
+            </p>
+        </div>
+
+        <div class="content">
+            <div class="data-row" repeat="foreach: elems, item: '$record'">
+                <div if="dndConfig.enabled"
+                     class="content-table"
+                     template="name: dndConfig.template, data: dnd"></div>
+
+                <!-- ko foreach: { data: $record().elems(), as: 'elem'}  -->
+                    <!-- ko if: elem.template -->
+                        <!-- ko template: elem.template --><!-- /ko -->
+                    <!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="actions-toolbar" visible="element.addButton || (!!element.getRecordCount() && pages() > 1)">
+            <div class="action-wrapper" attr="{'colspan': element.getColumnsCount()}"
+                 visible="element.addButton || pages() > 1">
+                <button if="element.addButton"
+                        attr="{disabled: disabled, 'data-action': 'add_new_row'}"
+                        type="button"
+                        click="processingAddChild.bind($data, false, false, false)">
+                    <span data-bind="i18n: addButtonLabel"></span>
+                </button>
+
+                <div class="admin__control-table-pagination" visible="!!element.getRecordCount() && pages() > 1">
+                    <div class="admin__data-grid-pager">
+                        <button class="action-previous" type="button" data-bind="attr: {title: $t('Previous Page')}, click: previousPage, disable: isFirst()"></button>
+                        <input class="admin__control-text" type="number" data-bind="attr: {id: ++ko.uid}, value: currentPage">
+                        <label class="admin__control-support-text" data-bind="attr: {for: ko.uid}, text: 'of ' + pages()"></label>
+                        <button class="action-next" type="button" data-bind="attr: {title: $t('Next Page')}, click: nextPage, disable: isLast()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <label class="admin__field-error" if="error" text="error"></label>
+</div>

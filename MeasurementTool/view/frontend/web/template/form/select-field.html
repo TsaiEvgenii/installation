@@ -1,0 +1,66 @@
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Anastasiya Misiukevich <nastya.misiukevich@gmail.com>
+  ~ Copyright (c) 2025.
+  -->
+
+<div class="admin__field"
+     visible="visible"
+     css="$data.additionalClasses"
+     attr="'data-index': index">
+    <div class="admin__field-label" visible="$data.labelVisible">
+        <label if="$data.label"  attr="for: uid">
+            <span translate="label" attr="'data-config-scope': $data.scopeLabel"></span>
+        </label>
+    </div>
+    <div class="field"
+         css="'_with-tooltip': $data.tooltip, '_with-reset': $data.showFallbackReset && $data.isDifferedFromDefault">
+
+        <div class="field select-wrapper belvg-accordion"
+             data-bind="
+                attr: { disabled: disabled },
+                mageInit: { 'belvgCollapsibleSelect': {'uid': uid} } ">
+            <input type="hidden"
+                   data-bind="
+                            attr: {
+                                name: inputName,
+                                id: uid,
+                                'aria-describedby': noticeId,
+                                'aria-label': noticeId
+                            },
+                            hasFocus: focused,
+                            value: value">
+            <div class="select-label belvg-accordion-header" data-role="title">
+                <span class="select-label-value" data-bind="text: valueLabel"></span>
+                <span class="belvg-accordion-header-icon"></span>
+            </div>
+
+            <ul class="select-options" data-bind="foreach: {data: options, as: 'option'}" data-role="content">
+                <li data-bind="
+                        event: { click: function(option) { $parent.choseOption(option) } }
+                        attr: {
+                            value: option.value
+                        },
+                        text: option.label"></li>
+            </ul>
+        </div>
+
+        <render args="tooltipTpl" if="$data.tooltip"></render>
+
+        <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"></render>
+
+        <label class="admin__field-error" if="error" attr="for: uid" text="error"></label>
+
+        <div class="admin__field-note" if="$data.notice" attr="id: noticeId">
+            <span translate="notice"></span>
+        </div>
+
+        <!-- ko if: $data.additionalInfo -->
+        <!-- ko with: {additionalInfoUnsanitizedHtml: $data.additionalInfo} -->
+        <div class="admin__additional-info" html="additionalInfoUnsanitizedHtml"></div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+        <render args="$data.service.template" if="$data.hasService()"></render>
+    </div>
+</div>

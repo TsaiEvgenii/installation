@@ -1,0 +1,19 @@
+<?php
+/*
+ * ~ @package Vinduesgrossisten.
+ * ~ @author Tsai Eugene <tsai.evgenii@gmail.com>
+ * ~ Copyright (c) 2023-2024.
+ */
+
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \BelVG\MeasurementTool\ViewModel\ConfigViewModel $measurementToolViewModel */
+$measurementToolViewModel = $block->getData('measurement_tool_view_model');
+?>
+
+    <?php $formKey = /* @noEscape */ $measurementToolViewModel->getFormKey();
+    $scriptString = <<<script
+        window.FORM_KEY = "{$formKey}";
+script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

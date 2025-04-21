@@ -1,0 +1,76 @@
+{
+    "belvg_measurement_tool": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "customer_id": true,
+            "created_at": true
+        },
+        "index": {
+            "BELVG_MEASUREMENT_TOOL_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BELVG_MEASUREMENT_TOOL_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "belvg_measurement_tool_room": {
+        "column": {
+            "entity_id": true,
+            "measurement_tool_id": true,
+            "name": true,
+            "record_id": true,
+            "created_at": true
+        },
+        "index": {
+            "BELVG_MEASUREMENT_TOOL_ROOM_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4A787361492817071E2DD73B740E5F2A": true
+        }
+    },
+    "belvg_measurement_tool_element": {
+        "column": {
+            "entity_id": true,
+            "type": true,
+            "name": true,
+            "width": true,
+            "height": true,
+            "qty": true,
+            "room_id": true,
+            "record_id": true,
+            "created_at": true,
+            "img": true
+        },
+        "index": {
+            "BELVG_MEASUREMENT_TOOL_ELEMENT_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_50A374A84D1DA15385C3C171CB6CB6FF": true
+        }
+    },
+    "belvg_measurement_tool_customer_element": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "element_id": true,
+            "measurement_tool_id": true,
+            "room_id": true,
+            "room_name": true,
+            "type": true,
+            "name": true,
+            "width": true,
+            "height": true,
+            "qty": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "index": {
+            "BELVG_MEASUREMENT_TOOL_CUSTOMER_ELEMENT_ENTITY_ID": true
+        }
+    }
+}

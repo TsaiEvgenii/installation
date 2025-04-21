@@ -1,0 +1,14 @@
+<!--
+  ~ @package Vinduesgrossisten.
+  ~ @author Anastasiya Misiukevich <nastya.misiukevich@gmail.com>
+  ~ Copyright (c) 2025.
+  -->
+
+<button class="action-delete"
+        data-bind="
+            click: function(){ $parent.processingDeleteRecord(index, recordId); }"></button>
+<span class="title">
+    <span data-bind="text: data().name"></span> -
+    <span data-bind="text: data().width "></span>x<span data-bind="text: data().height"></span><span data-bind="i18n: 'cm'"></span>
+</span>
+

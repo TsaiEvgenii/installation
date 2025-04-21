@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2024.
+  -->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd" component="BelVG_MeasurementTool/js/form/form">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">measurement_tool_form.measurement_tool_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Measurement Tool</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+<!--        <item name="config" xsi:type="array">-->
+<!--            <item name="selectorPrefix" xsi:type="string">.page-actions-buttons</item>-->
+<!--        </item>-->
+    </argument>
+    <settings>
+        <namespace>measurement_tool_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>measurement_tool_form.measurement_tool_form_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="save" class="BelVG\MeasurementTool\Block\SaveMeasurementToolButton"/>
+        </buttons>
+<!--        <selectorPrefix>.page-actions-buttons</selectorPrefix>-->
+    </settings>
+
+    <dataSource name="measurement_tool_form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="measurement_tool/index/save"/>
+        </settings>
+        <dataProvider class="BelVG\MeasurementTool\Ui\Component\Form\MeasurementTool"
+                      name="measurement_tool_form_data_source">
+            <settings>
+                <requestFieldName>measurement_tool_id</requestFieldName>
+                <primaryFieldName>measurement_tool_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general" sortOrder="10">
+        <settings>
+            <label/>
+        </settings>
+        <field formElement="hidden" name="entity_id" sortOrder="10">
+            <settings>
+                <dataType>text</dataType>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+        <field formElement="hidden" name="name" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <dynamicRows name="rooms" sortOrder="30" component="BelVG_MeasurementTool/js/dynamic-rows/dynamic-rows" template="BelVG_MeasurementTool/dynamic-rows/default">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Room</item>
+                </item>
+            </argument>
+            <settings>
+                <addButtonLabel translate="true">Add Room</addButtonLabel>
+                <additionalClasses>
+                    <class name="measurement-tool-room">true</class>
+                </additionalClasses>
+                <componentType>dynamicRows</componentType>
+                <columnsHeader>false</columnsHeader>
+                <dndConfig>
+                    <param name="enabled" xsi:type="boolean">false</param>
+                </dndConfig>
+                <validation>
+                    <rule name="validate-dynamic-rows-minimum" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <fieldset name="room-container" sortOrder="10">
+                    <settings>
+                        <label/>
+                        <additionalClasses>
+                            <class name="room-container">true</class>
+                        </additionalClasses>
+                    </settings>
+                    <field formElement="hidden" name="entity_id" sortOrder="10">
+                        <settings>
+                            <dataType>text</dataType>
+                            <dataScope>entity_id</dataScope>
+                        </settings>
+                    </field>
+                    <field name="name" formElement="input" template="BelVG_MeasurementTool/form/room-name-field">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                            </item>
+                        </argument>
+                        <settings>
+                            <placeholder translate="true">Room name</placeholder>
+                            <validation>
+                                <rule name="required-entry" xsi:type="boolean">true</rule>
+                            </validation>
+                            <dataType>text</dataType>
+                            <label/>
+                            <additionalClasses>
+                                <class name="room-name">true</class>
+                            </additionalClasses>
+                        </settings>
+                    </field>
+                    <dynamicRows name="elements" component="BelVG_MeasurementTool/js/dynamic-rows/dynamic-rows" template="BelVG_MeasurementTool/dynamic-rows/default-elements">
+                        <settings>
+                            <addButtonLabel translate="true">Add Element</addButtonLabel>
+                            <additionalClasses>
+                                <class name="measurement-tool-element">true</class>
+                            </additionalClasses>
+                            <componentType>dynamicRows</componentType>
+                            <columnsHeader>false</columnsHeader>
+                            <dndConfig>
+                                <param name="enabled" xsi:type="boolean">true</param>
+                            </dndConfig>
+                            <validation>
+                                <rule name="validate-dynamic-rows-minimum" xsi:type="boolean">true</rule>
+                            </validation>
+                        </settings>
+                        <container name="record" component="BelVG_MeasurementTool/js/dynamic-rows/record">
+                            <argument name="data" xsi:type="array">
+                                <item name="config" xsi:type="array">
+                                    <item name="isTemplate" xsi:type="boolean">true</item>
+                                    <item name="is_collection" xsi:type="boolean">true</item>
+                                    <item name="componentType" xsi:type="string">container</item>
+                                    <item name="deleteButtonLabel" xsi:type="string">Remove</item>
+                                </item>
+                            </argument>
+                            <field formElement="hidden" name="entity_id" sortOrder="10">
+                                <settings>
+                                    <dataType>text</dataType>
+                                    <dataScope>entity_id</dataScope>
+                                </settings>
+                            </field>
+                            <field name="type" formElement="select" component="BelVG_MeasurementTool/js/form/select-field" template="BelVG_MeasurementTool/form/select-field">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                    </item>
+                                    <item name="options" xsi:type="object">BelVG\MeasurementTool\Ui\Component\Form\ElementType\Options</item>
+                                </argument>
+                                <settings>
+                                    <validation>
+                                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                                    </validation>
+                                    <dataType>text</dataType>
+                                    <label>Type</label>
+                                </settings>
+                            </field>
+
+                            <field name="img" formElement="imageUploader" component="BelVG_MeasurementTool/js/form/file-uploader" template="BelVG_MeasurementTool/form/element/uploader/uploader-with-modal" sortOrder="50">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="formElement" xsi:type="string">fileUploader</item>
+                                        <item name="fileInputName" xsi:type="string">image</item>
+                                        <item name="isMultipleFiles" xsi:type="boolean">false</item>
+                                        <item name="uploaderConfig" xsi:type="array">
+                                            <item name="url" xsi:type="url" path="measurement_tool/element/uploadimage"/>
+                                        </item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <componentType>imageUploader</componentType>
+                                    <label/>
+                                    <visible>true</visible>
+                                    <dataScope>img</dataScope>
+                                </settings>
+                                <formElements>
+                                    <imageUploader>
+                                        <settings>
+                                            <previewTmpl>BelVG_MeasurementTool/form/element/uploader/preview</previewTmpl>
+                                        </settings>
+                                    </imageUploader>
+                                </formElements>
+                            </field>
+
+                            <field name="name" formElement="input" template="BelVG_MeasurementTool/form/field">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <validation>
+                                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                                    </validation>
+                                    <additionalClasses>
+                                        <class name="f-grow">true</class>
+                                    </additionalClasses>
+                                    <dataType>text</dataType>
+                                    <placeholder translate="true">Name</placeholder>
+                                    <label/>
+                                </settings>
+                            </field>
+                            <field name="width" formElement="input" template="BelVG_MeasurementTool/form/field">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <validation>
+                                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                                    </validation>
+                                    <additionalClasses>
+                                        <class name="input-icon">true</class>
+                                        <class name="width-icon">true</class>
+                                    </additionalClasses>
+                                    <dataType>text</dataType>
+                                    <placeholder translate="true">Width</placeholder>
+                                    <label/>
+                                </settings>
+                            </field>
+                            <field name="height" formElement="input" template="BelVG_MeasurementTool/form/field">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <validation>
+                                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                                    </validation>
+                                    <additionalClasses>
+                                        <class name="input-icon">true</class>
+                                        <class name="height-icon">true</class>
+                                    </additionalClasses>
+                                    <dataType>text</dataType>
+                                    <placeholder translate="true">Height</placeholder>
+                                    <label/>
+                                </settings>
+                            </field>
+                            <field name="qty" formElement="input" component="BelVG_MeasurementTool/js/form/qty-field" template="BelVG_MeasurementTool/form/qty-field">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                        <item name="value" xsi:type="string">1</item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <validation>
+                                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                                    </validation>
+                                    <dataType>text</dataType>
+                                    <placeholder>qty</placeholder>
+                                    <label/>
+                                </settings>
+                            </field>
+                            <actionDelete template="BelVG_MeasurementTool/dynamic-rows/cells/action-delete">
+                                <argument name="data" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="fit" xsi:type="boolean">false</item>
+                                    </item>
+                                </argument>
+                                <settings>
+                                    <additionalClasses>
+                                        <class name="remove-action-wrapper">true</class>
+                                    </additionalClasses>
+                                    <dataType>text</dataType>
+                                    <label>Actions</label>
+                                    <componentType>actionDelete</componentType>
+                                </settings>
+                            </actionDelete>
+                        </container>
+                    </dynamicRows>
+                </fieldset>
+                <actionDelete template="BelVG_MeasurementTool/dynamic-rows/cells/action-delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="action-delete-container">true</class>
+                        </additionalClasses>
+                        <dataType>text</dataType>
+                        <label>Actions</label>
+                        <componentType>actionDelete</componentType>
+                    </settings>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+
+        <fieldset name="description-container" sortOrder="40">
+            <settings>
+                <label/>
+                <additionalClasses>
+                    <class name="description-container">true</class>
+                </additionalClasses>
+            </settings>
+            <field formElement="textarea" name="description" sortOrder="40">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="rows" xsi:type="number">4</item>
+                    </item>
+                </argument>
+                <settings>
+                    <dataType>text</dataType>
+                    <placeholder translate="true">Note</placeholder>
+                    <label/>
+                    <dataScope>description</dataScope>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </settings>
+            </field>
+            <field name="images" formElement="imageUploader" template="BelVG_MeasurementTool/form/element/uploader/uploader" sortOrder="50">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="fileInputName" xsi:type="string">image</item>
+                        <item name="isMultipleFiles" xsi:type="boolean">true</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="measurement_tool/entity/uploadimage"/>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <componentType>imageUploader</componentType>
+                    <label/>
+                    <visible>true</visible>
+                    <dataScope>images</dataScope>
+                    <additionalClasses>
+                        <class name="description-images">true</class>
+                    </additionalClasses>
+                </settings>
+                <formElements>
+                    <imageUploader>
+                        <settings>
+                            <previewTmpl>BelVG_MeasurementTool/form/element/uploader/preview</previewTmpl>
+                        </settings>
+                    </imageUploader>
+                </formElements>
+            </field>
+        </fieldset>
+
+    </fieldset>
+</form>

@@ -1,0 +1,17 @@
+<div if="isAllowed()" class="measurement-elements-wrapper" data-bind="blockLoader: isLoading">
+    <div class="measurement-elements" data-bind="foreach:{data: elements, as: 'element'}">
+        <div class="measurement-element">
+            <div class="product-desc-name">
+                <span class="product-item-count" data-bind="text: $index() + $parent.startNumberPosition"></span>
+                <span class="measurement-element-title">
+                    <!-- ko text: element.room_name + '/' + element.name --><!-- /ko -->
+                    <span class="sizes" data-bind="text: `(${element.width} x ${element.height} ${$t('cm')})`"></span>
+                </span>
+                <div class="measurement-element-actions">
+                    <button class="edit-item" data-bind="event: { click: function($data) {$parent.redirectElementType(element)} }"></button>
+                    <button class="delete-item" data-bind="event: { click: function($data) {$parent.removeElement(element)} }"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

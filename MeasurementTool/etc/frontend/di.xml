@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+  ~  @package Vinduesgrossisten.
+  ~  @author Tsai Eugene <tsai.evgenii@gmail.com>
+  ~  Copyright (c) 2023-2025.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Quote\Model\Quote">
+        <plugin name="BelVG_MeasurementTool::remove_measurement_tool_element"
+                type="BelVG\MeasurementTool\Plugin\Model\Quote\RemoveMeasurementToolElement"/>
+    </type>
+
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="BelVG_MeasurementTool::clean_measurement_tool_elements"
+                type="BelVG\MeasurementTool\Plugin\Checkout\Controller\Index\CleanMeasurementToolElements"
+                sortOrder="1"/>
+    </type>
+</config>

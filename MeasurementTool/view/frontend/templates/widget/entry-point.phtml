@@ -1,0 +1,22 @@
+
+<?php
+/** @var $block \BelVG\MeasurementTool\Block\Widget\MeasurementToolEntryPoint */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+
+<?php if($block->isEnabled()): ?>
+    <div id="measurement-tool-entry-point-wrapper">
+        <figure class="measurement-tool-entry-point-img-wrapper">
+            <img class="measurement-tool-entry-point-img" alt="Measurement Tool entry point" src="<?= $block->getImage()?>" />
+        </figure>
+        <button
+                name="measurement_tool_entry_point_button"
+                data-mage-init='{"BelVG_MeasurementTool/js/action/create-new-measurement-tool-button":
+                  {"measurementToolPageUrl" : "<?= $block->getMeasurementToolPage() ?>"}
+              }'
+                title="<?= $block->getLabel() ?>"
+                class="action primary _arrow-after">
+            <span><?= $block->getLabel() ?></span>
+        </button>
+    </div>
+<?php endif; ?>
