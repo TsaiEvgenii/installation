@@ -15,7 +15,8 @@ use BelVG\MadeInDenmark\Model\Service\Quote\GetQuoteService;
 use BelVG\OrderFactory\Model\Product\DeliveryEstimator;
 use BelVG\OrderFactory\Model\Service\QuoteItemDelivery as QuoteItemDeliveryService;
 use BelVG\OrderUpgrader\Api\Webapi\UpgradeQuoteInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Catalog\Model\ResourceModel\Product as ProductResourceModel;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\DataObject;
@@ -34,7 +35,8 @@ class UpgradeQuote implements UpgradeQuoteInterface
 
     public function __construct(
         private GetOptionsToUpgradeForQuoteService $getOptionsToUpgradeForQuoteService,
-        private ProductRepositoryInterface $productRepository,
+        private ProductFactory $productFactory,
+        private ProductResourceModel $productResourceModel,
         private CartRepositoryInterface $cartRepository,
         private DeliveryEstimator $productDeliveryEstimator,
         private QuoteItemDeliveryService $quoteItemDeliveryService,
@@ -135,7 +137,7 @@ class UpgradeQuote implements UpgradeQuoteInterface
                 $options = [];
                 if ($materialId === null && $material['current'] && $energyClass) {
                     $optionsData = $material['options_structure']['energy_class'][$energyClass] ?? [];
-                    if ($optionsData['current_value']) {
+                    if (empty($optionsData) || $optionsData['current_value']) {
                         continue;
                     }
                     $options = $optionsData['map'];
@@ -144,7 +146,6 @@ class UpgradeQuote implements UpgradeQuoteInterface
                 if ($materialId !== null && (int)$material['material_id'] === (int)$materialId && $material['current'] === false) {
                     if ($energyClass) {
                         $optionsData = $material['options_structure']['energy_class'][$energyClass] ?? [];
-                        $currentEnergyClassValue = $optionsData['current_value'];
                         $options = $optionsData['map'];
                     } else {
                         $options = $material['options_map'] ?? [];
@@ -169,7 +170,10 @@ class UpgradeQuote implements UpgradeQuoteInterface
                     // do nothing
                 }
 
-                $altProduct = $this->productRepository->getById($productId);
+                $altProduct = $this->productFactory->create();
+                $this->productResourceModel->load($altProduct, $productId);
+                $altProduct->setData('store_id', $quote->getStoreId());
+
                 $item = $quote->addProduct($altProduct, $request);
                 if (is_string($item)) {
                     throw new \RuntimeException(self::LOG_PREFIX . '[apply] ' . $item);

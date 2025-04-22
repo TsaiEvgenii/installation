@@ -46,11 +46,16 @@
                                 <span class="price" data-bind="text: priceDifference()"></span>
                             </em>
                         </p>
+                        <!-- ko if: typeof missing_sku !== 'undefined' && missing_sku !== null -->
+                        <div class="info" data-bind="text: $t('Missing sku: %1').replace('%1', missing_sku)"></div>
+                        <!-- /ko -->
+
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- ko if: options().length > 0 -->
         <!-- ko foreach: options -->
             <div class="option-group">
                 <p class="options-title" data-bind="text: label"></p>
@@ -73,10 +78,14 @@
                                     <span class="price" data-bind="text: priceDifference()"></span>
                                 </em>
                             </p>
+                            <!-- ko if: typeof missing_sku !== 'undefined' && missing_sku !== null -->
+                            <div class="info" data-bind="text: $t('Missing sku: %1').replace('%1', missing_sku)"></div>
+                            <!-- /ko -->
                         </div>
                     </div>
                 </div>
             </div>
+        <!-- /ko -->
         <!-- /ko -->
 
         <div class="summary-block">

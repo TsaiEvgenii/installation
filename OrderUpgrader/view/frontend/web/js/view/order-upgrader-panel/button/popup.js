@@ -129,7 +129,6 @@ define([
                             .then(function (responsePriceDifferenceData) {
                                 self.priceMap(responsePriceDifferenceData.price_map);
                                 self.initMaterials(responsePriceDifferenceData.materials_map);
-                                // Todo: get options from backend
                                 self.options(self.parseOptions(responsePriceDifferenceData.options));
 
                                 self.updatePricesForOptions();
@@ -152,11 +151,10 @@ define([
 
         parseOptions: function (optionsResponse) {
             let options = [];
-            if(optionsResponse.length) {
+            if (optionsResponse && optionsResponse.length) {
                 optionsResponse.forEach(function(optionGroup) {
                     optionGroup = JSON.parse(optionGroup);
                     optionGroup['selectedValue'] = ko.observable('');
-                    // Todo: ??
                     optionGroup.values.forEach(function(value) {
                         value['priceDifference'] = ko.observable('');
                     });

@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace BelVG\OrderUpgrader\Model\Service\Quote;
 
 
+use BelVG\LayoutCustomizer\Helper\Layout\Block;
+use BelVG\LayoutCustomizer\Model\Service\QuoteItemService;
 use BelVG\LayoutMaterial\Api\Service\FamilyInterface;
 use BelVG\MageWorxOptionBase\Model\Service\GetAlternativeOptions;
 use BelVG\MageWorxOptionBase\Model\Service\ProductOptions;
@@ -34,6 +36,8 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
         protected MaterialUpgradeInterfaceFactory $materialUpgradeFactory,
         protected GetAlternativeOptions $getAlternativeOptionsService,
         protected PriceMap $priceMapService,
+        protected Block  $layoutBlockHelper,
+        protected QuoteItemService $quoteItemService,
         protected Config $config
     ){}
 
@@ -83,6 +87,8 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
 
         // Get options to change and price map
         $optionsToChange = $this->config->getUpgradeOptions($quoteObj->getStoreId());
+        $optionsToChange = $this->filterAvailableOptions($optionsToChange, $materialsDataStructure);
+
         $priceMap = $this->priceMapService->getMap(
             $quoteObj,
             $materialsDataStructure,
@@ -152,6 +158,10 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
         $materialImages = $this->config->getMaterialImages($storeId);
 
         foreach ($quoteItems as $quoteItem) {
+            $quoteItemSizes = $this->quoteItemService->getSizes($quoteItem);
+            $quoteItemWidth = $quoteItemSizes['width'] ?? 0;
+            $quoteItemHeight = $quoteItemSizes['height'] ?? 0;
+
             $product = $quoteItem->getProduct();
             $structure[$quoteItem->getId()] =[
                 'product_id' => $product->getId(),
@@ -161,6 +171,14 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
             $family = $this->familyService->getFamilyForProduct($product);
             /** @var \BelVG\LayoutCustomizer\Model\Data\Layout $familyRelative */
             foreach ($family as $familyRelative) {
+                $sizesData = $this->layoutBlockHelper->getMeasurementsRange($familyRelative->getLayoutId());
+                ['width' => $widthRange, 'height' => $heightRange] = $sizesData;
+                if (
+                    !$this->isInRange($quoteItemWidth, $widthRange)
+                    || !$this->isInRange($quoteItemHeight, $heightRange)
+                ) {
+                    continue;
+                }
                 $identifier = $familyRelative->getIdentifier();
                 //Todo: need to understand how it should work with DK products
                 if (str_starts_with($identifier, 'DK-')) {
@@ -224,6 +242,11 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
         }
 
         return $structure;
+    }
+
+    protected function isInRange($value, array $range): bool
+    {
+        return ($value >= $range['min'] && $value <= $range['max']);
     }
 
     function getOptionByKey(array $options, string $searchKey): array
@@ -305,5 +328,100 @@ class GetOptionsToUpgradeForQuoteService implements GetOptionsToUpgradeForQuoteI
             'allOptionsData' => $allEnabledOptionsWithValues,
             'allOptionsMatched' => $allOptionsMatched
         ];
+    }
+
+    /**
+     * Filter options that are available in at least one item's options_structure
+     * Also filter option values that are available in at least one item
+     * Add information about SKUs where the option value is not available
+     *
+     * @param array $optionsToChange
+     * @param array $materialsDataStructure
+     * @return array
+     */
+    private function filterAvailableOptions(array $optionsToChange, array $materialsDataStructure): array
+    {
+        if (empty($optionsToChange)) {
+            return [];
+        }
+
+        if (empty($materialsDataStructure)) {
+            return [];
+        }
+
+        // Collect all unique SKUs from material data structure
+        $allSkus = [];
+        foreach ($materialsDataStructure as $item) {
+            if (isset($item['product_sku'])) {
+                $allSkus[] = $item['product_sku'];
+            }
+        }
+        $allSkus = array_unique($allSkus);
+
+        $filteredOptions = [];
+
+        // For each option type
+        foreach ($optionsToChange as $optionCode => $optionData) {
+            if (!isset($optionData['values']) || !is_array($optionData['values'])) {
+                continue;
+            }
+
+            $availableValues = [];
+
+            // For each option value
+            foreach ($optionData['values'] as $valueData) {
+                $valueCode = $valueData['value'] ?? null;
+                if ($valueCode === null) {
+                    continue;
+                }
+
+                $valueExists = false;
+                $availableSkus = [];
+
+                // Check if this value exists in any item and collect SKUs where it exists
+                foreach ($materialsDataStructure as $item) {
+                    if (!isset($item['materials']) || !is_array($item['materials']) || !isset($item['product_sku'])) {
+                        continue;
+                    }
+
+                    $itemSku = $item['product_sku'];
+                    $valueExistsInItem = false;
+
+                    // Check each material for this option value
+                    foreach ($item['materials'] as $material) {
+                        if (isset($material['options_structure'][$optionCode][$valueCode])) {
+                            $valueExistsInItem = true;
+                            $valueExists = true;
+                            break;
+                        }
+                    }
+
+                    if ($valueExistsInItem) {
+                        $availableSkus[] = $itemSku;
+                    }
+                }
+
+                // Only add value if it exists in at least one item
+                if ($valueExists) {
+                    // Find missing SKUs for this value
+                    $missingSkus = array_diff($allSkus, $availableSkus);
+
+                    // Add missing_sku field if there are any
+                    if (!empty($missingSkus)) {
+                        $valueData['missing_sku'] = implode(',', $missingSkus);
+                    }
+
+                    $availableValues[] = $valueData;
+                }
+            }
+
+            // Only add option if it has at least one available value
+            if (!empty($availableValues)) {
+                $filteredOptions[$optionCode] = $optionData;
+                $filteredOptions[$optionCode]['values'] = $availableValues;
+            }
+        }
+
+        return $filteredOptions;
     }
 }
